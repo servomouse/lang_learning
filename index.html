@@ -3,12 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text-to-Speech with TTSMaker</title>
+    <title>Learn Languages</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+        }
+        .card {
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 3px solid green;
+            max-width: 600px;
+        }
+        .read-only-field {
+            display: flex;
+            flex-direction: row;
+        }
+        .user-input-field {
+            display: flex;
+            flex-direction: row;
         }
         input {
             width: 300px;
@@ -24,41 +41,17 @@
     </style>
 </head>
 <body>
-    <h1>Text-to-Speech</h1>
-    <input type="text" id="textInput" placeholder="Enter text here..." />
-    <button id="playButton">Play</button>
-    <script>
-        document.getElementById("playButton").addEventListener("click", async () => {
-            const text = document.getElementById("textInput").value;
-            if (!text) {
-                alert("Please enter some text!");
-                return;
-            }
-
-            const url = "https://cors-anywhere.herokuapp.com/https://api.ttsmaker.com"; // TTSMaker's public API endpoint
-            const requestData = new URLSearchParams({ text, voice: "1" }); // "voice" parameter can be changed for other voices
-
-            try {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: requestData.toString()
-                });
-
-                if (!response.ok) {
-                    throw new Error("API request failed");
-                }
-
-                const audioBlob = await response.blob();
-                const audioUrl = URL.createObjectURL(audioBlob);
-                const audio = new Audio(audioUrl);
-                audio.play();
-            } catch (error) {
-                console.error(error);
-                alert("Error in fetching and playing audio");
-            }
-        });
-    </script>
+    <div class="card">
+        <div class="read-only-field">
+            <h1>Text-to-Learn</h1>
+            <button class="play-button" id="read-only-play">Play</button>
+        </div>
+        <div class="user-input-field">
+            <input type="text" id="textInput" placeholder="Enter text here..." />
+            <button class="play-button" id="user-input-play">Play</button>
+        </div>
+        <button class="submit-button">Submit</button>
+    </div>
 </body>
 </html>
 
