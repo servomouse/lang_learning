@@ -4,54 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn Languages</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="drop-down-menu-styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        .card {
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 3px solid green;
-            max-width: 600px;
-        }
-        .read-only-field {
-            display: flex;
-            flex-direction: row;
-        }
-        .user-input-field {
-            display: flex;
-            flex-direction: row;
-        }
-        input {
-            width: 300px;
-            height: 30px;
-            font-size: 16px;
-        }
-        button {
-            margin-left: 10px;
-            height: 36px;
-            font-size: 16px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
+    <ul class="navbar">
+        <li class="dropdown" style="float:left;">
+            <a href="javascript:void(0)" class="dropbtn">File &#9660;</a>
+            <div class="dropdown-content">
+                <a href="#" id="open-file-button">Open</a>
+                <a href="#" id="save-file-button">Save</a>
+            </div>
+        </li>
+        <li class="dropdown" style="float:right; direction: rtl;">
+            <a href="javascript:void(0)" id="lang-pair-selector" class="dropbtn">Language &#9660;</a>
+            <div class="dropdown-content">
+                <a href="#" id="EN-RU-pair">EN-RU</a>
+                <a href="#" id="EN-SP-pair">EN-SP</a>
+                <a href="#" id="RU-SP-pair">RU-SP</a>
+            </div>
+        </li>
+    </ul>
+
     <div class="card">
         <div class="read-only-field">
-            <h1>Text-to-Learn</h1>
-            <button class="play-button" id="read-only-play">Play</button>
+            <div class="read-only-text"><h1><span style="color:#FF0000";>Hello</span > world!</h1></div>
+            <div class="play-button">
+                <button id="read-only-play">Play</button>
+            </div>
         </div>
         <div class="user-input-field">
-            <input type="text" id="textInput" placeholder="Enter text here..." />
-            <button class="play-button" id="user-input-play">Play</button>
+            <div class="user-input-text">
+                <input type="text" class="user-input" id="textInput" placeholder="Enter text here..." />
+            </div>
+            <div class="play-button">
+                <button id="user-input-play">Play</button>
+            </div>
         </div>
         <button class="submit-button">Submit</button>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
 
