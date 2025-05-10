@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: rgb(49, 50, 4);
+    /* background-color: rgb(49, 50, 4); */
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@ body {
 .textContainer {
     height: 15vh;
     width: 90vw;
-    background: rgb(227, 214, 74);
+    background: rgb(189, 223, 221);
     border-radius: 0.5rem;
     outline: none;
     padding: 2rem;
@@ -30,7 +30,7 @@ body {
     justify-content: space-evenly;
     height: 50vh;
     width: 70vw;
-    background-color: rgb(227, 214, 74);
+    background: rgb(189, 223, 221);
     border-radius: 1rem;
 }
 
@@ -45,23 +45,42 @@ body {
     margin: 0 auto;
 }
 
-.space {
-    background: rgb(171, 171, 2);
-    width: 50%;
-    height: 2rem;
-}
-
 .key {
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 3px;
+    width:auto;
+    min-width: 5%;
+    text-align: center;
+    /* Make the text unselectable: */
+    
+    -webkit-touch-callout: none;    /* iOS Safari */
+    -webkit-user-select: none;      /* Safari */
+    -khtml-user-select: none;       /* Konqueror HTML */
+    -moz-user-select: none;         /* Firefox */
+    -ms-user-select: none;          /* Internet Explorer/Edge */
+    user-select: none;              /* Non-prefixed version, currently supported by Chrome and Opera */
+}
 
+.control {
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.space {
+    background: rgb(189, 223, 221);
+    width: 50%;
+    height: 2rem;
 }
 
 .key:active {
-    background: rgb(171, 171, 2);
+    background: rgb(189, 223, 221);
+}
+
+.key:hover {
+    background: rgb(149, 172, 171);
 }
 
 .active {
-    background-color: rgb(171, 171, 2);
+    background-color: rgb(189, 223, 221);
 }
