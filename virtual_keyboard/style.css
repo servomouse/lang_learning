@@ -9,7 +9,7 @@ body {
     align-items: center;
     justify-content: space-evenly;
     height: 100vh;
-    font-size: 1.5rem;
+    font-size: 4vh;
 }
 
 .textContainer {
@@ -28,39 +28,50 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 50vh;
-    width: 70vw;
+    padding: 5px;
+    /* height: 50vh; */
+    width: auto;
     background: rgb(189, 223, 221);
     border-radius: 1rem;
 }
 
 .row {
     display: flex;
-    justify-content: space-evenly;
+    margin-top: 5px;
+    width: 100%;
+    justify-content: center;
+    /* background-color:green; */
+    /* justify-content: space-evenly; */
     align-items: center;
 }
 
-.last {
-    width: 65%;
-    margin: 0 auto;
+.first {
+    margin-top: 0;
 }
 
-.key {
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 3px;
-    width:auto;
-    min-width: 5%;
-    text-align: center;
-    /* Make the text unselectable: */
-    
-    -webkit-touch-callout: none;    /* iOS Safari */
-    -webkit-user-select: none;      /* Safari */
-    -khtml-user-select: none;       /* Konqueror HTML */
-    -moz-user-select: none;         /* Firefox */
-    -ms-user-select: none;          /* Internet Explorer/Edge */
-    user-select: none;              /* Non-prefixed version, currently supported by Chrome and Opera */
+.last {
+    width: 100%;
 }
+
+.active {
+    background-color: rgb(189, 223, 221);
+}
+
+.kb-button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    color: #fff;
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 15px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+  
+.kb-button:hover {background-color: #3e8e41}
+
+.kb-button:active {background-color: #8e3e41;}
 
 .control {
     border-style: solid;
@@ -69,18 +80,6 @@ body {
 
 .space {
     background: rgb(189, 223, 221);
-    width: 50%;
-    height: 2rem;
-}
-
-.key:active {
-    background: rgb(189, 223, 221);
-}
-
-.key:hover {
-    background: rgb(149, 172, 171);
-}
-
-.active {
-    background-color: rgb(189, 223, 221);
+    flex-grow: 1;
+    height: 100%;
 }
