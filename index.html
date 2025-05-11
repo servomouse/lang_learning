@@ -6,6 +6,8 @@
     <title>Learn Languages</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="drop-down-menu-styles.css">
+    <link rel="stylesheet" href="virtual_keyboard/kb-style.css">
+    <link rel="stylesheet" href="virtual_keyboard/kb-lang-selector-style.css">
     <style>
     </style>
 </head>
@@ -18,7 +20,7 @@
                 <a href="#" id="save-file-button">Save</a>
             </div>
         </li>
-        <button class="virtual-kb-btn">Keyboard</button>
+        <button class="virtual-kb-btn" onclick="keyboardToggleVisibility()">Keyboard</button>
         <div class="navbar-filler"></div>
         <li class="dropdown" style="float:right; direction: rtl;">
             <a href="javascript:void(0)" id="lang-pair-selector" class="dropbtn">Language &#9660;</a>
@@ -47,7 +49,10 @@
         </div>
         <button class="submit-button">Submit</button>
     </div>
+    <div class="keyboard" id="keyboard">
     <script src="script.js"></script>
+    <script src="virtual_keyboard/kb-script.js"></script>
+    <script>createKeyboard(".user-input");</script>
 </body>
 </html>
 
