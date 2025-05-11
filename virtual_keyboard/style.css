@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* background-color: rgb(49, 50, 4); */
+    background-color: rgb(61, 84, 84);
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
@@ -31,7 +31,7 @@ body {
     padding: 5px;
     /* height: 50vh; */
     width: auto;
-    background: rgb(189, 223, 221);
+    background: rgb(81, 104, 104);
     border-radius: 1rem;
 }
 
@@ -53,25 +53,25 @@ body {
     width: 100%;
 }
 
-.active {
+/* .active {
     background-color: rgb(189, 223, 221);
-}
+} */
 
 .kb-button {
     display: inline-block;
     padding: 15px 25px;
     font-size: 24px;
     color: #fff;
-    background-color: #04AA6D;
+    background-color: rgb(101, 124, 124);
     border: none;
     border-radius: 15px;
     margin-left: 3px;
     margin-right: 3px;
 }
   
-.kb-button:hover {background-color: #3e8e41}
+.kb-button:hover {background-color: rgb(61, 84, 84);}
 
-.kb-button:active {background-color: #8e3e41;}
+.kb-button:active {background-color: rgb(71, 94, 94);}
 
 .control {
     border-style: solid;
@@ -79,7 +79,7 @@ body {
 }
 
 .space {
-    background: rgb(189, 223, 221);
+    /* background: rgb(189, 223, 221); */
     flex-grow: 1;
     height: 100%;
 }
