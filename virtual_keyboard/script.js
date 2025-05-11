@@ -5,12 +5,31 @@ let layouts = {
         [["kb-button", "A"], ["kb-button", "S"], ["kb-button", "D"], ["kb-button", "F"], ["kb-button", "G"], ["kb-button", "H"], ["kb-button", "J"], ["kb-button", "K"], ["kb-button", "L"]],
         [["kb-button", "Z"], ["kb-button", "X"], ["kb-button", "C"], ["kb-button", "V"], ["kb-button", "B"], ["kb-button", "N"], ["kb-button", "M"]],
     ],
+    "SP": [
+        [["kb-button", "1"], ["kb-button", "2"], ["kb-button", "3"], ["kb-button", "4"], ["kb-button", "5"], ["kb-button", "6"], ["kb-button", "7"], ["kb-button", "8"], ["kb-button", "9"], ["kb-button", "0"], ["kb-button control delete", "Backspace"]],
+        [["kb-button", "Q"], ["kb-button", "W"], ["kb-button", "E"], ["kb-button", "R"], ["kb-button", "T"], ["kb-button", "Y"], ["kb-button", "U"], ["kb-button", "I"], ["kb-button", "O"], ["kb-button", "P"], ["kb-button", "'"]],
+        [["kb-button", "A"], ["kb-button", "S"], ["kb-button", "D"], ["kb-button", "F"], ["kb-button", "G"], ["kb-button", "H"], ["kb-button", "J"], ["kb-button", "K"], ["kb-button", "L"], ["kb-button", "¨"], ["kb-button", "~"]],
+        [["kb-button", "Z"], ["kb-button", "X"], ["kb-button", "C"], ["kb-button", "V"], ["kb-button", "B"], ["kb-button", "N"], ["kb-button", "M"]],
+    ],
     "RU": [
         [["kb-button", "Ё"], ["kb-button", "1"], ["kb-button", "2"], ["kb-button", "3"], ["kb-button", "4"], ["kb-button", "5"], ["kb-button", "6"], ["kb-button", "7"], ["kb-button", "8"], ["kb-button", "9"], ["kb-button", "0"], ["kb-button control delete", "Backspace"]],
         [["kb-button", "Й"], ["kb-button", "Ц"], ["kb-button", "У"], ["kb-button", "К"], ["kb-button", "Е"], ["kb-button", "Н"], ["kb-button", "Г"], ["kb-button", "Ш"], ["kb-button", "Щ"], ["kb-button", "З"], ["kb-button", "Х"], ["kb-button", "Ъ"]],
         [["kb-button", "Ф"], ["kb-button", "Ы"], ["kb-button", "В"], ["kb-button", "А"], ["kb-button", "П"], ["kb-button", "Р"], ["kb-button", "О"], ["kb-button", "Л"], ["kb-button", "Д"], ["kb-button", "Ж"], ["kb-button", "Э"]],
         [["kb-button", "Я"], ["kb-button", "Ч"], ["kb-button", "С"], ["kb-button", "М"], ["kb-button", "И"], ["kb-button", "Т"], ["kb-button", "Ь"], ["kb-button", "Б"], ["kb-button", "Ю"]],
     ],
+}
+
+let spModTable = {
+    "a": {"'": "á"},
+    "A": {"'": "Á"},
+    "e": {"'": "é"},
+    "i": {"'": "í"},
+    "y": {"'": "ý"},
+    "o": {"'": "ó"},
+    "O": {"'": "Ó"},
+    "u": {"¨": "ü"},
+    "n": {"~": "ñ"},
+    "N": {"~": "Ñ"},
 }
 
 let textContainer = document.querySelector(".textContainer");
@@ -20,13 +39,34 @@ let textContainer = document.querySelector(".textContainer");
 // let capsLock = document.querySelector(".capslock");
 // let allKey = document.querySelectorAll(".key");
 let isCaps = false;
+let isModifier = false;
+let lastModKey = null;
 let currentLang = "EN";
 let userText = "";
 
 function addSymbol(text) {
     // let userText = textContainer.innerText;
+    if(text === "¨" || text === "'" || text === "~") {
+        isModifier = true;
+        lastModKey = text;
+        return;
+    }
+    if(isModifier && text in spModTable && lastModKey in spModTable[text]) {
+        text = spModTable[text][lastModKey];
+    }
+    isModifier = false;
     userText += text;
     textContainer.innerText = userText;
+}
+
+function switchCaps() {
+    let capsKeySpan = document.querySelector(".caps-span");
+    if(isCaps) {
+        capsKeySpan.style.color = "gray";
+    } else {
+        capsKeySpan.style.color = "red";
+    }
+    isCaps = !isCaps;
 }
 
 function handleControlKey(key) {
@@ -45,7 +85,7 @@ function handleControlKey(key) {
     } else if(key === " ") {
         addSymbol(" ");
     } else if(key === "CapsLock") {
-        capsLock.click();
+        switchCaps();
     }
 }
 
@@ -85,7 +125,7 @@ function updateKeyboard(lang) {
     const langs = Object.keys(layouts);
 
     let dragKeyboardButton = '<button class="drag-kb-button" id="drag-kb-button">&#10303;</button>';
-    let capsLockButton = '<button class="kb-button control capslock">CapsLock</button>';
+    let capsLockButton = '<button class="kb-button control capslock">CapsLock <span style="color:grey;" class="caps-span">&#9679;</span></button>';
     let langSwitch = `<div class="dropup"><button class="dropbtn">${currentLang}</button><div class="dropup-content">`;
     for(let i = 0; i < langs.length; i++) {
         langSwitch += `<a href="#" onclick="updateLanguage('${langs[i]}')">${langs[i]}</a>`;
@@ -117,10 +157,11 @@ function updateKeyboard(lang) {
             } else if(key.classList.contains("capslock")) {
                 handleControlKey("CapsLock");
             } else {
-                addSymbol(key.innerText);
+                addSymbol(isCaps ? key.innerText.toUpperCase() : key.innerText.toLowerCase());
             }
         });
     }
+    dragElement(document.getElementById("keyboard"));   // Make keyboard draggable
 }
 
 // Language selector button:
