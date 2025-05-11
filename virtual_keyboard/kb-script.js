@@ -170,7 +170,7 @@ function updateKeyboard(lang) {
 
     let dragKeyboardButton = '<button class="drag-kb-button" id="drag-kb-button">&#10303;</button>';
     let capsLockButton = '<button class="kb-button kb-control capslock">CapsLock <span style="color:grey;" class="caps-span">&#9679;</span></button>';
-    let langSwitch = `<div class="dropup"><button class="dropbtn">${currentLang}</button><div class="dropup-content">`;
+    let langSwitch = `<div class="kb-dropup"><button class="kb-dropbtn">${currentLang}</button><div class="kb-dropup-content">`;
     for(let i = 0; i < langs.length; i++) {
         langSwitch += `<a href="#" onclick="updateLanguage('${langs[i]}')">${langs[i]}</a>`;
     }
@@ -234,4 +234,4 @@ function createKeyboard(inputFieldClass) {
     document.getElementById("keyboard").style.display = "none";
 }
 
-createKeyboard(".textContainer");
+// createKeyboard(".textContainer");

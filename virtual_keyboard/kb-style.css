@@ -1,39 +1,17 @@
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: rgb(61, 84, 84);
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 100vh;
-    font-size: 4vh;
-}
-
-.textContainer {
-    height: 15vh;
-    width: 90vw;
-    background: rgb(189, 223, 221);
-    border-radius: 0.5rem;
-    outline: none;
-    padding: 2rem;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column-reverse;
-}
-
 .keyboard {
+    all: none;
     position: absolute;
     display: none;
     flex-direction: column;
     justify-content: space-evenly;
     padding: 5px;
-    /* height: 50vh; */
     width: auto;
     background: rgb(81, 104, 104);
     border-radius: 1rem;
+}
+
+.kb-row button {
+    height: 100%;
 }
 
 .kb-row {
@@ -41,8 +19,6 @@ body {
     margin-top: 5px;
     width: 100%;
     justify-content: center;
-    /* background-color:green; */
-    /* justify-content: space-evenly; */
     align-items: center;
 }
 
@@ -71,14 +47,10 @@ body {
 .kb-button:active {background-color: rgb(71, 94, 94);}
 
 .kb-control {
-    /* border-style: solid; */
-    /* border-color: #fff; */
     box-shadow: 0px 0px 0px 3px #fff inset;
-    /* border-radius: 10px; */
 }
 
 .kb-space {
-    /* background: rgb(189, 223, 221); */
     flex-grow: 1;
     height: 100%;
     color: rgb(101, 124, 124);

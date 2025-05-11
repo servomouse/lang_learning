@@ -1,5 +1,5 @@
  /* Dropup Button */
- .dropbtn {
+ .kb-dropbtn {
     background-color: #3498DB;
     color: white;
     padding: 12px;
@@ -10,13 +10,13 @@
 }
 
 /* The container <div> - needed to position the dropup content */
-.dropup {
+.kb-dropup {
     position: relative;
     display: inline-block;
 }
 
 /* Dropup content (Hidden by Default) */
-.dropup-content {
+.kb-dropup-content {
     display: none;
     position: absolute;
     bottom: 43px;
@@ -29,22 +29,23 @@
 }
 
 /* Links inside the dropup */
-.dropup-content a {
+.kb-dropup-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    text-align: left;
 }
 
 /* Change color of dropup links on hover */
-.dropup-content a:hover {background-color: #ddd}
+.kb-dropup-content a:hover {background-color: #ddd}
 
 /* Show the dropup menu on hover */
-.dropup:hover .dropup-content {
+.kb-dropup:hover .kb-dropup-content {
     display: block;
 }
 
 /* Change the background color of the dropup button when the dropup content is shown */
-.dropup:hover .dropbtn {
+.kb-dropup:hover .kb-dropbtn {
     background-color: #2980B9;
 }
