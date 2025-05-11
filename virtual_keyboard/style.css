@@ -25,6 +25,7 @@ body {
 }
 
 .keyboard {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -53,33 +54,51 @@ body {
     width: 100%;
 }
 
-/* .active {
-    background-color: rgb(189, 223, 221);
-} */
-
 .kb-button {
     display: inline-block;
-    padding: 15px 25px;
-    font-size: 24px;
+    padding: 12px 18px;
+    font-size: 18px;
     color: #fff;
     background-color: rgb(101, 124, 124);
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     margin-left: 3px;
     margin-right: 3px;
 }
-  
+
 .kb-button:hover {background-color: rgb(61, 84, 84);}
 
 .kb-button:active {background-color: rgb(71, 94, 94);}
 
 .control {
     border-style: solid;
-    border-radius: 10px;
+    border-color: #fff;
+    /* border-radius: 10px; */
 }
 
 .space {
     /* background: rgb(189, 223, 221); */
     flex-grow: 1;
     height: 100%;
+    color: rgb(101, 124, 124);
 }
+
+.space:hover {color: rgb(61, 84, 84);}
+
+.space:active {color: rgb(71, 94, 94);}
+
+.drag-kb-button {
+    display: inline-block;
+    padding: 12px;
+    font-size: 18px;
+    color: #fff;
+    background-color: rgb(101, 124, 124);
+    border: none;
+    border-radius: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.drag-kb-button:hover {background-color: rgb(101, 124, 124);}
+
+.drag-kb-button:active {background-color: rgb(101, 124, 124);}

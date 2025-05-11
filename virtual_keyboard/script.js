@@ -64,7 +64,7 @@ function updateKeyboard(lang) {
     currentLang = lang;
     let kb = document.querySelector(".keyboard");
     kb.innerHTML = "";
-    let newKb = ""
+    let newKb = ''
     // Add keys from layout:
     let isFirstRow = true;
     
@@ -82,15 +82,27 @@ function updateKeyboard(lang) {
         newKb += '</div>';
     }
 
-    let lastRow = '<div class="row"><button class="kb-button control capslock">CapsLock</button><div class="dropup">'
-    lastRow += `<button class="dropbtn">${currentLang}</button><div class="dropup-content">`;
     const langs = Object.keys(layouts);
+
+    let dragKeyboardButton = '<button class="drag-kb-button" id="drag-kb-button">&#10303;</button>';
+    let capsLockButton = '<button class="kb-button control capslock">CapsLock</button>';
+    let langSwitch = `<div class="dropup"><button class="dropbtn">${currentLang}</button><div class="dropup-content">`;
     for(let i = 0; i < langs.length; i++) {
-        lastRow += `<a href="#" onclick="updateLanguage('${langs[i]}')">${langs[i]}</a>`;
+        langSwitch += `<a href="#" onclick="updateLanguage('${langs[i]}')">${langs[i]}</a>`;
     }
-    lastRow += '</div></div><button class="kb-button control space"></button><button class="kb-button control enter">Enter</button></div>';
+    langSwitch += "</div></div>";
+    let spaceButton = '<button class="kb-button control space">Space</button>';
+    let enterButton = '<button class="kb-button control enter">Enter</button>';
+
+    let lastRow = '<div class="row">'
+    lastRow += dragKeyboardButton;
+    lastRow += capsLockButton;
+    lastRow += langSwitch;
+    lastRow += spaceButton;
+    lastRow += enterButton;
+    lastRow += "</div>";
+
     newKb += lastRow;
-    // console.log(newKb);
     kb.innerHTML = newKb;
 
     // Add event listeners for on-screen keyboard clicks (similar to your existing code)

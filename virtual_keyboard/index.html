@@ -12,66 +12,10 @@
 
 <body>
     <div class="textContainer"></div>
-    <div class="keyboard">
-        <div class="row">
-            <div class="key">1</div>
-            <div class="key">2</div>
-            <div class="key">3</div>
-            <div class="key">4</div>
-            <div class="key">5</div>
-            <div class="key">6</div>
-            <div class="key">7</div>
-            <div class="key">8</div>
-            <div class="key">9</div>
-            <div class="key">0</div>
-            <div class="key control delete">Backspace</div>
-        </div>
-        <div class="row">
-            <div class="key">q</div>
-            <div class="key">w</div>
-            <div class="key">e</div>
-            <div class="key">r</div>
-            <div class="key">t</div>
-            <div class="key">y</div>
-            <div class="key">u</div>
-            <div class="key">i</div>
-            <div class="key">o</div>
-            <div class="key">p</div>
-        </div>
-        <div class="row">
-            <div class="key">a</div>
-            <div class="key">s</div>
-            <div class="key">d</div>
-            <div class="key">f</div>
-            <div class="key">g</div>
-            <div class="key">h</div>
-            <div class="key">j</div>
-            <div class="key">k</div>
-            <div class="key">l</div>
-        </div>
-        <div class="row last">
-            <div class="key">z</div>
-            <div class="key">x</div>
-            <div class="key">c</div>
-            <div class="key">v</div>
-            <div class="key">b</div>
-            <div class="key">n</div>
-            <div class="key">m</div>
-        </div>
-        <div class="row">
-            <div class="key control capslock">CapsLock</div>
-            <div class="dropup">
-                <button class="dropbtn">EN</button>
-                <div class="dropup-content">
-                  <a href="#" onclick="updateLanguage('EN')">EN</a>
-                  <a href="#" onclick="updateLanguage('RU')">RU</a>
-                  <a href="#" onclick="updateLanguage('SP')">SP</a>
-                </div>
-            </div>
-            <div class="key control space"></div>
-            <div class="key control enter">Enter</div>
-        </div>
+    <div class="keyboard" id="keyboard">
     </div>
 </body>
+
 <script src="./script.js"></script>
+<script src="./drag-keyboard-script.js"></script>
 </html>
