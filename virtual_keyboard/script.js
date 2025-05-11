@@ -1,18 +1,18 @@
 let layouts = {
     "EN": [
-        [["kb-button", "1"], ["kb-button", "2"], ["kb-button", "3"], ["kb-button", "4"], ["kb-button", "5"], ["kb-button", "6"], ["kb-button", "7"], ["kb-button", "8"], ["kb-button", "9"], ["kb-button", "0"], ["kb-button control delete", "Backspace"]],
+        [["kb-button", "1"], ["kb-button", "2"], ["kb-button", "3"], ["kb-button", "4"], ["kb-button", "5"], ["kb-button", "6"], ["kb-button", "7"], ["kb-button", "8"], ["kb-button", "9"], ["kb-button", "0"], ["kb-button kb-control delete", "Backspace"]],
         [["kb-button", "Q"], ["kb-button", "W"], ["kb-button", "E"], ["kb-button", "R"], ["kb-button", "T"], ["kb-button", "Y"], ["kb-button", "U"], ["kb-button", "I"], ["kb-button", "O"], ["kb-button", "P"]],
         [["kb-button", "A"], ["kb-button", "S"], ["kb-button", "D"], ["kb-button", "F"], ["kb-button", "G"], ["kb-button", "H"], ["kb-button", "J"], ["kb-button", "K"], ["kb-button", "L"]],
         [["kb-button", "Z"], ["kb-button", "X"], ["kb-button", "C"], ["kb-button", "V"], ["kb-button", "B"], ["kb-button", "N"], ["kb-button", "M"]],
     ],
     "SP": [
-        [["kb-button", "1"], ["kb-button", "2"], ["kb-button", "3"], ["kb-button", "4"], ["kb-button", "5"], ["kb-button", "6"], ["kb-button", "7"], ["kb-button", "8"], ["kb-button", "9"], ["kb-button", "0"], ["kb-button control delete", "Backspace"]],
+        [["kb-button", "1"], ["kb-button", "2"], ["kb-button", "3"], ["kb-button", "4"], ["kb-button", "5"], ["kb-button", "6"], ["kb-button", "7"], ["kb-button", "8"], ["kb-button", "9"], ["kb-button", "0"], ["kb-button kb-control delete", "Backspace"]],
         [["kb-button", "Q"], ["kb-button", "W"], ["kb-button", "E"], ["kb-button", "R"], ["kb-button", "T"], ["kb-button", "Y"], ["kb-button", "U"], ["kb-button", "I"], ["kb-button", "O"], ["kb-button", "P"], ["kb-button", "'"]],
         [["kb-button", "A"], ["kb-button", "S"], ["kb-button", "D"], ["kb-button", "F"], ["kb-button", "G"], ["kb-button", "H"], ["kb-button", "J"], ["kb-button", "K"], ["kb-button", "L"], ["kb-button", "¨"], ["kb-button", "~"]],
         [["kb-button", "Z"], ["kb-button", "X"], ["kb-button", "C"], ["kb-button", "V"], ["kb-button", "B"], ["kb-button", "N"], ["kb-button", "M"]],
     ],
     "RU": [
-        [["kb-button", "Ё"], ["kb-button", "1"], ["kb-button", "2"], ["kb-button", "3"], ["kb-button", "4"], ["kb-button", "5"], ["kb-button", "6"], ["kb-button", "7"], ["kb-button", "8"], ["kb-button", "9"], ["kb-button", "0"], ["kb-button control delete", "Backspace"]],
+        [["kb-button", "Ё"], ["kb-button", "1"], ["kb-button", "2"], ["kb-button", "3"], ["kb-button", "4"], ["kb-button", "5"], ["kb-button", "6"], ["kb-button", "7"], ["kb-button", "8"], ["kb-button", "9"], ["kb-button", "0"], ["kb-button kb-control delete", "Backspace"]],
         [["kb-button", "Й"], ["kb-button", "Ц"], ["kb-button", "У"], ["kb-button", "К"], ["kb-button", "Е"], ["kb-button", "Н"], ["kb-button", "Г"], ["kb-button", "Ш"], ["kb-button", "Щ"], ["kb-button", "З"], ["kb-button", "Х"], ["kb-button", "Ъ"]],
         [["kb-button", "Ф"], ["kb-button", "Ы"], ["kb-button", "В"], ["kb-button", "А"], ["kb-button", "П"], ["kb-button", "Р"], ["kb-button", "О"], ["kb-button", "Л"], ["kb-button", "Д"], ["kb-button", "Ж"], ["kb-button", "Э"]],
         [["kb-button", "Я"], ["kb-button", "Ч"], ["kb-button", "С"], ["kb-button", "М"], ["kb-button", "И"], ["kb-button", "Т"], ["kb-button", "Ь"], ["kb-button", "Б"], ["kb-button", "Ю"]],
@@ -32,7 +32,7 @@ let spModTable = {
     "N": {"~": "Ñ"},
 }
 
-let textContainer = document.querySelector(".textContainer");
+let textContainer = null;
 // let deleteKey = document.querySelector(".delete");
 // let enterKey = document.querySelector(".enter");
 // let spaceKey = document.querySelector(".space");
@@ -43,6 +43,50 @@ let isModifier = false;
 let lastModKey = null;
 let currentLang = "EN";
 let userText = "";
+
+// Make keyboard draggable:
+
+
+function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById("drag-kb-button")) {
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById("drag-kb-button").onmousedown = dragMouseDown;
+    } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
 
 function addSymbol(text) {
     // let userText = textContainer.innerText;
@@ -70,7 +114,7 @@ function switchCaps() {
 }
 
 function handleControlKey(key) {
-    console.log(`Processing control key ${key}`);
+    // console.log(`Processing control key ${key}`);
     if(key === "Backspace") {
         // let userText = textContainer.innerText;
         console.log(`Initial text content: ${textContainer.innerText}`);
@@ -110,10 +154,10 @@ function updateKeyboard(lang) {
     
     for(let row=0; row<layouts[currentLang].length; row++) {
         if(isFirstRow) {
-            newKb += '<div class="row first">';
+            newKb += '<div class="kb-row kb-row-first">';
             isFirstRow = false;
         } else {
-            newKb += '<div class="row">';
+            newKb += '<div class="kb-row">';
         }
         for(let key=0; key<layouts[currentLang][row].length; key++) {
             // console.log(`<div class="${layouts[currentLang][row][key][0]}">${layouts[currentLang][row][key][1]}</div>`)
@@ -125,16 +169,16 @@ function updateKeyboard(lang) {
     const langs = Object.keys(layouts);
 
     let dragKeyboardButton = '<button class="drag-kb-button" id="drag-kb-button">&#10303;</button>';
-    let capsLockButton = '<button class="kb-button control capslock">CapsLock <span style="color:grey;" class="caps-span">&#9679;</span></button>';
+    let capsLockButton = '<button class="kb-button kb-control capslock">CapsLock <span style="color:grey;" class="caps-span">&#9679;</span></button>';
     let langSwitch = `<div class="dropup"><button class="dropbtn">${currentLang}</button><div class="dropup-content">`;
     for(let i = 0; i < langs.length; i++) {
         langSwitch += `<a href="#" onclick="updateLanguage('${langs[i]}')">${langs[i]}</a>`;
     }
     langSwitch += "</div></div>";
-    let spaceButton = '<button class="kb-button control space">Space</button>';
-    let enterButton = '<button class="kb-button control enter">Enter</button>';
+    let spaceButton = '<button class="kb-button kb-control kb-space">Space</button>';
+    let enterButton = '<button class="kb-button kb-control enter">Enter</button>';
 
-    let lastRow = '<div class="row">'
+    let lastRow = '<div class="kb-row">'
     lastRow += dragKeyboardButton;
     lastRow += capsLockButton;
     lastRow += langSwitch;
@@ -152,7 +196,7 @@ function updateKeyboard(lang) {
                 handleControlKey("Backspace");
             } else if(key.classList.contains("enter")) {
                 handleControlKey("Enter");
-            } else if(key.classList.contains("space")) {
+            } else if(key.classList.contains("kb-space")) {
                 handleControlKey(" ");
             } else if(key.classList.contains("capslock")) {
                 handleControlKey("CapsLock");
@@ -162,6 +206,8 @@ function updateKeyboard(lang) {
         });
     }
     dragElement(document.getElementById("keyboard"));   // Make keyboard draggable
+    isCaps = false;
+    isModifier = false;
 }
 
 // Language selector button:
@@ -170,4 +216,22 @@ function updateLanguage(newLang) {
     updateKeyboard(newLang);
 }
 
-updateKeyboard("EN");
+// Show/hide keyboard:
+function keyboardToggleVisibility() {
+    var x = document.getElementById("keyboard");
+    console.log(x.style.display);
+    if (x.style.display === "none") {
+        x.style.display = "flex";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+// Creates a hidden virtual keyboard
+function createKeyboard(inputFieldClass) {
+    textContainer = document.querySelector(inputFieldClass);
+    updateKeyboard("EN");
+    document.getElementById("keyboard").style.display = "none";
+}
+
+createKeyboard(".textContainer");
