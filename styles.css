@@ -10,7 +10,7 @@ body {
     align-items: center;
     height: auto;
     min-height: 100%;
-    background-color: green;
+    background-color: #208020;
 }
 
 .card {
@@ -21,7 +21,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 3px solid green;
+    border: 3px solid #208020;
     border-radius: 15px;
     max-width: 600px;
 }
@@ -34,7 +34,12 @@ body {
     justify-content: space-between;
 }
 
+.read-only-text {
+    font-size: 26px;
+}
+
 .user-input-field {
+    margin-top: 5px;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -56,7 +61,7 @@ button {
 }
 
 .virtual-kb-btn {
-    background-color: green;
+    background-color: #208020;
     border: none;
     color: white;
     text-align: center;
