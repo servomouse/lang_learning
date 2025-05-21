@@ -1,0 +1,58 @@
+{
+    "en": {
+        "words": {
+            "breakfast": {
+                "conjugations": [
+                ],
+                "forms": [
+                ],
+                "examples": [
+                    {
+                        "example": {"sentence": "She enjoyed a big breakfast before heading out to work", "word": "breakfast"},
+                        "translations": {
+                            "ru": "завтрак",
+                            "sp": "el desayuno"
+                        }
+                    }
+                ]
+            }
+        },
+        "phrases": []
+    },
+    "ru": {
+        "words": {
+            "завтрак": {
+                "conjugations": [],
+                "forms": [],
+                "examples": [
+                    {
+                        "example": {"sentence": "Она наслаждалась большим завтраком перед тем, как отправиться на работу", "word": "завтраком"},
+                        "translations": {
+                            "en": "breakfast",
+                            "sp": "el desayuno"
+                        }
+                    }
+                ]
+            }
+        },
+        "phrases": []
+    },
+    "sp": {
+        "words": {
+            "el desayuno": {
+                "conjugations": [],
+                "forms": [],
+                "examples": [
+                    {
+                        "example": {"sentence": "Ella disfrutó de un gran desayuno antes de salir a trabajar", "word": "desayuno"},
+                        "translations": {
+                            "ru": "завтрак",
+                            "en": "breakfast"
+                        }
+                    }
+                ]
+            }
+        },
+        "phrases": []
+    }
+}
