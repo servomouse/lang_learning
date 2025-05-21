@@ -1,10 +1,17 @@
-let dictionary = {};
-let currentPair = "en-sp";
+let dictionary = null;
+let currentPair = null;
 let pairsIds = [
     "EN-RU-pair",
     "EN-SP-pair",
     "RU-SP-pair"
 ]
+let correctAnswer = "";
+
+let langPairs = {
+    "EN-RU": ["en", "ru"],
+    "EN-SP": ["en", "sp"],
+    "SP-RU": ["sp", "ru"],
+}
 
 function updateLangPairs(selectedPair) {
     pairsIds.forEach(function (value, index, array) {
@@ -17,26 +24,29 @@ function updateLangPairs(selectedPair) {
 }
 
 document.getElementById('EN-RU-pair').addEventListener('click', function() {
-    if(currentPair != "en-ru") {
+    if(currentPair != "EN-RU") {
         console.log("Switching language pair to EN-RU");
         updateLangPairs("EN-RU-pair");
-        currentPair = "en-ru";
+        currentPair = "EN-RU";
+        setNewWord();
     }
 });
 
 document.getElementById('EN-SP-pair').addEventListener('click', function() {
-    if(currentPair != "en-sp") {
+    if(currentPair != "EN-SP") {
         console.log("Switching language pair to EN-SP");
         updateLangPairs("EN-SP-pair");
-        currentPair = "en-sp";
+        currentPair = "EN-SP";
+        setNewWord();
     }
 });
 
 document.getElementById('RU-SP-pair').addEventListener('click', function() {
-    if(currentPair != "ru-sp") {
+    if(currentPair != "RU-SP") {
         console.log("Switching language pair to RU-SP");
         updateLangPairs("RU-SP-pair");
-        currentPair = "ru-sp";
+        currentPair = "RU-SP";
+        setNewWord();
     }
 });
 
@@ -54,6 +64,7 @@ document.getElementById('open-file-button').addEventListener('click', function()
         reader.readAsText(file);
     };
     input.click();
+    setNewWord();
 });
 
 document.getElementById('save-file-button').addEventListener('click', function() {
@@ -66,3 +77,73 @@ document.getElementById('save-file-button').addEventListener('click', function()
     a.click();
     URL.revokeObjectURL(url);
 });
+
+function getRandomInteger(N) {
+    return Math.floor(Math.random() * N);
+}
+
+function getRandomKey(dict) {
+    const keys = Object.keys(dict);
+    return keys[getRandomInteger(keys.length)];
+}
+
+function updateWord(newWord, sentense, wordInSentence) {
+    let a = 'Word "<span style="color:#FF0000";>hello</span >" as in <span style="color:#FF0000";>Hello</span > world!';
+    let newSentence = sentense.replace(wordInSentence, `<span style="color:#FF0000";>${wordInSentence}</span >`);
+    let newHtml = `Word "<span style="color:#FF0000";>${newWord}</span >" as in ${newSentence}`;
+    document.getElementById("read-only-text").innerHTML = newHtml;
+}
+
+function pickNewWord() {
+    let found = false;   // dictionary
+    let counter = 0;
+    while(!found) {
+        let dict = dictionary[langPairs[currentPair][0]]['words']
+        let word = getRandomKey(dict);
+        let example = getRandomInteger(dict[word]['examples'].length);
+        if(langPairs[currentPair][1] in dict[word]['examples'][example]['translations']) {
+            found = true;
+            let retval = {
+                'word': word,
+                'sentense': [
+                    dict[word]['examples'][example]['example']['sentence'],
+                    dict[word]['examples'][example]['example']['word']
+                ],
+                'answer': dict[word]['examples'][example]['translations'][langPairs[currentPair][1]]
+            }
+            let temp = langPairs[currentPair][0];
+            langPairs[currentPair][0] = langPairs[currentPair][1];
+            langPairs[currentPair][1] = temp;
+            return retval;
+        }
+        counter += 1;
+        if(counter > 1000) {
+            alert("Error: Cannot find new pair!");
+            return null;
+        }
+    }
+}
+
+function setNewWord() {
+    if(!currentPair) {
+        alert("Select a language pair!");
+        return;
+    }
+    newWord = pickNewWord();
+    updateWord(newWord['word'], newWord['sentense'][0], newWord['sentense'][1]);
+    correctAnswer = newWord['answer'];
+}
+
+function submit() {
+    if(dictionary) {
+        let userAnswer = document.getElementById("textInput").value;
+        if(userAnswer.localeCompare(correctAnswer) === 0) {
+            alert("Correct!");
+        } else {
+            alert(`Wrong! Correct answer is ${correctAnswer}, your answer: ${userAnswer}`);
+        }
+        setNewWord();
+    } else {
+        alert("Open a dictionary file first!");
+    }
+}
