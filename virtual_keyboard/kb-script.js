@@ -100,7 +100,8 @@ function addSymbol(text) {
     }
     isModifier = false;
     userText += text;
-    textContainer.innerText = userText;
+    textContainer.value = userText;
+    // textContainer.innerText = userText;
 }
 
 function switchCaps() {
@@ -117,11 +118,12 @@ function handleControlKey(key) {
     // console.log(`Processing control key ${key}`);
     if(key === "Backspace") {
         // let userText = textContainer.innerText;
-        console.log(`Initial text content: ${textContainer.innerText}`);
+        // console.log(`Initial text content: ${textContainer.innerText}`);
         if(userText.length > 0) {
             userText = userText.substring(0, userText.length - 1);
             console.log(`Updated text: ${userText}`);
-            textContainer.innerText = userText;
+            // textContainer.innerText = userText;
+            textContainer.value = userText;
             console.log(`Updated text content: ${textContainer.innerText}`);
         }
     } else if(key === "Enter") {
@@ -133,16 +135,16 @@ function handleControlKey(key) {
     }
 }
 
-// Physical keyboard handler
-document.addEventListener("keydown", function (event) {
-    let key = event.key;
+// // Physical keyboard handler
+// document.addEventListener("keydown", function (event) {
+//     let key = event.key;
 
-    if(key.length === 1) {
-        addSymbol(isCaps ? key.toUpperCase() : key.toLowerCase());
-    } else {
-        handleControlKey(key);
-    }
-});
+//     if(key.length === 1) {
+//         addSymbol(isCaps ? key.toUpperCase() : key.toLowerCase());
+//     } else {
+//         handleControlKey(key);
+//     }
+// });
 
 function updateKeyboard(lang) {
     currentLang = lang;
