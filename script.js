@@ -13,6 +13,13 @@ let langPairs = {
     "SP-RU": ["sp", "ru"],
 }
 
+function updateDictionary(new_dict) {
+    let langs = [];
+    for (const [key, value] of Object.entries(new_dict)) {
+        langs.push(key);
+    }
+}
+
 function updateLangPairs(selectedPair) {
     pairsIds.forEach(function (value, index, array) {
         // May be insecure, but here the text is hardcoded, so ok
@@ -50,7 +57,7 @@ document.getElementById('RU-SP-pair').addEventListener('click', function() {
     }
 });
 
-document.getElementById('open-file-button').addEventListener('click', function() {
+function openFile() {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json';
@@ -60,14 +67,14 @@ document.getElementById('open-file-button').addEventListener('click', function()
         reader.onload = function(event) {
             dictionary = JSON.parse(event.target.result);
             console.log('File loaded:', dictionary);
+            // setNewWord();
         };
         reader.readAsText(file);
     };
     input.click();
-    setNewWord();
-});
+}
 
-document.getElementById('save-file-button').addEventListener('click', function() {
+function saveFile() {
     const data = JSON.stringify(dictionary, null, 4);
     const blob = new Blob([data], {type: 'application/json'});
     const url = URL.createObjectURL(blob);
@@ -76,7 +83,7 @@ document.getElementById('save-file-button').addEventListener('click', function()
     a.download = 'dictionary.json';
     a.click();
     URL.revokeObjectURL(url);
-});
+}
 
 function getRandomInteger(N) {
     return Math.floor(Math.random() * N);
