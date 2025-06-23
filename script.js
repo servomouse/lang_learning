@@ -18,6 +18,14 @@ function updateDictionary(new_dict) {
     for (const [key, value] of Object.entries(new_dict)) {
         langs.push(key);
     }
+    console.log("Detected languages: ", langs);
+    let pairs = [];
+    for(let i=0; i<langs.length; i++) {
+        for(let j=i+1; j<langs.length; j++) {
+            pairs.push(`${langs[i]} - ${langs[j]}`);
+        }
+    }
+    console.log(`Available language pairs: ${pairs}`);
 }
 
 function updateLangPairs(selectedPair) {
@@ -67,7 +75,7 @@ function openFile() {
         reader.onload = function(event) {
             dictionary = JSON.parse(event.target.result);
             console.log('File loaded:', dictionary);
-            // setNewWord();
+            updateDictionary(dictionary);
         };
         reader.readAsText(file);
     };
