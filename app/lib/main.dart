@@ -83,18 +83,56 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  List<Widget> navItems = [
-    ElevatedButton(onPressed: () {}, child: Text("Button 1")),
-    ElevatedButton(onPressed: () {}, child: Text("Button 2")),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("AppBar Title"),
-        actions: navItems,
+        // actions: navItems,
+        actions: [
+          Expanded(
+            child: Center(
+              child: DropdownMenu(
+                // label: const Text("Select language pair"),
+                hintText: "Select language pair",
+                requestFocusOnTap: false, // Do not open keyboard
+                enableSearch: false,
+                dropdownMenuEntries: <DropdownMenuEntry<String>>[
+                  DropdownMenuEntry(value: "option 1", label: "option 1"),
+                  DropdownMenuEntry(value: "option 2", label: "option 2"),
+                  DropdownMenuEntry(value: "option 3", label: "option 3"),
+                ],
+                onSelected: (value) {
+                  print('Selected option: $value');
+                },
+              )
+            )
+          ),
+          PopupMenuButton(
+            // label: const Text("Select language pair"),
+            onSelected: (value) {
+              print("Selected value: $value");
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 1,
+                child: Text("Option 1"),
+              ),
+              PopupMenuItem(
+                value: 2,
+                child: Text("Option 2"),
+              ),
+              PopupMenuItem(
+                value: 3,
+                child: Text("Option 3"),
+              ),
+              PopupMenuItem(
+                value: 4,
+                child: Text("Option 4"),
+              ),
+            ]
+          )
+        ]
       ),
       body: QuizPage(),
     );
