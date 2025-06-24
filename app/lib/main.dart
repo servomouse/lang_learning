@@ -84,100 +84,24 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  var selectedIndex = 0;
+  List<Widget> navItems = [
+    ElevatedButton(onPressed: () {}, child: Text("Button 1")),
+    ElevatedButton(onPressed: () {}, child: Text("Button 2")),
+  ];
 
   @override
   Widget build(BuildContext context) {
-
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = GeneratorPage();
-        break;
-      case 1:
-        page = FavoritesPage();
-        break;
-      default:
-        throw UnimplementedError('no widget for $selectedIndex');
-    }
-
     return Scaffold(
-      body: Row(
-        children: [
-          SafeArea(
-            child: NavigationRail(
-              extended: false,
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
-                ),
-                // NavigationRailDestination(
-                //   icon: Icon(Icons.favorite),
-                //   label: Text('Favorites'),
-                // ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.library_books),
-                  label: Text('Language'),
-                ),
-              ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (value) {
-                setState(() {
-                  selectedIndex = value;
-                });
-              },
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: page,
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        title: Text("AppBar Title"),
+        actions: navItems,
       ),
+      body: QuizPage(),
     );
   }
 }
 
-class FavoritesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
-    ElevatedButton getOpenFileButton() {
-      return ElevatedButton(
-        onPressed: appState._openFile,
-        child: Text('Open file'),
-      );
-    }
-
-    if (appState.files.isEmpty) {
-      return Center(
-        child: getOpenFileButton()
-      );
-    }
-
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.files.length} files open:'),
-        ),
-        for (var fname in appState.files)
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text(fname),
-          ),
-        getOpenFileButton(),
-      ],
-    );
-  }
-}
-
-class GeneratorPage extends StatelessWidget {
+class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -248,30 +172,6 @@ class BigCard extends StatelessWidget {
             ),
             SizedBox(height: 10),
             TextInputWidget(),
-            // Row(
-            //   children: <Widget>[
-            //     Flexible(
-            //       child: TextField(
-            //         decoration: InputDecoration(
-            //           border: OutlineInputBorder(),
-            //           // labelText: 'Enter your text',
-            //           focusedBorder: OutlineInputBorder(),
-            //           labelStyle:TextStyle(fontSize:10),
-            //           hintStyle: TextStyle(fontSize:10),
-            //         ),
-            //         showCursor: true,
-            //         cursorColor: Colors.black,
-            //       )
-            //     ),
-            //     SizedBox(width: 10),
-            //     ElevatedButton(
-            //       onPressed: () {
-            //         print('Submit button pressed!');
-            //       },
-            //       child: Text('Submit'),
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       )
