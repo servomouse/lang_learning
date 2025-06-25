@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 // import 'dart:convert';  // JsonDecode
 // import 'dart:io'; // File
 import './file_manager.dart';
+import './data_processor.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAppState extends FileManager with ChangeNotifier {
+class MyAppState extends ChangeNotifier with FileManager, DataProcessor {
 
   var current = WordPair.random();
   void getNext() {

@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'dart:convert';  // JsonDecode
 import 'dart:io'; // File
 
-abstract class FileManager {
+mixin FileManager {
   void notifyListeners(); // Defined in the ChangeNotifier class
 
   var files = <String>[];
