@@ -1,7 +1,10 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
+// import 'dart:convert';  // JsonDecode
+// import 'dart:io'; // File
+import './file_manager.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +28,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAppState extends ChangeNotifier {
+class MyAppState extends FileManager with ChangeNotifier {
+
   var current = WordPair.random();
   void getNext() {
     current = WordPair.random();
@@ -41,40 +45,6 @@ class MyAppState extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  var files = <String>[];
-  void addFileName(fname) {
-    if (files.contains(fname)) {
-      return;
-    }
-    files.add(fname);
-    notifyListeners();
-  }
-  void removeFileName(fname) {
-    files.remove(fname);
-    notifyListeners();
-  }
-  void saveFile(fname) {
-    // TODO: add logic here
-    print("SaveFile is not implemented!");
-    notifyListeners();
-  }
-  Future<void> _openFile() async {
-    print('Open file button pressed!');
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null) {
-      PlatformFile file = result.files.first;
-
-      print(file.name);
-      print(file.size);
-      print(file.path);
-      addFileName(file.name);
-    } else {
-      print("Error: Couldn't open file!");
-      // User canceled the picker
-    }
-  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -85,9 +55,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("AppBar Title"),
+        // title: Text("AppBar Title"),
         // actions: navItems,
         actions: [
           Expanded(
@@ -111,24 +82,21 @@ class _MyHomePageState extends State<MyHomePage> {
           PopupMenuButton(
             // label: const Text("Select language pair"),
             onSelected: (value) {
-              print("Selected value: $value");
+              print("Selected function: $value");
+              if(value == "open_file") {
+                appState.openFile();
+              } else if(value == "save_file") {
+                appState.saveFile(appState.filename);
+              }
             },
             itemBuilder: (context) => [
               PopupMenuItem(
-                value: 1,
-                child: Text("Option 1"),
+                value: "open_file",
+                child: Text("Open file"),
               ),
               PopupMenuItem(
-                value: 2,
-                child: Text("Option 2"),
-              ),
-              PopupMenuItem(
-                value: 3,
-                child: Text("Option 3"),
-              ),
-              PopupMenuItem(
-                value: 4,
-                child: Text("Option 4"),
+                value: "save_file",
+                child: Text("Save file"),
               ),
             ]
           )
@@ -149,7 +117,10 @@ class QuizPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,  // end, spaceAround
         children: [
-          BigCard(pair: pair),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: BigCard(pair: pair),
+          )
         ],
       ),
     );
