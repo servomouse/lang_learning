@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -54,9 +55,30 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  late ConfettiController _confettiCtrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _confettiCtrl = ConfettiController(duration: const Duration(seconds: 2));
+  }
+
+  @override
+  void dispose() {
+    _confettiCtrl.dispose();
+    super.dispose();
+  }
+
+  void showConfetti() {
+    _confettiCtrl.play();
+  }
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+    // var appState = context.watch<MyAppState>();
+    // var pair = appState.current;
     return Scaffold(
       appBar: AppBar(
         // title: Text("AppBar Title"),
@@ -88,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 appState.openFile();
               } else if(value == "save_file") {
                 appState.saveFile(appState.filename);
+                showConfetti();
               }
             },
             itemBuilder: (context) => [
@@ -103,45 +126,77 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ]
       ),
-      body: QuizPage(),
-    );
-  }
-}
-
-class QuizPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,  // end, spaceAround
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: BigCard(pair: pair),
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,  // end, spaceAround
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: ConfettiWidget(
+                confettiController: _confettiCtrl,
+                blastDirectionality: BlastDirectionality.explosive,
+                shouldLoop: false,
+                colors: [
+                  Colors.red,
+                  Colors.green,
+                  Colors.blue,
+                  Colors.cyan,
+                  Colors.amber
+                ],
+              )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: BigCard(_confettiCtrl),
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
 class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
 
-  final WordPair pair;
+  ConfettiController? confettiCtrlPtr;
+
+  BigCard(confettiCtrl) {
+    confettiCtrlPtr = confettiCtrl;
+  }
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    // var style = theme.textTheme.displayMedium!.copyWith(
-    //   color: theme.colorScheme.onPrimary,
-    // );
+    var appState = context.watch<MyAppState>();
+
+    List<TextSpan> getSentence() {
+      var parts = appState.sentence.split(appState.redWord);
+      List<TextSpan> retVal = [];
+      for (var part in parts) {
+        retVal.add(
+          TextSpan(
+            text: part,
+            style: TextStyle(color: Colors.black, fontSize:20), // Black color for "World!"
+          )
+        );
+        retVal.add(
+          TextSpan(
+            text: appState.redWord,
+            style: TextStyle(color: Colors.red, fontSize:20), // Black color for "World!"
+          )
+        );
+      }
+      retVal.removeLast();
+      return retVal;
+    }
+
+    Text getFirstLine() {
+      print("The word = ${appState.theWord}");
+      return Text("\"${appState.theWord}\", as in", style: TextStyle(color: Colors.black, fontSize:20));
+    }
+    var sentence = getSentence();
+    var firstLine = getFirstLine();
+
     return Card(
       color: theme.colorScheme.primary,
       child: Padding(
@@ -149,24 +204,14 @@ class BigCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.center,  // end, spaceAround
           children: [
-            Text("Hello, as in", style: TextStyle(color: Colors.black, fontSize:20)),
+            firstLine,
             SizedBox(height: 10),
             Row(
               children: [
                 RichText(
                   text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Hello ',
-                        style: TextStyle(color: Colors.red, fontSize:20), // Red color for "Hello"
-                      ),
-                      TextSpan(
-                        text: 'World!',
-                        style: TextStyle(color: Colors.black, fontSize:20), // Black color for "World!"
-                      ),
-                    ],
+                    children: sentence,
                   ),
                 ),
                 Expanded(
@@ -175,6 +220,7 @@ class BigCard extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     print('Play button pressed!');
+                    confettiCtrlPtr?.play();
                   },
                   child: Text('Play'),
                 ),
@@ -199,6 +245,8 @@ class TextInputWidgetState extends State<TextInputWidget> {
 
   @override
   Widget build(BuildContext context) {
+    
+    var appState = context.watch<MyAppState>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -222,6 +270,7 @@ class TextInputWidgetState extends State<TextInputWidget> {
             ElevatedButton(
               onPressed: () {
                 print('Entered text: ${_controller.text}');
+                _controller.clear();
               },
               child: Text('Submit'),
             ),
