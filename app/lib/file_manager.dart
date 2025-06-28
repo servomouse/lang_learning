@@ -5,24 +5,9 @@ import 'dart:io'; // File
 mixin FileManager {
   void notifyListeners(); // Defined in the ChangeNotifier class
 
-  var files = <String>[];
   var filename = "dictionary.json";
 
-  void addFileName(fname) {
-    if (files.contains(fname)) {
-      return;
-    }
-    files.add(fname);
-    notifyListeners();
-  }
-
-  void removeFileName(fname) {
-    files.remove(fname);
-    notifyListeners();
-  }
-
   void saveFile(fname) {
-    // TODO: add logic here
     print("SaveFile is not implemented!");
     notifyListeners();
   }
@@ -38,7 +23,6 @@ mixin FileManager {
       print(file.name);
       print(file.size);
       print(file.path);
-      addFileName(file.name);
       
       // file.path can be null
       if (file.path != null) {
