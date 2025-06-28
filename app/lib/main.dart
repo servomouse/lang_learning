@@ -1,4 +1,4 @@
-import 'package:confetti/confetti.dart';
+// import 'package:confetti/confetti.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -56,29 +56,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  late ConfettiController _confettiCtrl;
-
-  @override
-  void initState() {
-    super.initState();
-    _confettiCtrl = ConfettiController(duration: const Duration(seconds: 2));
-  }
-
-  @override
-  void dispose() {
-    _confettiCtrl.dispose();
-    super.dispose();
-  }
-
-  void showConfetti() {
-    _confettiCtrl.play();
-  }
-
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    // var appState = context.watch<MyAppState>();
-    // var pair = appState.current;
+
+    List<DropdownMenuEntry> availablePairs = [];
+    for (var pair in appState.pairs) {
+      availablePairs.add(
+        DropdownMenuEntry(value: pair, label: pair),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         // title: Text("AppBar Title"),
@@ -91,11 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 hintText: "Select language pair",
                 requestFocusOnTap: false, // Do not open keyboard
                 enableSearch: false,
-                dropdownMenuEntries: <DropdownMenuEntry<String>>[
-                  DropdownMenuEntry(value: "option 1", label: "option 1"),
-                  DropdownMenuEntry(value: "option 2", label: "option 2"),
-                  DropdownMenuEntry(value: "option 3", label: "option 3"),
-                ],
+                dropdownMenuEntries: availablePairs,
                 onSelected: (value) {
                   print('Selected option: $value');
                 },
@@ -110,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 appState.openFile();
               } else if(value == "save_file") {
                 appState.saveFile(appState.filename);
-                showConfetti();
+                // showConfetti();
               }
             },
             itemBuilder: (context) => [
@@ -128,26 +112,32 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,  // end, spaceAround
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,  // end, spaceAround, spaceBetween, center
           children: [
-            Align(
-              alignment: Alignment.center,
-              child: ConfettiWidget(
-                confettiController: _confettiCtrl,
-                blastDirectionality: BlastDirectionality.explosive,
-                shouldLoop: false,
-                colors: [
-                  Colors.red,
-                  Colors.green,
-                  Colors.blue,
-                  Colors.cyan,
-                  Colors.amber
-                ],
-              )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start, // Align this text to the left
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('File name: ${appState.filename}'),
+                      Text('Correct answers: ${appState.correctCounter}'),
+                      Text('Incorrect answers: ${appState.incorrectCounter}'),
+                      Text('Average result: ${appState.result.toStringAsFixed(1)}%'),
+                    ]
+                  )
+                )
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: BigCard(_confettiCtrl),
+              child: BigCard(),
+            ),
+            Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Text('Hello World Inc.')
             )
           ],
         ),
@@ -158,19 +148,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class BigCard extends StatelessWidget {
 
-  ConfettiController? confettiCtrlPtr;
-
-  BigCard(confettiCtrl) {
-    confettiCtrlPtr = confettiCtrl;
-  }
-
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var appState = context.watch<MyAppState>();
 
     List<TextSpan> getSentence() {
-      var parts = appState.sentence.split(appState.redWord);
+      var parts = appState.task["sentence"].split(appState.task["redWord"]);
       List<TextSpan> retVal = [];
       for (var part in parts) {
         retVal.add(
@@ -181,7 +165,7 @@ class BigCard extends StatelessWidget {
         );
         retVal.add(
           TextSpan(
-            text: appState.redWord,
+            text: appState.task["redWord"],
             style: TextStyle(color: Colors.red, fontSize:20), // Black color for "World!"
           )
         );
@@ -191,8 +175,8 @@ class BigCard extends StatelessWidget {
     }
 
     Text getFirstLine() {
-      print("The word = ${appState.theWord}");
-      return Text("\"${appState.theWord}\", as in", style: TextStyle(color: Colors.black, fontSize:20));
+      // print("The word = ${appState.task["baseWord"]}");
+      return Text("\"${appState.task["baseWord"]}\", as in", style: TextStyle(color: Colors.black, fontSize:20));
     }
     var sentence = getSentence();
     var firstLine = getFirstLine();
@@ -208,20 +192,24 @@ class BigCard extends StatelessWidget {
             firstLine,
             SizedBox(height: 10),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                RichText(
-                  text: TextSpan(
-                    children: sentence,
+                Flexible(
+                  child: RichText(
+                    text: TextSpan(
+                      children: sentence,
+                    ),
+                    overflow: TextOverflow.visible, // Ensure overflow is handled
                   ),
                 ),
-                Expanded(
-                  child: Container(), // This will take up all available space
-                ),
+                // Expanded(
+                //   child: Container(), // This will take up all available space
+                // ),
                 ElevatedButton(
-                  onPressed: () {
-                    print('Play button pressed!');
-                    confettiCtrlPtr?.play();
-                  },
+                  onPressed: null,
+                  // onPressed: () {
+                  //   print('Play button pressed!');
+                  // },
                   child: Text('Play'),
                 ),
               ]
@@ -269,6 +257,7 @@ class TextInputWidgetState extends State<TextInputWidget> {
             SizedBox(width: 10),
             ElevatedButton(
               onPressed: () {
+                appState.processUserInput(context, _controller.text);
                 print('Entered text: ${_controller.text}');
                 _controller.clear();
               },
