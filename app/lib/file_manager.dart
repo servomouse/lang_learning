@@ -4,25 +4,21 @@ import 'dart:io'; // File
 
 mixin FileManager {
   void notifyListeners(); // Defined in the ChangeNotifier class
+  void updateDictionary(newDict); // Defined in the DataProcessor class
 
-  var filename = "dictionary.json";
+  var filename = "No file selected";
 
   void saveFile(fname) {
     print("SaveFile is not implemented!");
     notifyListeners();
   }
 
-  Future<Map<String, dynamic>?> openFile() async {
+  Future openFile() async {
     print('Open file button pressed!');
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
       PlatformFile file = result.files.first;
-
-      filename = file.name;
-      print(file.name);
-      print(file.size);
-      print(file.path);
       
       // file.path can be null
       if (file.path != null) {
@@ -31,8 +27,15 @@ mixin FileManager {
 
           Map<String, dynamic> jsonData = jsonDecode(fileContent);
 
+          filename = file.name;
+          print(file.name);
+          print(file.size);
+          print(file.path);
+
+          updateDictionary(jsonData);
+
           print('JSON data: $jsonData');
-          return jsonData;
+          notifyListeners();
         } catch (e) {
           print("Error: Couldn't read or parse the JSON file. ${e.toString()}");
         }
@@ -42,6 +45,5 @@ mixin FileManager {
     } else {  // User canceled the picker
       print("Error: Couldn't open file!");
     }
-    return null;
   }
 }

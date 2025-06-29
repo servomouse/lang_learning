@@ -82,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 dropdownMenuEntries: availablePairs,
                 onSelected: (value) {
                   print('Selected option: $value');
+                  appState.updateSelectedPair(value);
                 },
               )
             )
@@ -185,7 +186,7 @@ class BigCard extends StatelessWidget {
       color: theme.colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
+        child: appState.selectedPair == "Select a pair"? Text("Select a language pair"): Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
