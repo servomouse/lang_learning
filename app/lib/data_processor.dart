@@ -17,14 +17,14 @@ mixin DataProcessor {
   Map<String, dynamic> dictionary = {};
   Map<String, dynamic> words = {};
   List<String> langPairs = ["en-ru", "en-sp"];
-  var selectedPair = "en-sp";
-  var currentLang = "en";
+  var selectedPair = "Select a pair";
+  var currentLang = "unknown";
 
   Random random = Random();
 
   void notifyListeners(); // Defined in the ChangeNotifier class
 
-  void shouAlert(cntx, alert) {
+  void showAlert(cntx, alert) {
     if(alert == "success") {
       QuickAlert.show(
         context: cntx, 
@@ -37,16 +37,22 @@ mixin DataProcessor {
         type: QuickAlertType.error,
         title: "Correct answer is \"${task["answer"]}\"!"
       );
+    } else if(alert == "newWordError") {
+      QuickAlert.show(
+        context: cntx, 
+        type: QuickAlertType.error,
+        title: "Dictionary error! Please select another pair."
+      );
     }
   }
 
   void processUserInput(cntx, input) {
     if(input.toLowerCase() == task["answer"].toLowerCase()) {
       correctCounter ++;
-      shouAlert(cntx, "success");
+      showAlert(cntx, "success");
     } else {
       incorrectCounter ++;
-      shouAlert(cntx, "error");
+      showAlert(cntx, "error");
     }
     if(correctCounter > 0) {
       if(incorrectCounter > 0) {
@@ -62,24 +68,91 @@ mixin DataProcessor {
       }
     }
     notifyListeners();
+    updateWord();
+  }
+
+  Map<String, dynamic>?getNewTask(currentPair) {
+    for(var i=0; i<words[currentPair[0]].length; i++) {
+      var idx = random.nextInt(words[currentPair[0]].length);
+      var newWord = words[currentPair[0]][idx];
+      print("New word idx = $idx, the word = $newWord");
+      print("dictionary[currentPair[0]]['words'][newWord]['examples'] = ${dictionary[currentPair[0]]['words'][newWord]['examples']}");
+      var exampleIdx = random.nextInt(dictionary[currentPair[0]]['words'][newWord]['examples'].length);
+      var example = dictionary[currentPair[0]]['words'][newWord]['examples'][exampleIdx];
+      if(example['translations'].keys.contains(currentPair[1])) {
+        print("New example idx = $exampleIdx, the example = $example");
+        var newRedWord = example['example']['word'];
+        var newSentence = example['example']['sentence'];
+        // print("translations = ${example['translations']}");
+        var newAnswer = example['translations'][currentPair[1]];
+        print("New newRedWord = $newRedWord, newSentence = $newSentence, newAnswer = $newAnswer");
+        return {
+          "baseWord": newWord,
+          "redWord": newRedWord,
+          "answer": newAnswer,
+          "sentence": newSentence
+        };
+      }
+    }
+    selectedPair = "Select a pair";
+    return {
+          "baseWord": task['baseWord'],
+          "redWord": task['redWord'],
+          "answer": task['answer'],
+          "sentence": task['sentence']
+        };
   }
 
   void updateSelectedPair(pair) {
     selectedPair = pair;
     print("selectedPair = $selectedPair");
-    notifyListeners();
-  }
-
-  void updateWord() {
     var langs = selectedPair.split("-");
     if(!langs.contains(currentLang)) {
       currentLang = langs[0];
     }
-    // var idx = random.nextInt(words[currentLang].length);
-    // print("New word idx = $idx, the word = ${words[currentLang][idx]}");
-    print("Words = $words");
-    print("currentLang = $currentLang");
-    print("words.keys.contains(currentLang) = ${words.keys.contains(currentLang)}");
+    notifyListeners();
+    updateWord();
+  }
+
+  void updateWord() {
+    if(selectedPair == "Select a pair") {
+      return;
+    }
+    if(!words.keys.contains(currentLang)) {
+      selectedPair = "Select a pair";
+      return;
+    }
+    var langs = selectedPair.split("-");
+    var currentPair;
+    if(currentLang == langs[0]) {
+      currentPair = [langs[1], langs[0]];
+    } else {
+      currentPair = [langs[0], langs[1]];
+    }
+    currentLang = currentPair[0];
+    // print("Current pair: $currentPair");
+    // var idx = random.nextInt(words[currentPair[0]].length);
+    // var newWord = words[currentPair[0]][idx];
+    // print("New word idx = $idx, the word = $newWord");
+    // print("dictionary[currentPair[0]]['words'][newWord]['examples'] = ${dictionary[currentPair[0]]['words'][newWord]['examples']}");
+    // var exampleIdx = random.nextInt(dictionary[currentPair[0]]['words'][newWord]['examples'].length);
+    // var example = dictionary[currentPair[0]]['words'][newWord]['examples'][exampleIdx];
+    // print("New example idx = $exampleIdx, the example = $example");
+    // var newRedWord = example['example']['word'];
+    // var newSentence = example['example']['sentence'];
+    // // print("translations = ${example['translations']}");
+    // var newAnswer = example['translations'][currentPair[1]];
+    // print("New newRedWord = $newRedWord, newSentence = $newSentence, newAnswer = $newAnswer");
+    var newTask = getNewTask(currentPair);
+    if(newTask == null) {
+      return;
+    }
+
+    task["baseWord"] = newTask["baseWord"];
+    task["redWord"] = newTask["redWord"];
+    task["answer"] = newTask["answer"];
+    task["sentence"] = newTask["sentence"];
+    notifyListeners();
   }
 
   void updateDictionary(newDict) {

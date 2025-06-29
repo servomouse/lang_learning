@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
     List<DropdownMenuEntry> availablePairs = [];
     for (var pair in appState.langPairs) {
       availablePairs.add(
-        DropdownMenuEntry(value: pair, label: pair),
+        DropdownMenuEntry(value: pair, label: pair, trailingIcon: pair == appState.selectedPair ? const Icon(Icons.check) : null,),
       );
     }
 
@@ -75,6 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             child: Center(
               child: DropdownMenu(
+                initialSelection: appState.selectedPair,
+                // selectedTrailingIcon: Icons.arrow_drop_up,
                 // label: const Text("Select language pair"),
                 hintText: "Select language pair",
                 requestFocusOnTap: false, // Do not open keyboard
@@ -186,7 +188,11 @@ class BigCard extends StatelessWidget {
       color: theme.colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: appState.selectedPair == "Select a pair"? Text("Select a language pair"): Column(
+        child: appState.filename == "No file selected"?
+          Text("Open a file (the menu on the top right)"):
+            appState.selectedPair == "Select a pair"?
+          Text("Select a language pair (the menu on the top center)"):
+          Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
