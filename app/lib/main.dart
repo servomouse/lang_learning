@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var appState = context.watch<MyAppState>();
 
     List<DropdownMenuEntry> availablePairs = [];
-    for (var pair in appState.pairs) {
+    for (var pair in appState.langPairs) {
       availablePairs.add(
         DropdownMenuEntry(value: pair, label: pair),
       );
