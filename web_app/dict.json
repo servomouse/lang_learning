@@ -1,0 +1,92 @@
+{
+    "en": {
+        "words": {
+            "breakfast": {
+                "conjugations": [],
+                "forms": [],
+                "examples": [
+                    {
+                        "example": {"sentence": "She enjoyed a big breakfast before heading out to work", "word": "breakfast"},
+                        "translations": {
+                            "ru": "завтрак",
+                            "sp": "el desayuno"
+                        }
+                    }
+                ]
+            },
+            "dinner": {
+                "conjugations": [],
+                "forms": [],
+                "examples": [
+                    {
+                        "example": {"sentence": "We are having dinner with friends tonight", "word": "dinner"},
+                        "translations": {
+                            "ru": "ужин",
+                            "sp": "la cena"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "sp": {
+        "words": {
+            "desayuno": {
+                "conjugations": [],
+                "forms": [],
+                "examples": [
+                    {
+                        "example": {"sentence": "El desayuno es la comida más importante del día", "word": "desayuno"},
+                        "translations": {
+                            "en": "breakfast",
+                            "ru": "завтрак"
+                        }
+                    }
+                ]
+            },
+            "cena": {
+                "conjugations": [],
+                "forms": [],
+                "examples": [
+                    {
+                        "example": {"sentence": "La cena estuvo deliciosa anoche", "word": "cena"},
+                        "translations": {
+                            "en": "dinner",
+                            "ru": "ужин"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "ru": {
+        "words": {
+            "завтрак": {
+                "conjugations": [],
+                "forms": [],
+                "examples": [
+                    {
+                        "example": {"sentence": "Он всегда пьёт кофе на завтрак", "word": "завтрак"},
+                        "translations": {
+                            "en": "breakfast",
+                            "sp": "desayuno"
+                        }
+                    }
+                ]
+            },
+            "ужин": {
+                "conjugations": [],
+                "forms": [],
+                "examples": [
+                    {
+                        "example": {"sentence": "Мы приготовили вкусный ужин", "word": "ужин"},
+                        "translations": {
+                            "en": "dinner",
+                            "sp": "cena"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Flashcards</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        
+        .language-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .language-option {
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #4a6fa5;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .language-option:hover {
+            background-color: #e0e9f5;
+        }
+        
+        .language-option.active {
+            background-color: #f8d56f;
+            color: #333;
+        }
+        
+        .flashcard-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sentence {
+            font-size: 24px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .highlighted {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .direction-indicator {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .input-container {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+        }
+        
+        #answer-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        #answer-input:focus {
+            outline: none;
+            border-color: #4a6fa5;
+        }
+        
+        #submit-btn {
+            padding: 12px 25px;
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #submit-btn:hover {
+            background-color: #3a5a8a;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a6fa5;
+        }
+        
+        .stat-label {
+            color: #666;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear forwards;
+        }
+        
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .next-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .next-btn:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Language Learning Flashcards</h1>
+            <div class="language-selector" id="language-selector">
+                <!-- Language options will be dynamically added here -->
+            </div>
+        </header>
+        
+        <main>
+            <div class="flashcard-container">
+                <div class="direction-indicator" id="direction-indicator">
+                    Select a language pair to start
+                </div>
+                <div class="sentence" id="sentence">
+                    <!-- Sentence will be displayed here -->
+                </div>
+                <div class="input-container">
+                    <input type="text" id="answer-input" placeholder="Type your answer..." disabled>
+                    <button id="submit-btn" disabled>Submit</button>
+                </div>
+                <div class="feedback" id="feedback"></div>
+                <button class="next-btn" id="next-btn">Next Card</button>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="correct-count">0</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="incorrect-count">0</div>
+                    <div class="stat-label">Incorrect</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="streak-count">0</div>
+                    <div class="stat-label">Streak</div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
