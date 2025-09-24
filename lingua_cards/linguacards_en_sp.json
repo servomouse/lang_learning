@@ -1,0 +1,223 @@
+{
+    "en": {
+        "words": {
+            "breakfast": {
+                "conjugations": [],
+                "forms": [],
+                "definitions": [
+                    {
+                        "definition": "A meal eaten in the morning as the first meal of the day",
+                        "example": {
+                            "sentence": "She enjoyed a big breakfast before heading out to work",
+                            "word": "breakfast"
+                        },
+                        "translations": {
+                            "ru": {
+                                "value": "завтрак",
+                                "counter": 0
+                            },
+                            "sp": {
+                                "value": "el desayuno",
+                                "counter": 0
+                            }
+                        }
+                    }
+                ]
+            },
+            "book": {
+                "conjugations": [],
+                "forms": [],
+                "definitions": [
+                    {
+                        "definition": "A written or printed work consisting of pages glued or sewn together along one side",
+                        "example": {
+                            "sentence": "I read an interesting book last weekend",
+                            "word": "book"
+                        },
+                        "translations": {
+                            "ru": {
+                                "value": "книга",
+                                "counter": 0
+                            },
+                            "sp": {
+                                "value": "el libro",
+                                "counter": 1
+                            }
+                        }
+                    }
+                ]
+            },
+            "water": {
+                "conjugations": [],
+                "forms": [],
+                "definitions": [
+                    {
+                        "definition": "A colorless, transparent, odorless liquid that forms the seas, lakes, rivers, and rain",
+                        "example": {
+                            "sentence": "She drank a glass of water after her workout",
+                            "word": "water"
+                        },
+                        "translations": {
+                            "ru": {
+                                "value": "вода",
+                                "counter": 0
+                            },
+                            "sp": {
+                                "value": "el agua",
+                                "counter": 1
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "ru": {
+        "words": {
+            "завтрак": {
+                "conjugations": [],
+                "forms": [],
+                "definitions": [
+                    {
+                        "definition": "Первый дневной приём пищи, который обычно употребляют утром, от рассвета до полудня",
+                        "example": {
+                            "sentence": "Она наслаждалась большим завтраком перед тем, как отправиться на работу",
+                            "word": "завтраком"
+                        },
+                        "translations": {
+                            "en": {
+                                "value": "breakfast",
+                                "counter": 0
+                            },
+                            "sp": {
+                                "value": "el desayuno",
+                                "counter": 0
+                            }
+                        }
+                    }
+                ]
+            },
+            "книга": {
+                "conjugations": [],
+                "forms": [],
+                "definitions": [
+                    {
+                        "definition": "Произведение печати в виде переплетенных листов с текстом",
+                        "example": {
+                            "sentence": "Он прочитал интересную книгу за выходные",
+                            "word": "книгу"
+                        },
+                        "translations": {
+                            "en": {
+                                "value": "book",
+                                "counter": 0
+                            },
+                            "sp": {
+                                "value": "el libro",
+                                "counter": 0
+                            }
+                        }
+                    }
+                ]
+            },
+            "вода": {
+                "conjugations": [],
+                "forms": [],
+                "definitions": [
+                    {
+                        "definition": "Прозрачная бесцветная жидкость, являющаяся основным компонентом гидросферы Земли",
+                        "example": {
+                            "sentence": "Она выпила стакан воды после тренировки",
+                            "word": "воды"
+                        },
+                        "translations": {
+                            "en": {
+                                "value": "water",
+                                "counter": 0
+                            },
+                            "sp": {
+                                "value": "el agua",
+                                "counter": 0
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "phrases": []
+    },
+    "sp": {
+        "words": {
+            "el desayuno": {
+                "conjugations": [],
+                "forms": [],
+                "definitions": [
+                    {
+                        "definition": "Primera comida del día, generalmente ligera, que se toma por la mañana",
+                        "example": {
+                            "sentence": "Ella disfrutó de un gran desayuno antes de salir a trabajar",
+                            "word": "desayuno"
+                        },
+                        "translations": {
+                            "ru": {
+                                "value": "завтрак",
+                                "counter": 0
+                            },
+                            "en": {
+                                "value": "breakfast",
+                                "counter": 0
+                            }
+                        }
+                    }
+                ]
+            },
+            "el libro": {
+                "conjugations": [],
+                "forms": [],
+                "definitions": [
+                    {
+                        "definition": "Obra impresa, manuscrita o pintada en una serie de hojas de papel, pergamino, vitela u otro material",
+                        "example": {
+                            "sentence": "Leí un libro interesante el fin de semana",
+                            "word": "libro"
+                        },
+                        "translations": {
+                            "ru": {
+                                "value": "книга",
+                                "counter": 0
+                            },
+                            "en": {
+                                "value": "book",
+                                "counter": 0
+                            }
+                        }
+                    }
+                ]
+            },
+            "el agua": {
+                "conjugations": [],
+                "forms": [],
+                "definitions": [
+                    {
+                        "definition": "Sustancia líquida, transparente e inodora que constituye la lluvia, los ríos, los mares, etc.",
+                        "example": {
+                            "sentence": "Ella bebió un vaso de agua después de su entrenamiento",
+                            "word": "agua"
+                        },
+                        "translations": {
+                            "ru": {
+                                "value": "вода",
+                                "counter": 0
+                            },
+                            "en": {
+                                "value": "water",
+                                "counter": 2
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "phrases": []
+    }
+}
