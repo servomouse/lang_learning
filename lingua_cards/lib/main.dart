@@ -1,698 +1,216 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:math';
-import 'dart:convert';
-import 'package:file_picker/file_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_flip_card/flutter_flip_card.dart';
 
-void main() {
-  runApp(const LanguageLearningApp());
+class FlippingCardExample extends StatefulWidget {
+  const FlippingCardExample({Key? key}) : super(key: key);
+
+  @override
+  State<FlippingCardExample> createState() => _FlippingCardExampleState();
 }
 
-class LanguageLearningApp extends StatelessWidget {
-  const LanguageLearningApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'LinguaCards',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        fontFamily: 'Segoe UI',
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: const AppBarTheme(
-          elevation: 2,
-          color: Colors.white,
-          iconTheme: IconThemeData(color: Colors.indigo),
-          titleTextStyle: TextStyle(
-            color: Colors.indigo,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.indigo,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.indigo, width: 2),
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        ),
-      ),
-      home: const CardLearningScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class CardLearningScreen extends StatefulWidget {
-  const CardLearningScreen({super.key});
-
-  @override
-  State<CardLearningScreen> createState() => _CardLearningScreenState();
-}
-
-class _CardLearningScreenState extends State<CardLearningScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _animation;
-  bool _isFlipped = false;
-  bool _isProcessing = false;
-
-  // Default dictionary
-  Map<String, dynamic> dictionary = {
-    "en": {
-      "words": {
-        "breakfast": {
-          "conjugations": [],
-          "forms": [],
-          "definitions": [
-            {
-              "definition": "A meal eaten in the morning as the first meal of the day",
-              "example": {
-                "sentence": "She enjoyed a big breakfast before heading out to work",
-                "word": "breakfast"
-              },
-              "translations": {
-                "ru": {"value": "завтрак", "counter": 0},
-                "sp": {"value": "el desayuno", "counter": 0}
-              }
-            }
-          ]
-        },
-        "book": {
-          "conjugations": [],
-          "forms": [],
-          "definitions": [
-            {
-              "definition": "A written or printed work consisting of pages glued or sewn together along one side",
-              "example": {
-                "sentence": "I read an interesting book last weekend",
-                "word": "book"
-              },
-              "translations": {
-                "ru": {"value": "книга", "counter": 0},
-                "sp": {"value": "el libro", "counter": 0}
-              }
-            }
-          ]
-        },
-        "water": {
-          "conjugations": [],
-          "forms": [],
-          "definitions": [
-            {
-              "definition": "A colorless, transparent, odorless liquid that forms the seas, lakes, rivers, and rain",
-              "example": {
-                "sentence": "She drank a glass of water after her workout",
-                "word": "water"
-              },
-              "translations": {
-                "ru": {"value": "вода", "counter": 0},
-                "sp": {"value": "el agua", "counter": 0}
-              }
-            }
-          ]
-        }
-      }
-    },
-    "ru": {
-      "words": {
-        "завтрак": {
-          "conjugations": [],
-          "forms": [],
-          "definitions": [
-            {
-              "definition": "Первый дневной приём пищи, который обычно употребляют утром, от рассвета до полудня",
-              "example": {
-                "sentence": "Она наслаждалась большим завтраком перед тем, как отправиться на работу",
-                "word": "завтраком"
-              },
-              "translations": {
-                "en": {"value": "breakfast", "counter": 0},
-                "sp": {"value": "el desayuno", "counter": 0}
-              }
-            }
-          ]
-        },
-        "книга": {
-          "conjugations": [],
-          "forms": [],
-          "definitions": [
-            {
-              "definition": "Произведение печати в виде переплетенных листов с текстом",
-              "example": {
-                "sentence": "Он прочитал интересную книгу за выходные",
-                "word": "книгу"
-              },
-              "translations": {
-                "en": {"value": "book", "counter": 0},
-                "sp": {"value": "el libro", "counter": 0}
-              }
-            }
-          ]
-        },
-        "вода": {
-          "conjugations": [],
-          "forms": [],
-          "definitions": [
-            {
-              "definition": "Прозрачная бесцветная жидкость, являющаяся основным компонентом гидросферы Земли",
-              "example": {
-                "sentence": "Она выпила стакан воды после тренировки",
-                "word": "воды"
-              },
-              "translations": {
-                "en": {"value": "water", "counter": 0},
-                "sp": {"value": "el agua", "counter": 0}
-              }
-            }
-          ]
-        }
-      },
-      "phrases": []
-    },
-    "sp": {
-      "words": {
-        "el desayuno": {
-          "conjugations": [],
-          "forms": [],
-          "definitions": [
-            {
-              "definition": "Primera comida del día, generalmente ligera, que se toma por la mañana",
-              "example": {
-                "sentence": "Ella disfrutó de un gran desayuno antes de salir a trabajar",
-                "word": "desayuno"
-              },
-              "translations": {
-                "ru": {"value": "завтрак", "counter": 0},
-                "en": {"value": "breakfast", "counter": 0}
-              }
-            }
-          ]
-        },
-        "el libro": {
-          "conjugations": [],
-          "forms": [],
-          "definitions": [
-            {
-              "definition": "Obra impresa, manuscrita o pintada en una serie de hojas de papel, pergamino, vitela u otro material",
-              "example": {
-                "sentence": "Leí un libro interesante el fin de semana",
-                "word": "libro"
-              },
-              "translations": {
-                "ru": {"value": "книга", "counter": 0},
-                "en": {"value": "book", "counter": 0}
-              }
-            }
-          ]
-        },
-        "el agua": {
-          "conjugations": [],
-          "forms": [],
-          "definitions": [
-            {
-              "definition": "Sustancia líquida, transparente e inodora que constituye la lluvia, los ríos, los mares, etc.",
-              "example": {
-                "sentence": "Ella bebió un vaso de agua después de su entrenamiento",
-                "word": "agua"
-              },
-              "translations": {
-                "ru": {"value": "вода", "counter": 0},
-                "en": {"value": "water", "counter": 0}
-              }
-            }
-          ]
-        }
-      },
-      "phrases": []
-    }
-  };
-
-  // Language pairs
-  final List<Map<String, String>> languagePairs = [
-    {"code": "en-sp", "name": "EN-SP"},
-    {"code": "sp-en", "name": "SP-EN"},
-    {"code": "en-ru", "name": "EN-RU"},
-    {"code": "ru-en", "name": "RU-EN"},
-    {"code": "sp-ru", "name": "SP-RU"},
-    {"code": "ru-sp", "name": "RU-SP"},
-  ];
-
-  // Stats
-  Map<String, int> stats = {"correct": 0, "incorrect": 0, "total": 0};
-
-  // Current word and language pair
-  String currentLanguagePair = "en-sp";
-  Map<String, dynamic>? currentWord;
-  TextEditingController answerController = TextEditingController();
-  
-  // Current file path for saving
-  String? currentFilePath;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 600),
-    );
-    _animation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
-    getRandomWord();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    answerController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _saveDictionaryToFile() async {
-    if (currentFilePath == null) {
-      // If no file path is set, ask user to select a save location
-      await _selectSaveLocation();
-      if (currentFilePath == null) {
-        // User canceled or no location selected
-        return;
-      }
-    }
-    
-    try {
-      final file = File(currentFilePath!);
-
-      // Use JsonEncoder with indentation for pretty printing
-      final encoder = JsonEncoder.withIndent('    ');
-      final prettyJson = encoder.convert(dictionary);
-      await file.writeAsString(prettyJson);
-
-      // await file.writeAsString(jsonEncode(dictionary));
-      print('Dictionary saved to: $currentFilePath');
-    } catch (e) {
-      print('Error saving dictionary: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error saving dictionary: $e')),
-      );
-    }
-  }
-
-  Future<void> _selectSaveLocation() async {
-    try {
-      String? directoryPath = await FilePicker.platform.getDirectoryPath(
-        dialogTitle: 'Select a location to save the dictionary',
-      );
-      
-      if (directoryPath != null) {
-        // Create a filename based on the current language pair
-        final fileName = 'linguacards_${currentLanguagePair.replaceAll('-', '_')}.json';
-        currentFilePath = '$directoryPath/$fileName';
-        
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Dictionary will be saved to: $currentFilePath')),
-        );
-      }
-    } catch (e) {
-      print('Error selecting save location: $e');
-    }
-  }
-
-  Future<void> _loadDictionaryFromFile() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['json'],
-      );
-      
-      if (result != null) {
-        final file = File(result.files.single.path!);
-        final contents = await file.readAsString();
-        setState(() {
-          dictionary = jsonDecode(contents);
-          // Store the file path for future saves
-          currentFilePath = result.files.single.path;
-        });
-        getRandomWord();
-        
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Dictionary loaded from: $currentFilePath')),
-        );
-      }
-    } catch (e) {
-      print('Error loading dictionary: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error loading dictionary: $e')),
-      );
-    }
-  }
-
-  void getRandomWord() {
-    final List<String> parts = currentLanguagePair.split('-');
-    final String sourceLang = parts[0];
-    final String targetLang = parts[1];
-    
-    final List<String> words = dictionary[sourceLang]["words"].keys.toList();
-    final String selectedWord = words[DateTime.now().millisecond % words.length];
-    
-    setState(() {
-      currentWord = {
-        "sourceLang": sourceLang,
-        "targetLang": targetLang,
-        "word": selectedWord,
-        "data": dictionary[sourceLang]["words"][selectedWord]
-      };
-      answerController.clear();
-      _isFlipped = false;
-      _isProcessing = false;
-    });
-  }
-
-  void checkAnswer() {
-    if (currentWord == null || _isProcessing) return;
-    
-    final String userAnswer = answerController.text.trim().toLowerCase();
-    if (userAnswer.isEmpty) return;
-    
-    _isProcessing = true;
-    
-    final String targetLang = currentWord!["targetLang"];
-    final Map<String, dynamic> data = currentWord!["data"];
-    final String correctAnswer = data["definitions"][0]["translations"][targetLang]["value"].toLowerCase();
-    
-    setState(() {
-      stats["total"] = (stats["total"] ?? 0) + 1;
-      
-      if (userAnswer == correctAnswer) {
-        stats["correct"] = (stats["correct"] ?? 0) + 1;
-        // Increment the counter for the correct answer
-        data["definitions"][0]["translations"][targetLang]["counter"]++;
-      } else {
-        stats["incorrect"] = (stats["incorrect"] ?? 0) + 1;
-        // Decrement the counter for the incorrect answer
-        data["definitions"][0]["translations"][targetLang]["counter"]--;
-      }
-      
-      // Flip the card
-      _isFlipped = true;
-      _animationController.forward();
-    });
-    
-    // Save dictionary after updating counters
-    _saveDictionaryToFile();
-    
-    // Switch language direction and get a new word after a delay
-    Future.delayed(const Duration(milliseconds: 2500), () {
-      switchLanguageDirection();
-      _animationController.reverse().then((_) {
-        getRandomWord();
-      });
-    });
-  }
-
-  void switchLanguageDirection() {
-    final List<String> parts = currentLanguagePair.split('-');
-    currentLanguagePair = "${parts[1]}-${parts[0]}";
-  }
-
-  void onLanguagePairChanged(String? newValue) {
-    if (newValue != null) {
-      setState(() {
-        currentLanguagePair = newValue;
-        getRandomWord();
-      });
-    }
-  }
+class _FlippingCardExampleState extends State<FlippingCardExample> {
+  final FlipCardController _controller = FlipCardController();
+  String? _selectedMode;
+  String? _selectedLanguage;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('LinguaCards'),
-        centerTitle: true,
+        title: const Text('Lingua Cards'),
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: DropdownButton<String>(
-              value: currentLanguagePair,
-              underline: Container(),
-              icon: const Icon(Icons.language, color: Colors.indigo),
-              items: languagePairs.map((pair) {
-                return DropdownMenuItem<String>(
-                  value: pair["code"],
-                  child: Text(pair["name"]!),
-                );
-              }).toList(),
-              onChanged: onLanguagePairChanged,
-            ),
+          DropdownMenu<String>(
+            initialSelection: 'Conjugations', // Optional: Set an initial selected value
+            onSelected: (String? value) {
+              setState(() {
+                _selectedMode = value;
+                print('Selected mode: $_selectedMode');
+              });
+            },
+            dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+              DropdownMenuEntry<String>(value: 'Conjugations', label: 'Conjugations'),
+              DropdownMenuEntry<String>(value: 'Words', label: 'Words'),
+              DropdownMenuEntry<String>(value: 'Sentences', label: 'Sentences'),
+            ],
           ),
-          IconButton(
-            icon: const Icon(Icons.folder_open),
-            onPressed: _loadDictionaryFromFile,
-            tooltip: 'Open Dictionary File',
+          SizedBox(
+            width: 50,
           ),
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: _selectSaveLocation,
-            tooltip: 'Select Save Location',
+          DropdownMenu<String>(
+            initialSelection: 'EN-SP', // Optional: Set an initial selected value
+            onSelected: (String? value) {
+              setState(() {
+                _selectedLanguage = value;
+                print('Selected language: $_selectedLanguage');
+              });
+            },
+            dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+              DropdownMenuEntry<String>(value: 'EN-SP', label: 'EN-SP'),
+              DropdownMenuEntry<String>(value: 'EN-RU', label: 'EN-RU'),
+              DropdownMenuEntry<String>(value: 'SP-RU', label: 'SP-RU'),
+            ],
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: AnimatedBuilder(
-                animation: _animation,
-                builder: (context, child) {
-                  final isShowingFront = !_isFlipped;
-                  final angle = _animation.value * 3.14159;
-                  final transform = Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..rotateY(angle);
-                  
-                  return Transform(
-                    transform: transform,
+      body: Center(
+        child: FlipCard(
+          controller: _controller,
+          axis: FlipAxis.vertical, // or FlipAxis.vertical
+          onTapFlipping: true, // Flip on tap
+          rotateSide: RotateSide.left,
+          frontWidget: Padding(
+                padding: const EdgeInsets.all(16.0), // Apply padding to the front content
+                child: Card(
+                  color: Colors.blue,
+                  child: Container(
+                    // width: 200,
+                    height: 300,
                     alignment: Alignment.center,
-                    child: isShowingFront
-                        ? _buildCardContainer(_buildFrontCard())
-                        : Transform(
-                            transform: Matrix4.identity()..rotateY(3.14159),
-                            alignment: Alignment.center,
-                            child: _buildCardContainer(_buildBackCard()),
-                          ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCardContainer(Widget child) {
-    return IntrinsicHeight(
-      child: Card(
-        elevation: 8,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: child,
-      ),
-    );
-  }
-
-  Widget _buildFrontCard() {
-    if (currentWord == null) {
-      return const Padding(
-        padding: EdgeInsets.all(24.0),
-        child: Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    final Map<String, dynamic> data = currentWord!["data"];
-    final Map<String, dynamic> definition = data["definitions"][0];
-    final String sentence = definition["example"]["sentence"];
-    final String highlightedWord = definition["example"]["word"];
-    final String wordDefinition = definition["definition"];
-
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _buildHighlightedSentence(sentence, highlightedWord, wordDefinition),
-          const SizedBox(height: 24),
-          TextField(
-            controller: answerController,
-            decoration: const InputDecoration(
-              hintText: 'Type your answer here...',
-            ),
-            onSubmitted: (_) => checkAnswer(),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed: getRandomWord,
-                child: const Text('Skip this word'),
-              ),
-              ElevatedButton(
-                onPressed: checkAnswer,
-                child: const Text('Submit'),
-              ),
-            ]
-          ),
-          const SizedBox(height: 16),
-          const Divider(),
-          _buildStats(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHighlightedSentence(String sentence, String highlightedWord, String wordDefinition) {
-    // Split the sentence into parts
-    final List<String> parts = sentence.split(RegExp(r'\b(' + highlightedWord + r')\b'));
-    
-    return RichText(
-      text: TextSpan(
-        style: const TextStyle(
-          fontSize: 18,
-          color: Colors.black87,
-          height: 1.5,
-        ),
-        children: <InlineSpan>[
-          for (int i = 0; i < parts.length; i++)
-            if (i % 2 == 0)
-              TextSpan(text: parts[i])
-            else
-              WidgetSpan(
-                child: Tooltip(
-                  message: wordDefinition,
-                  child: Text(
-                    highlightedWord,
-                    style: const TextStyle(
-                      color: Colors.indigo,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                      decorationStyle: TextDecorationStyle.dotted,
-                      decorationThickness: 1.5,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'I ',
+                              style: TextStyle(fontSize: 24),
+                            ),
+                            SizedBox(
+                              width: 100,
+                              child: TextField(
+                                // controller: _controller,
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: '(to be)',
+                                ),
+                              ),
+                            ),
+                            Text(
+                              ' eating an apple.',
+                              style: TextStyle(fontSize: 24),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {_controller.flipcard();},
+                          child: Text('Submit'),
+                        ),
+                      ],
                     ),
                   ),
+            ),
+          ),
+          backWidget: Card(
+            color: Colors.red,
+            child: Padding(
+                padding: const EdgeInsets.all(16.0), // Apply padding to the front content
+                child: getBackSideContent(true),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _controller.flipcard(); // Programmatically flip the card
+        },
+        child: const Icon(Icons.flip),
+      ),
+    );
+  }
+}
+
+Container getFrontSideContent(String mode, FlipCardController controller) {
+  return Container(
+    // width: 200,
+    height: 300,
+    alignment: Alignment.center,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'I ',
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(
+              width: 100,
+              child: TextField(
+                // controller: _controller,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: '(to be)',
                 ),
               ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBackCard() {
-    if (currentWord == null) {
-      return const Padding(
-        padding: EdgeInsets.all(24.0),
-        child: Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    final Map<String, dynamic> data = currentWord!["data"];
-    final Map<String, dynamic> definition = data["definitions"][0];
-    final String targetLang = currentWord!["targetLang"];
-    final String correctAnswer = definition["translations"][targetLang]["value"];
-    final bool isCorrect = (stats["correct"] ?? 0) > (stats["incorrect"] ?? 0);
-
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            isCorrect ? 'Correct!' : 'Incorrect',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: isCorrect ? Colors.green[700] : Colors.red[700],
             ),
-          ),
-          const SizedBox(height: 24),
-          Text(
-            'The correct answer is:',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey[700],
+            Text(
+              ' eating an apple.',
+              style: TextStyle(fontSize: 24),
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            correctAnswer,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 16),
-          const Divider(),
-          _buildStats(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStats() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildStatItem('Correct', stats["correct"] ?? 0, Colors.green),
-          _buildStatItem('Incorrect', stats["incorrect"] ?? 0, Colors.red),
-          _buildStatItem('Total', stats["total"] ?? 0, Colors.indigo),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatItem(String label, int value, Color color) {
-    return Column(
-      children: [
-        Text(
-          value.toString(),
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
+          ],
         ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-          ),
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {controller.flipcard();},
+          child: Text('Submit'),
         ),
       ],
+    ),
+  );
+}
+
+Container getBackSideContent(bool isCorrect, [String? additionalText]) {
+  if(isCorrect) {
+    return Container(
+      // width: 200,
+      height: 300,
+      alignment: Alignment.center,
+      child: const Text(
+        'Correct!',
+        style: TextStyle(color: Colors.white, fontSize: 24),
+      ),
+    );
+  }
+  return Container(
+    // width: 200,
+    height: 300,
+    alignment: Alignment.center,
+    child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Wrong!',
+            style: TextStyle(color: Colors.white, fontSize: 24),
+          ),
+          Text(
+            '$additionalText',
+            style: TextStyle(color: Colors.white, fontSize: 24),
+          ),
+      ]
+    )
+  );
+}
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flipping Card App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const FlippingCardExample(),
     );
   }
 }
