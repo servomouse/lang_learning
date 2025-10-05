@@ -12,6 +12,111 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
   final FlipCardController _controller = FlipCardController();
   String? _selectedMode;
   String? _selectedLanguage;
+  String? expectedAnswer;
+
+  Row getQuestion() {
+    if (_selectedMode == "Conjugations") {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'I ',
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(
+            width: 100,
+            child: TextField(
+              // controller: _controller,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: '(to be)',
+              ),
+            ),
+          ),
+          Text(
+            ' eating an apple.',
+            style: TextStyle(fontSize: 24),
+          ),
+        ],
+      );
+    } else if (_selectedMode == "Words") {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'I ',
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(
+            width: 100,
+            child: TextField(
+              // controller: _controller,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: '(to be)',
+              ),
+            ),
+          ),
+          Text(
+            ' eating an apple.',
+            style: TextStyle(fontSize: 24),
+          ),
+        ],
+      );
+    } else if (_selectedMode == "Sentences") {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'I ',
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(
+            width: 100,
+            child: TextField(
+              // controller: _controller,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: '(to be)',
+              ),
+            ),
+          ),
+          Text(
+            ' eating an apple.',
+            style: TextStyle(fontSize: 24),
+          ),
+        ],
+      );
+    } else {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'I ',
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(
+            width: 100,
+            child: TextField(
+              // controller: _controller,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: '(to be)',
+              ),
+            ),
+          ),
+          Text(
+            ' eating an apple.',
+            style: TextStyle(fontSize: 24),
+          ),
+        ],
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +155,9 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
               DropdownMenuEntry<String>(value: 'SP-RU', label: 'SP-RU'),
             ],
           ),
+          SizedBox(
+            width: 50,
+          ),
         ],
       ),
       body: Center(
@@ -69,30 +177,7 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'I ',
-                              style: TextStyle(fontSize: 24),
-                            ),
-                            SizedBox(
-                              width: 100,
-                              child: TextField(
-                                // controller: _controller,
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: '(to be)',
-                                ),
-                              ),
-                            ),
-                            Text(
-                              ' eating an apple.',
-                              style: TextStyle(fontSize: 24),
-                            ),
-                          ],
-                        ),
+                        getQuestion(),
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {_controller.flipcard();},
