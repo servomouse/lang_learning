@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 
+import 'sentences.dart';
+
 class FlippingCardExample extends StatefulWidget {
   const FlippingCardExample({Key? key}) : super(key: key);
 
@@ -66,30 +68,7 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
         ],
       );
     } else if (_selectedMode == "Sentences") {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'I ',
-            style: TextStyle(fontSize: 24),
-          ),
-          SizedBox(
-            width: 100,
-            child: TextField(
-              // controller: _controller,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: '(to be)',
-              ),
-            ),
-          ),
-          Text(
-            ' eating an apple.',
-            style: TextStyle(fontSize: 24),
-          ),
-        ],
-      );
+      return sentencesGetTask();
     } else {
       return Row(
         mainAxisSize: MainAxisSize.min,
@@ -118,47 +97,51 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
     }
   }
 
+  List<Widget> getAppBar() {
+    return [
+      DropdownMenu<String>(
+        initialSelection: 'Conjugations', // Optional: Set an initial selected value
+        onSelected: (String? value) {
+          setState(() {
+            _selectedMode = value;
+            print('Selected mode: $_selectedMode');
+          });
+        },
+        dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+          DropdownMenuEntry<String>(value: 'Conjugations', label: 'Conjugations'),
+          DropdownMenuEntry<String>(value: 'Words', label: 'Words'),
+          DropdownMenuEntry<String>(value: 'Sentences', label: 'Sentences'),
+        ],
+      ),
+      SizedBox(
+        width: 50,
+      ),
+      DropdownMenu<String>(
+        initialSelection: 'EN-SP', // Optional: Set an initial selected value
+        onSelected: (String? value) {
+          setState(() {
+            _selectedLanguage = value;
+            print('Selected language: $_selectedLanguage');
+          });
+        },
+        dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+          DropdownMenuEntry<String>(value: 'EN-SP', label: 'EN-SP'),
+          DropdownMenuEntry<String>(value: 'EN-RU', label: 'EN-RU'),
+          DropdownMenuEntry<String>(value: 'SP-RU', label: 'SP-RU'),
+        ],
+      ),
+      SizedBox(
+        width: 50,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lingua Cards'),
-        actions: [
-          DropdownMenu<String>(
-            initialSelection: 'Conjugations', // Optional: Set an initial selected value
-            onSelected: (String? value) {
-              setState(() {
-                _selectedMode = value;
-                print('Selected mode: $_selectedMode');
-              });
-            },
-            dropdownMenuEntries: const <DropdownMenuEntry<String>>[
-              DropdownMenuEntry<String>(value: 'Conjugations', label: 'Conjugations'),
-              DropdownMenuEntry<String>(value: 'Words', label: 'Words'),
-              DropdownMenuEntry<String>(value: 'Sentences', label: 'Sentences'),
-            ],
-          ),
-          SizedBox(
-            width: 50,
-          ),
-          DropdownMenu<String>(
-            initialSelection: 'EN-SP', // Optional: Set an initial selected value
-            onSelected: (String? value) {
-              setState(() {
-                _selectedLanguage = value;
-                print('Selected language: $_selectedLanguage');
-              });
-            },
-            dropdownMenuEntries: const <DropdownMenuEntry<String>>[
-              DropdownMenuEntry<String>(value: 'EN-SP', label: 'EN-SP'),
-              DropdownMenuEntry<String>(value: 'EN-RU', label: 'EN-RU'),
-              DropdownMenuEntry<String>(value: 'SP-RU', label: 'SP-RU'),
-            ],
-          ),
-          SizedBox(
-            width: 50,
-          ),
-        ],
+        actions: getAppBar(),
       ),
       body: Center(
         child: FlipCard(
