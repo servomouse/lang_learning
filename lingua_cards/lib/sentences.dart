@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-String _sentencesSelectedLanguage = 'EN-SP';
+String _selectedLanguage = 'EN-SP';
 
-List<String> _sentencesLangPairs = ['EN-SP', 'EN-RU', 'SP-RU'];
+List<String> _langPairs = ['EN-SP', 'EN-RU', 'SP-RU'];
 
-int _sentencesDirection = 0;
+int _direction = 0;
 
-Map<String, dynamic> _sentencesDictionary = {
+Map<String, dynamic> _dictionary = {
   "en": {
     "words": {
       "breakfast": {
@@ -37,8 +37,8 @@ Map<String, dynamic> _sentencesDictionary = {
 };
 
 List<String> _getCurrentLang() {
-  List<String> temp = _sentencesSelectedLanguage.toLowerCase().split('-');
-  if (_sentencesDirection == 0) {
+  List<String> temp = _selectedLanguage.toLowerCase().split('-');
+  if (_direction == 0) {
     return [temp[0], temp[1]];
   }
   return [temp[1], temp[0]];
@@ -72,13 +72,13 @@ Row sentencesGetTask() {
 }
 
 List<String> sentencesGetLangs() {
-  return _sentencesLangPairs;
+  return _langPairs;
 }
 
 void sentencesSetLang(String lang) {
-  _sentencesSelectedLanguage = lang;
+  _selectedLanguage = lang;
 }
 
 String sentencesGetLang() {
-  return _sentencesSelectedLanguage;
+  return _selectedLanguage;
 }

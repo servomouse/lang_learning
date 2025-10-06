@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 
 import 'sentences.dart';
+import 'words.dart';
 
 class FlippingCardExample extends StatefulWidget {
   const FlippingCardExample({Key? key}) : super(key: key);
@@ -43,30 +44,7 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
         ],
       );
     } else if (_selectedMode == "Words") {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'I ',
-            style: TextStyle(fontSize: 24),
-          ),
-          SizedBox(
-            width: 100,
-            child: TextField(
-              // controller: _controller,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: '(to be)',
-              ),
-            ),
-          ),
-          Text(
-            ' eating an apple.',
-            style: TextStyle(fontSize: 24),
-          ),
-        ],
-      );
+      return wordsGetTask();
     } else if (_selectedMode == "Sentences") {
       return sentencesGetTask();
     } else {
