@@ -3,6 +3,7 @@ import 'package:flutter_flip_card/flutter_flip_card.dart';
 
 import 'sentences.dart';
 import 'words.dart';
+import 'conjugations.dart';
 
 class FlippingCardExample extends StatefulWidget {
   const FlippingCardExample({Key? key}) : super(key: key);
@@ -13,36 +14,47 @@ class FlippingCardExample extends StatefulWidget {
 
 class _FlippingCardExampleState extends State<FlippingCardExample> {
   final FlipCardController _controller = FlipCardController();
-  String? _selectedMode;
+  String? _selectedMode = 'Conjugations';
   String? _selectedLanguage;
   String? expectedAnswer;
 
+  DropdownMenu<String> getModes() {
+    return DropdownMenu<String>(
+      initialSelection: _selectedMode,
+      onSelected: (String? value) {
+        setState(() {
+          _selectedMode = value;
+          print('Selected mode: $_selectedMode');
+        });
+      },
+      dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+        DropdownMenuEntry<String>(value: 'Conjugations', label: 'Conjugations'),
+        DropdownMenuEntry<String>(value: 'Words', label: 'Words'),
+        DropdownMenuEntry<String>(value: 'Sentences', label: 'Sentences'),
+      ],
+    );
+  }
+
+  DropdownMenu<String> getLangs() {
+    return DropdownMenu<String>(
+      initialSelection: 'EN-SP',
+      onSelected: (String? value) {
+        setState(() {
+          _selectedLanguage = value;
+          print('Selected language: $_selectedLanguage');
+        });
+      },
+      dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+        DropdownMenuEntry<String>(value: 'EN-SP', label: 'EN-SP'),
+        DropdownMenuEntry<String>(value: 'EN-RU', label: 'EN-RU'),
+        DropdownMenuEntry<String>(value: 'SP-RU', label: 'SP-RU'),
+      ],
+    );
+  }
+
   Row getQuestion() {
     if (_selectedMode == "Conjugations") {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'I ',
-            style: TextStyle(fontSize: 24),
-          ),
-          SizedBox(
-            width: 100,
-            child: TextField(
-              // controller: _controller,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: '(to be)',
-              ),
-            ),
-          ),
-          Text(
-            ' eating an apple.',
-            style: TextStyle(fontSize: 24),
-          ),
-        ],
-      );
+      return conjugationsGetTask();
     } else if (_selectedMode == "Words") {
       return wordsGetTask();
     } else if (_selectedMode == "Sentences") {
@@ -77,37 +89,11 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
 
   List<Widget> getAppBar() {
     return [
-      DropdownMenu<String>(
-        initialSelection: 'Conjugations', // Optional: Set an initial selected value
-        onSelected: (String? value) {
-          setState(() {
-            _selectedMode = value;
-            print('Selected mode: $_selectedMode');
-          });
-        },
-        dropdownMenuEntries: const <DropdownMenuEntry<String>>[
-          DropdownMenuEntry<String>(value: 'Conjugations', label: 'Conjugations'),
-          DropdownMenuEntry<String>(value: 'Words', label: 'Words'),
-          DropdownMenuEntry<String>(value: 'Sentences', label: 'Sentences'),
-        ],
-      ),
+      getModes(),
       SizedBox(
         width: 50,
       ),
-      DropdownMenu<String>(
-        initialSelection: 'EN-SP', // Optional: Set an initial selected value
-        onSelected: (String? value) {
-          setState(() {
-            _selectedLanguage = value;
-            print('Selected language: $_selectedLanguage');
-          });
-        },
-        dropdownMenuEntries: const <DropdownMenuEntry<String>>[
-          DropdownMenuEntry<String>(value: 'EN-SP', label: 'EN-SP'),
-          DropdownMenuEntry<String>(value: 'EN-RU', label: 'EN-RU'),
-          DropdownMenuEntry<String>(value: 'SP-RU', label: 'SP-RU'),
-        ],
-      ),
+      getLangs(),
       SizedBox(
         width: 50,
       ),
