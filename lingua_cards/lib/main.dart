@@ -36,19 +36,19 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
   }
 
   DropdownMenu<String> getLangs() {
+    List<DropdownMenuEntry<String>> langOptions = [];
+    for (final l in conjugationsGetLangs()) {
+      langOptions.add(DropdownMenuEntry<String>(value: l.toUpperCase(), label: l.toUpperCase()));
+    }
     return DropdownMenu<String>(
-      initialSelection: 'EN-SP',
+      initialSelection: conjugationsGetLang().toUpperCase(),
       onSelected: (String? value) {
         setState(() {
           _selectedLanguage = value;
           print('Selected language: $_selectedLanguage');
         });
       },
-      dropdownMenuEntries: const <DropdownMenuEntry<String>>[
-        DropdownMenuEntry<String>(value: 'EN-SP', label: 'EN-SP'),
-        DropdownMenuEntry<String>(value: 'EN-RU', label: 'EN-RU'),
-        DropdownMenuEntry<String>(value: 'SP-RU', label: 'SP-RU'),
-      ],
+      dropdownMenuEntries: langOptions,
     );
   }
 
