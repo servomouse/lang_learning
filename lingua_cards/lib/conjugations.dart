@@ -4,6 +4,8 @@ List<String> _langs = ["en", "sp"];
 
 String _selectedLanguage = "en";
 
+String _correctAnswer = "";
+
 Map<String, dynamic> _dictionary = {
   "en": {
     "sentences": [
@@ -25,7 +27,8 @@ Map<String, dynamic> _dictionary = {
   }
 };
 
-Row conjugationsGetTask() {
+Row conjugationsGetTask(TextEditingController _text_controller) {
+  _correctAnswer = "am";
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
@@ -37,6 +40,7 @@ Row conjugationsGetTask() {
         width: 100,
         child: TextField(
           // controller: _controller,
+          controller: _text_controller,
           textAlign: TextAlign.center,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
@@ -62,4 +66,8 @@ void conjugationsSetLang(String lang) {
 
 String conjugationsGetLang() {
   return _selectedLanguage;
+}
+
+String conjugationsGetAnswer() {
+  return _correctAnswer;
 }

@@ -14,6 +14,7 @@ class FlippingCardExample extends StatefulWidget {
 
 class _FlippingCardExampleState extends State<FlippingCardExample> {
   final FlipCardController _controller = FlipCardController();
+  final TextEditingController _text_controller = TextEditingController();
   String? _selectedMode = 'Conjugations';
   String? _selectedLanguage;
   String? expectedAnswer;
@@ -54,7 +55,7 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
 
   Row getQuestion() {
     if (_selectedMode == "Conjugations") {
-      return conjugationsGetTask();
+      return conjugationsGetTask(_text_controller);
     } else if (_selectedMode == "Words") {
       return wordsGetTask();
     } else if (_selectedMode == "Sentences") {
@@ -85,6 +86,18 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
         ],
       );
     }
+  }
+
+  bool checkAnswer() {
+    String answer = _text_controller.text.trim();
+    if (_selectedMode == "Conjugations") {
+      return answer.toLowerCase() == conjugationsGetAnswer();
+    } else if (_selectedMode == "Words") {
+      return false;
+    } else if (_selectedMode == "Sentences") {
+      return false;
+    }
+    return false;
   }
 
   List<Widget> getAppBar() {
@@ -127,7 +140,9 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
                         getQuestion(),
                         SizedBox(height: 20),
                         ElevatedButton(
-                          onPressed: () {_controller.flipcard();},
+                          onPressed: () {
+                            _controller.flipcard();
+                          },
                           child: Text('Submit'),
                         ),
                       ],
@@ -135,13 +150,7 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
                   ),
             ),
           ),
-          backWidget: Card(
-            color: Colors.red,
-            child: Padding(
-                padding: const EdgeInsets.all(16.0), // Apply padding to the front content
-                child: getBackSideContent(true),
-            ),
-          ),
+          backWidget: getBackSideContent(checkAnswer()),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -196,35 +205,47 @@ Container getFrontSideContent(String mode, FlipCardController controller) {
   );
 }
 
-Container getBackSideContent(bool isCorrect, [String? additionalText]) {
+Card getBackSideContent(bool isCorrect, [String? additionalText]) {
   if(isCorrect) {
-    return Container(
-      // width: 200,
-      height: 300,
-      alignment: Alignment.center,
-      child: const Text(
-        'Correct!',
-        style: TextStyle(color: Colors.white, fontSize: 24),
+    return Card(
+            color: Colors.green,
+            child: Padding(
+                padding: const EdgeInsets.all(16.0), // Apply padding to the front content
+                child: Container(
+              // width: 200,
+              height: 300,
+              alignment: Alignment.center,
+              child: const Text(
+                'Correct!',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
       ),
     );
   }
-  return Container(
-    // width: 200,
-    height: 300,
-    alignment: Alignment.center,
-    child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Wrong!',
-            style: TextStyle(color: Colors.white, fontSize: 24),
-          ),
-          Text(
-            '$additionalText',
-            style: TextStyle(color: Colors.white, fontSize: 24),
-          ),
-      ]
-    )
+  return Card(
+            color: Colors.red,
+            child: Padding(
+                padding: const EdgeInsets.all(16.0), // Apply padding to the front content
+                child: Container(
+              // width: 200,
+              height: 300,
+              alignment: Alignment.center,
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Wrong!',
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    ),
+                    Text(
+                      '$additionalText',
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    ),
+                ]
+              )
+            ),
+    ),
   );
 }
 
