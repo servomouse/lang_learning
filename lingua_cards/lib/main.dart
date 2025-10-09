@@ -104,43 +104,43 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
     String additionalText = "";
     if(checkAnswer()) {
       return Card(
-              color: Colors.green,
-              child: Padding(
-                  padding: const EdgeInsets.all(16.0), // Apply padding to the front content
-                  child: Container(
-                // width: 200,
-                height: 300,
-                alignment: Alignment.center,
-                child: const Text(
-                  'Correct!',
-                  style: TextStyle(color: Colors.white, fontSize: 24),
-                ),
-              ),
+          color: Colors.green,
+          child: Padding(
+              padding: const EdgeInsets.all(16.0), // Apply padding to the front content
+              child: Container(
+            // width: 200,
+            height: 300,
+            alignment: Alignment.center,
+            child: const Text(
+              'Correct!',
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            ),
+          ),
         ),
       );
     }
     return Card(
-              color: Colors.red,
-              child: Padding(
-                  padding: const EdgeInsets.all(16.0), // Apply padding to the front content
-                  child: Container(
-                // width: 200,
-                height: 300,
-                alignment: Alignment.center,
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Wrong!',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                      Text(
-                        '$additionalText',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                  ]
-                )
-              ),
+        color: Colors.red,
+        child: Padding(
+            padding: const EdgeInsets.all(16.0), // Apply padding to the front content
+            child: Container(
+          // width: 200,
+          height: 300,
+          alignment: Alignment.center,
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Wrong!',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                ),
+                Text(
+                  '$additionalText',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                ),
+            ]
+          )
+        ),
       ),
     );
   }
