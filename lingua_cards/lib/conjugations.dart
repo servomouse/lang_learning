@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 List<String> _langs = ["en", "sp"];
 
@@ -10,46 +11,54 @@ Map<String, dynamic> _dictionary = {
   "en": {
     "sentences": [
       {
-        "sentence": ["I", "eating an apple."],
+        "sentence": "I ___ eating an apple.",
         "hint": "to be",
+        "time": "present simple",
         "answer": "am"
+      },
+      {
+        "sentence": "She ___ eating an apple.",
+        "hint": "to be",
+        "time": "present simple",
+        "answer": "is"
       }
     ]
   },
   "sp": {
     "sentences": [
       {
-        "sentence": ["", "comiendo una manzana."],
-        "hint": "estar (yo)",
+        "sentence": "___ comiendo una manzana.",
+        "hint": "(estar, yo)",
         "answer": "estoy"
       }
     ]
   }
 };
 
-Row conjugationsGetTask(TextEditingController _text_controller) {
-  _correctAnswer = "am";
+Row conjugationsGetTask(TextEditingController text_controller, String? lang) {
+  int idx = Random().nextInt(_dictionary[_selectedLanguage]["sentences"].length);
+  _correctAnswer = _dictionary[_selectedLanguage]["sentences"][idx]["answer"];
+  List<String> text = _dictionary[_selectedLanguage]["sentences"][idx]["sentence"].split('___');
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
-        'I ',
+        text[0],
         style: TextStyle(fontSize: 24),
       ),
       SizedBox(
         width: 100,
         child: TextField(
-          // controller: _controller,
-          controller: _text_controller,
+          controller: text_controller,
           textAlign: TextAlign.center,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            hintText: '(to be)',
+            hintText: _dictionary[_selectedLanguage]["sentences"][idx]["hint"],
           ),
         ),
       ),
       Text(
-        ' eating an apple.',
+        '${text[1]} [${_dictionary[_selectedLanguage]["sentences"][idx]["time"]}]',
         style: TextStyle(fontSize: 24),
       ),
     ],

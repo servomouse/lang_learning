@@ -14,10 +14,14 @@ class FlippingCardExample extends StatefulWidget {
 
 class _FlippingCardExampleState extends State<FlippingCardExample> {
   final FlipCardController _controller = FlipCardController();
-  final TextEditingController _text_controller = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
   String? _selectedMode = 'Conjugations';
   String? _selectedLanguage;
   String? expectedAnswer;
+  bool isFront = true;
+  bool _isFirstStart = true;
+  Row _frontSide = Row();
+  Card _backSide = Card();
 
   DropdownMenu<String> getModes() {
     return DropdownMenu<String>(
@@ -53,9 +57,28 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
     );
   }
 
+  void _onFlip() {
+    print("On flip");
+    _isFirstStart = false;
+    if (isFront) {
+      // Flipping from front to back
+      _backSide = _getBackSideContent();
+      isFront = false;
+      _controller.flipcard();
+    } else {
+      // Flipping from back to front
+      _frontSide = getQuestion();
+      isFront = true;
+      print("The tap!");
+      _textController.clear();
+      _controller.flipcard();
+    }
+  }
+
   Row getQuestion() {
+    print('Getting question');
     if (_selectedMode == "Conjugations") {
-      return conjugationsGetTask(_text_controller);
+      return conjugationsGetTask(_textController, _selectedLanguage);
     } else if (_selectedMode == "Words") {
       return wordsGetTask();
     } else if (_selectedMode == "Sentences") {
@@ -89,8 +112,11 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
   }
 
   bool checkAnswer() {
-    String answer = _text_controller.text.trim();
+    print('Checking the answer');
+    String answer = _textController.text.trim();
     if (_selectedMode == "Conjugations") {
+      String correct_answer = conjugationsGetAnswer();
+      print('User answer: $answer; correct answer: $correct_answer');
       return answer.toLowerCase() == conjugationsGetAnswer();
     } else if (_selectedMode == "Words") {
       return false;
@@ -135,7 +161,7 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
                   style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
                 Text(
-                  '$additionalText',
+                  additionalText,
                   style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
             ]
@@ -182,11 +208,13 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        getQuestion(),
+                        _isFirstStart? getQuestion(): _frontSide,
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
-                            _controller.flipcard();
+                            setState(() {
+                              _onFlip();
+                            });
                           },
                           child: Text('Submit'),
                         ),
@@ -198,10 +226,11 @@ class _FlippingCardExampleState extends State<FlippingCardExample> {
           // backWidget: _getBackSideContent(),
           backWidget: GestureDetector(
           onTap: () {
-            print("The tap!");
-            _controller.flipcard();
+            setState(() {
+            _onFlip();
+            });
           },
-          child: _getBackSideContent(),
+          child: _backSide,
         )
         ),
       ),
