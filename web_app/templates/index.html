@@ -204,8 +204,11 @@
             <select id="language-pair">
                 <option value="">Select a language pair</option>
                 <option value="en-ru">EN-RU</option>
+                <option value="ru-en">RU-EN</option>
                 <option value="en-sp">EN-SP</option>
+                <option value="sp-en">SP-EN</option>
                 <option value="ru-sp">RU-SP</option>
+                <option value="sp-ru">SP-RU</option>
             </select>
         </div>
         
@@ -260,7 +263,6 @@
             
             let dictionaryData = null;
             let currentCardIndex = 0;
-            let currentDirection = 0; // 0 for first language to second, 1 for second to first
             let correctCount = 0;
             let incorrectCount = 0;
             let streakCount = 0;
@@ -312,12 +314,7 @@
                 }
                 
                 const card = dictionaryData[currentCardIndex];
-                const [sourceLang, targetLang] = currentLanguagePair.split('-');
-                
-                // Determine direction
-                const isForwardDirection = currentDirection === 0;
-                const sentenceLang = isForwardDirection ? sourceLang : targetLang;
-                const answerLang = isForwardDirection ? targetLang : sourceLang;
+                const [sentenceLang, answerLang] = currentLanguagePair.split('-');
                 
                 // Display sentence with target word highlighted
                 const sentence = card.examples[0].example.sentence;
@@ -358,8 +355,10 @@
                     showConfetti();
                     
                     // Show next button
-                    nextButton.style.display = 'block';
-                    submitButton.disabled = true;
+                    setTimeout(() => {
+                            nextCard();
+                        }, 1000);
+                    
                 } else {
                     // Incorrect answer
                     feedbackDiv.textContent = `Incorrect. The correct answer is: ${answerInput.dataset.correctAnswer}`;
@@ -377,9 +376,8 @@
             }
             
             function nextCard() {
-                // Move to next card and toggle direction
+                // Move to next card
                 currentCardIndex = (currentCardIndex + 1) % dictionaryData.length;
-                currentDirection = 1 - currentDirection; // Toggle between 0 and 1
                 
                 submitButton.disabled = false;
                 showCard();
