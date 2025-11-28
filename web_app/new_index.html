@@ -149,6 +149,9 @@
     let correctCount = 0;
     let incorrectCount = 0;
     let currentWord = '';
+    let answer = '';
+    let baseLang = '';
+    let learnLang = 'sp';
     const modeSelect = document.getElementById('mode');
     const languageSelect = document.getElementById('language');
     const sentenceSpan = document.querySelector('.sentence');
@@ -163,14 +166,16 @@
     }
 
     function displayContent(entry) {
+        const prettyJson = JSON.stringify(entry.translations, null, 2);
+        console.log(`${prettyJson}, ${baseLang}, ${learnLang}`);
         if (modeSelect.value === 'insert') {
-            sentenceSpan.innerHTML = entry.sentence.replace(`__${entry.word}__`, `<span class="gray">${entry.translations[languageSelect.value.slice(0, 2)].translation}</span>`);
-            currentWord = entry.word;
+            sentenceSpan.innerHTML = entry.sentence.replace(`__${entry.word}__`, `<span class="gray">${entry.translations[learnLang].translation}</span>`);
+            answer = entry.word;
             translationSpan.classList.add('hidden');
         } else if (modeSelect.value === 'translate') {
             sentenceSpan.innerHTML = entry.sentence.replace(/__(.*?)__/g, `<span class="red">$1</span>`);
-            currentWord = entry.word;
-            translationSpan.innerHTML = `Translation: ${entry.translations[languageSelect.value.slice(0, 2)].translation}`;
+            answer = entry.translations[learnLang].translation;
+            translationSpan.innerHTML = `Translation: ${entry.translations[learnLang].translation}`;
             translationSpan.classList.remove('hidden');
         } else {
             sentenceSpan.innerHTML = "Not implemented yet";
@@ -188,11 +193,11 @@
 
     function submitAnswer() {
         const userAnswer = userInput.value.toLowerCase().trim();
-        if (userAnswer === currentWord.toLowerCase()) {
+        if (userAnswer === answer.toLowerCase()) {
             messageDiv.innerText = "Correct!";
             correctCount++;
         } else {
-            messageDiv.innerText = `Incorrect! The correct word was: ${currentWord}`;
+            messageDiv.innerText = `Incorrect! The correct word was: ${answer}`;
             incorrectCount++;
         }
         updateCounters();
@@ -201,8 +206,15 @@
     }
 
     function loadNewContent() {
-        const language = modeSelect.value === 'conjugate' ? languageSelect.value.slice(0, 2) : languageSelect.value.slice(0, 2);
-        const entry = selectRandomEntry(language);
+        baseLang = languageSelect.value.slice(0, 2);
+        // const learnLang = 'sp'; // Default value
+        if (modeSelect.value === 'translate') {
+            learnLang = languageSelect.value.slice(3, 5);
+        } else if (modeSelect.value === 'insert') {
+            learnLang = languageSelect.value.slice(3, 5);
+        }
+        // const language = modeSelect.value === 'conjugate' ? languageSelect.value.slice(0, 2) : languageSelect.value.slice(0, 2);
+        const entry = selectRandomEntry(baseLang);
         displayContent(entry);
     }
 
