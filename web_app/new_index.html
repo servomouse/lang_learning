@@ -79,7 +79,7 @@
 
 <div class="card">
     <span class="sentence"></span>
-    <span class="translation hidden"></span>
+    <!-- <span class="translation hidden"></span> -->
     <input type="text" id="userInput" placeholder="Your guess here">
     <button id="submitBtn">Submit</button>
     <div id="message"></div>
@@ -155,7 +155,7 @@
     const modeSelect = document.getElementById('mode');
     const languageSelect = document.getElementById('language');
     const sentenceSpan = document.querySelector('.sentence');
-    const translationSpan = document.querySelector('.translation');
+    // const translationSpan = document.querySelector('.translation');
     const userInput = document.getElementById('userInput');
     const messageDiv = document.getElementById('message');
 
@@ -171,12 +171,12 @@
         if (modeSelect.value === 'insert') {
             sentenceSpan.innerHTML = entry.sentence.replace(`__${entry.word}__`, `<span class="gray">${entry.translations[learnLang].translation}</span>`);
             answer = entry.word;
-            translationSpan.classList.add('hidden');
+            // translationSpan.classList.add('hidden');
         } else if (modeSelect.value === 'translate') {
             sentenceSpan.innerHTML = entry.sentence.replace(/__(.*?)__/g, `<span class="red">$1</span>`);
             answer = entry.translations[learnLang].translation;
-            translationSpan.innerHTML = `Translation: ${entry.translations[learnLang].translation}`;
-            translationSpan.classList.remove('hidden');
+            // translationSpan.innerHTML = `Translation: ${entry.translations[learnLang].translation}`;
+            // translationSpan.classList.remove('hidden');
         } else {
             sentenceSpan.innerHTML = "Not implemented yet";
             translationSpan.classList.add('hidden');
