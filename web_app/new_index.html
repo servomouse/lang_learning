@@ -315,8 +315,44 @@
     });
 
     document.getElementById('register').addEventListener('click', function() {
-        // Redirect to registration logic or show a registration form
-        alert("Registration functionality not implemented.");
+        event.preventDefault(); // Prevent default form submission
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Prepare data to send
+        const data = {
+            username: username,
+            password: password
+        };
+
+        // Send the POST request to the backend
+        fetch('/api/add_user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Login failed!');
+            }
+            return response.json();  // Parse the JSON response
+        })
+        .then(data => {
+            // Handle the success response here
+            isLoggedIn = true;
+            currentUser = username;
+
+            userLogin.innerText = currentUser;
+            userLogin.classList.remove('hidden');
+            loginBtn.innerText = 'Log out';
+            loginModal.classList.add('hidden');
+        })
+        .catch(error => {
+            // Handle error (like incorrect credentials)
+            alert(error.message || 'Unable to log in. Please try again.');
+        });
     });
 
     window.addEventListener('click', function(event) {
