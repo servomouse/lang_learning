@@ -81,11 +81,12 @@
             padding: 10px 20px 10px 20px;
         }
 
-        .close {
+        .close-login-form {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
+            cursor: pointer;
         }
 
         .navbar {
@@ -140,7 +141,7 @@
 <!-- Modal for login -->
 <div id="loginModal" class="modal hidden">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close-login-form">&times;</span>
         <h2>Login</h2>
         <form id="loginForm">
             <input type="text" id="username" placeholder="Username" autocomplete="username" required><br>
@@ -183,7 +184,7 @@
     const messageDiv = document.getElementById('message');
     const loginBtn = document.getElementById('loginBtn');
     const loginModal = document.getElementById('loginModal');
-    const closeModal = document.querySelector('.close');
+    const closeModal = document.querySelector('.close-login-form');
     const userLogin = document.getElementById('userLogin');
 
     document.addEventListener('DOMContentLoaded', loadDictionary);
@@ -282,6 +283,7 @@
     document.getElementById('logIn').addEventListener('click', function() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
+        console.log(`Username: ${username}, password: ${password}`);
 
         if (username && password) {
             isLoggedIn = true;
@@ -315,6 +317,12 @@
     document.getElementById('register').addEventListener('click', function() {
         // Redirect to registration logic or show a registration form
         alert("Registration functionality not implemented.");
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === loginModal) {
+            loginModal.classList.add('hidden'); // Closing the modal when clicking outside
+        }
     });
 
     languageSelect.addEventListener('change', loadNewContent);
