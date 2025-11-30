@@ -54,32 +54,105 @@
             padding: 5px;
             width: 80%;
         }
+        .modal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+        .hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+        }
+
+        .selector {
+            padding: 10px 20px 10px 20px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #337733;
+        }
+
     </style>
 </head>
 <body>
 
-<header>
-    <nav>
-        <label for="mode">Mode:</label>
-        <select id="mode">
-            <option value="insert" selected>Insert word</option>
-            <option value="translate">Translate</option>
-            <option value="conjugate">Conjugate</option>
-        </select>
+    <ul class="navbar">
+        <li>
+            <div id="modeSelector" class="selector">
+                <label for="mode">Mode:</label>
+                <select id="mode">
+                    <option value="insert" selected>Insert word</option>
+                    <option value="translate">Translate</option>
+                    <option value="conjugate">Conjugate</option>
+                </select>
+            </div>
+        </li>
+        <li>
+            <div id="languageSelector" class="selector">
+                <label for="language">Language:</label>
+                <select id="language">
+                    <option value="en-sp" selected>EN-SP</option>
+                    <option value="sp-en">SP-EN</option>
+                    <option value="ru-en">RU-EN</option>
+                    <option value="en-ru">EN-RU</option>
+                </select>
+            </div>
+        </li>
+        <li>
+            <div id="languageSelector" class="selector">
+                <button id="add-new-item">Add new</button>
+            </div>
+        </li>
+        <li style="margin-left: auto;">
+            <div class="selector">
+                <span id="userLogin" class="hidden"></span>
+                <button id="loginBtn">Log in</button>
+            </div>
+        </li>
+    </ul>
 
-        <label for="language">Language:</label>
-        <select id="language">
-            <option value="en-sp" selected>EN-SP</option>
-            <option value="sp-en">SP-EN</option>
-            <option value="ru-en">RU-EN</option>
-            <option value="en-ru">EN-RU</option>
-        </select>
-    </nav>
-</header>
+<!-- Modal for login -->
+<div id="loginModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" autocomplete="username" required><br>
+            <input type="password" id="password" placeholder="Password" autocomplete="current-password" required><br>
+            <button type="button" id="logIn">Log in</button>
+            <button type="button" id="register">Register</button>
+        </form>
+    </div>
+</div>
 
 <div class="card">
     <span class="sentence"></span>
-    <!-- <span class="translation hidden"></span> -->
     <input type="text" id="userInput" placeholder="Your guess here">
     <button id="submitBtn">Submit</button>
     <div id="message"></div>
@@ -100,12 +173,18 @@
     let answer = '';
     let baseLang = '';
     let learnLang = 'sp';
+    let isLoggedIn = false;
+    let currentUser = '';
+
     const modeSelect = document.getElementById('mode');
     const languageSelect = document.getElementById('language');
     const sentenceSpan = document.querySelector('.sentence');
-    // const translationSpan = document.querySelector('.translation');
     const userInput = document.getElementById('userInput');
     const messageDiv = document.getElementById('message');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginModal = document.getElementById('loginModal');
+    const closeModal = document.querySelector('.close');
+    const userLogin = document.getElementById('userLogin');
 
     document.addEventListener('DOMContentLoaded', loadDictionary);
 
@@ -130,12 +209,9 @@
         if (modeSelect.value === 'insert') {
             sentenceSpan.innerHTML = entry.sentence.replace(`__${entry.word}__`, `<span class="gray">${entry.translations[learnLang].translation}</span>`);
             answer = entry.word;
-            // translationSpan.classList.add('hidden');
         } else if (modeSelect.value === 'translate') {
             sentenceSpan.innerHTML = entry.sentence.replace(/__(.*?)__/g, `<span class="red">$1</span>`);
             answer = entry.translations[learnLang].translation;
-            // translationSpan.innerHTML = `Translation: ${entry.translations[learnLang].translation}`;
-            // translationSpan.classList.remove('hidden');
         } else {
             sentenceSpan.innerHTML = "Not implemented yet";
             translationSpan.classList.add('hidden');
@@ -166,13 +242,11 @@
 
     function loadNewContent() {
         baseLang = languageSelect.value.slice(0, 2);
-        // const learnLang = 'sp'; // Default value
         if (modeSelect.value === 'translate') {
             learnLang = languageSelect.value.slice(3, 5);
         } else if (modeSelect.value === 'insert') {
             learnLang = languageSelect.value.slice(3, 5);
         }
-        // const language = modeSelect.value === 'conjugate' ? languageSelect.value.slice(0, 2) : languageSelect.value.slice(0, 2);
         const entry = selectRandomEntry(baseLang);
         displayContent(entry);
     }
@@ -195,13 +269,58 @@
         }
     });
 
+    loginBtn.addEventListener('click', function() {
+        console.log("loginBtn.click()");
+        loginModal.classList.remove('hidden');
+    });
+
+    closeModal.addEventListener('click', function() {
+        console.log("closeModal.click()");
+        loginModal.classList.add('hidden');
+    });
+
+    document.getElementById('logIn').addEventListener('click', function() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username && password) {
+            isLoggedIn = true;
+            currentUser = username;
+
+            userLogin.innerText = currentUser;
+            userLogin.classList.remove('hidden');
+            loginBtn.innerText = 'Log out';
+            loginModal.classList.add('hidden');
+        }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Implement your login logic here
+        if (username && password) {
+            // Simulating a successful login
+            isLoggedIn = true;
+            currentUser = username;
+
+            userLogin.innerText = currentUser;
+            userLogin.classList.remove('hidden');
+            loginBtn.innerText = 'Log out';
+            loginModal.classList.add('hidden');
+        }
+    });
+
+    document.getElementById('register').addEventListener('click', function() {
+        // Redirect to registration logic or show a registration form
+        alert("Registration functionality not implemented.");
+    });
+
     languageSelect.addEventListener('change', loadNewContent);
     document.getElementById('submitBtn').addEventListener('click', submitAnswer);
 
-    // Initial content load
     loadNewContent();
 </script>
-
 </body>
 </html>
-
