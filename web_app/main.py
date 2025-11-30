@@ -61,10 +61,10 @@ class AppData:
     def add_user(self, login, password):
         if login in self.users: # User exists
             print(f"Error: Cannot add user {login}: user exists")
-            return False
+            return "User already exists!"
         self.users[login] = password
         self.save_users()
-        return True
+        return "Success"
     
     def verify_user(self, login, password):
         if login in self.users and password == self.users[login]:
@@ -106,6 +106,21 @@ def add_user():
 
     res = app_data.add_user(username, password)
 
+    if res == "Success":
+        return jsonify({"status": "success", "message": f"New user {username} added!"}), 200
+
+    return jsonify({"status": "error", "message": "User already exists!"}), 401
+
+
+@app.route('/api/verify_user', methods=['POST'])
+def verify_user():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    print(f"Add user received data: {data}")
+
+    res = app_data.verify_user(username, password)
+
     if res == "User doesn't exist":
         return jsonify({"status": "error", "message": "User doesn't exist"}), 404
 
@@ -113,18 +128,6 @@ def add_user():
         return jsonify({"status": "error", "message": "Incorrect password"}), 401
 
     return jsonify({"status": "success", "message": "Login successful"}), 200
-    # language = data.get('language')
-    # word = data.get('word')
-    # is_correct = data.get('is_correct')
-    print(f"Add user received data: {data}")
-
-@app.route('/api/verify_user', methods=['POST'])
-def verify_user():
-    data = request.get_json()
-    # language = data.get('language')
-    # word = data.get('word')
-    # is_correct = data.get('is_correct')
-    print(f"Verify user received data: {data}")
 
 @app.route('/')
 def serve_index():

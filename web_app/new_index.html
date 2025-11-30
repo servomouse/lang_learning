@@ -337,7 +337,10 @@
             if (!response.ok) {
                 throw new Error('Login failed!');
             }
-            return response.json();  // Parse the JSON response
+            let res = response.json();
+            const prettyJson = JSON.stringify(res, null, 2);
+            console.log(`Login error: ${res}`);
+            return res;  // Parse the JSON response
         })
         .then(data => {
             // Handle the success response here
@@ -348,6 +351,7 @@
             userLogin.classList.remove('hidden');
             loginBtn.innerText = 'Log out';
             loginModal.classList.add('hidden');
+            alert(data.message);
         })
         .catch(error => {
             // Handle error (like incorrect credentials)
