@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory, request
+from flask import Flask, jsonify, send_from_directory, request, render_template
 import json
 import os
 
@@ -135,7 +135,8 @@ def verify_user():
 
 @app.route('/')
 def serve_index():
-    return send_from_directory('', 'new_index.html')
+    # return send_from_directory('', 'new_index.html')
+    return render_template('new_index.html')
 
 
 if __name__ == '__main__':
