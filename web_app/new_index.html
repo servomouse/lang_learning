@@ -133,7 +133,7 @@
         <li style="margin-left: auto;">
             <div class="selector">
                 <span id="userLogin" class="hidden"></span>
-                <button id="loginBtn">Log in</button>
+                <button id="login-form-btn">Log in</button>
             </div>
         </li>
     </ul>
@@ -146,8 +146,8 @@
         <form id="loginForm">
             <input type="text" id="username" placeholder="Username" autocomplete="username" required><br>
             <input type="password" id="password" placeholder="Password" autocomplete="current-password" required><br>
-            <button type="button" id="logIn">Log in</button>
-            <button type="button" id="register">Register</button>
+            <button type="button" id="submit-log-in-btn">Log in</button>
+            <button type="button" id="submit-register-btn">Register</button>
         </form>
     </div>
 </div>
@@ -182,7 +182,7 @@
     const sentenceSpan = document.querySelector('.sentence');
     const userInput = document.getElementById('userInput');
     const messageDiv = document.getElementById('message');
-    const loginBtn = document.getElementById('loginBtn');
+    const loginFormBtn = document.getElementById('login-form-btn');
     const loginModal = document.getElementById('loginModal');
     const closeModal = document.querySelector('.close-login-form');
     const userLogin = document.getElementById('userLogin');
@@ -270,9 +270,16 @@
         }
     });
 
-    loginBtn.addEventListener('click', function() {
-        console.log("loginBtn.click()");
-        loginModal.classList.remove('hidden');
+    loginFormBtn.addEventListener('click', function() {
+        console.log("loginFormBtn.click()");
+        if(isLoggedIn) {
+            isLoggedIn = false;
+            currentUser = '';
+            userLogin.innerText = currentUser;
+            loginFormBtn.innerText = 'Log in';
+        } else {
+            loginModal.classList.remove('hidden');
+        }
     });
 
     closeModal.addEventListener('click', function() {
@@ -280,44 +287,10 @@
         loginModal.classList.add('hidden');
     });
 
-    document.getElementById('logIn').addEventListener('click', function() {
+    document.getElementById('submit-log-in-btn').addEventListener('click', function() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         console.log(`Username: ${username}, password: ${password}`);
-
-        if (username && password) {
-            isLoggedIn = true;
-            currentUser = username;
-
-            userLogin.innerText = currentUser;
-            userLogin.classList.remove('hidden');
-            loginBtn.innerText = 'Log out';
-            loginModal.classList.add('hidden');
-        }
-    });
-
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        // Implement your login logic here
-        if (username && password) {
-            // Simulating a successful login
-            isLoggedIn = true;
-            currentUser = username;
-
-            userLogin.innerText = currentUser;
-            userLogin.classList.remove('hidden');
-            loginBtn.innerText = 'Log out';
-            loginModal.classList.add('hidden');
-        }
-    });
-
-    document.getElementById('register').addEventListener('click', function() {
-        event.preventDefault(); // Prevent default form submission
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
 
         // Prepare data to send
         const data = {
@@ -326,6 +299,64 @@
         };
 
         // Send the POST request to the backend
+        fetch('/api/verify_user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            let res = response.json();
+            const prettyJson = JSON.stringify(res, null, 2);
+            return res;
+        })
+        .then(data => {
+            if(data.message === "success") {
+                isLoggedIn = true;
+                currentUser = username;
+                
+                userLogin.innerText = currentUser;
+                userLogin.classList.remove('hidden');
+                loginFormBtn.innerText = 'Log out';
+                loginModal.classList.add('hidden');
+            } else {
+                alert(data.message);
+                document.getElementById('username').value = "";
+                document.getElementById('password').value = "";
+            }
+        })
+        .catch(error => {
+            alert(error.message || 'Unable to log in. Please try again.');
+        });
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username && password) {
+            isLoggedIn = true;
+            currentUser = username;
+
+            userLogin.innerText = currentUser;
+            userLogin.classList.remove('hidden');
+            loginFormBtn.innerText = 'Log out';
+            loginModal.classList.add('hidden');
+        }
+    });
+
+    document.getElementById('submit-register-btn').addEventListener('click', function() {
+        event.preventDefault(); // Prevent default form submission
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        const data = {
+            username: username,
+            password: password
+        };
+
         fetch('/api/add_user', {
             method: 'POST',
             headers: {
@@ -334,27 +365,26 @@
             body: JSON.stringify(data)
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Login failed!');
-            }
             let res = response.json();
             const prettyJson = JSON.stringify(res, null, 2);
-            console.log(`Login error: ${res}`);
-            return res;  // Parse the JSON response
+            return res;
         })
         .then(data => {
-            // Handle the success response here
-            isLoggedIn = true;
-            currentUser = username;
-
-            userLogin.innerText = currentUser;
-            userLogin.classList.remove('hidden');
-            loginBtn.innerText = 'Log out';
-            loginModal.classList.add('hidden');
-            alert(data.message);
+            if(data.message === "success") {
+                isLoggedIn = true;
+                currentUser = username;
+                
+                userLogin.innerText = currentUser;
+                userLogin.classList.remove('hidden');
+                loginFormBtn.innerText = 'Log out';
+                loginModal.classList.add('hidden');
+            } else {
+                alert(data.message);
+                document.getElementById('username').value = "";
+                document.getElementById('password').value = "";
+            }
         })
         .catch(error => {
-            // Handle error (like incorrect credentials)
             alert(error.message || 'Unable to log in. Please try again.');
         });
     });

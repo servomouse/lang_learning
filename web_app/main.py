@@ -58,18 +58,20 @@ class AppData:
 
     # Users:
     
-    def add_user(self, login, password):
-        if login in self.users: # User exists
-            print(f"Error: Cannot add user {login}: user exists")
+    def add_user(self, username, password):
+        if username in self.users: # User exists
+            print(f"Error: Cannot add user {username}: user exists")
             return "User already exists!"
-        self.users[login] = password
+        self.users[username] = password
         self.save_users()
         return "Success"
     
-    def verify_user(self, login, password):
-        if login in self.users and password == self.users[login]:
-            return True
-        return False
+    def verify_user(self, username, password):
+        if username not in self.users:
+            return "User doesn't exist"
+        if password != self.users[username]:
+            return "Incorrect password"
+        return "Success"
     
     def save_users(self):
         with open(USERS_FILE, 'w', encoding='utf-8') as file:
@@ -79,15 +81,18 @@ class AppData:
 app = Flask(__name__)
 app_data = AppData()
 
+
 @app.route('/api/dictionary', methods=['GET'])
 def get_dictionary():
     dictionary = app_data.get_dictionary()
     return jsonify(dictionary)
 
+
 @app.route('/api/scores', methods=['GET'])
 def get_scores():
     scores = app_data.get_scores()
     return jsonify(scores)
+
 
 @app.route('/api/update_score', methods=['POST'])
 def update_score():
@@ -96,6 +101,7 @@ def update_score():
     # word = data.get('word')
     # is_correct = data.get('is_correct')
     print(f"Received data: {data}")
+
 
 @app.route('/api/add_user', methods=['POST'])
 def add_user():
@@ -107,7 +113,7 @@ def add_user():
     res = app_data.add_user(username, password)
 
     if res == "Success":
-        return jsonify({"status": "success", "message": f"New user {username} added!"}), 200
+        return jsonify({"status": "success", "message": "success"}), 200
 
     return jsonify({"status": "error", "message": "User already exists!"}), 401
 
@@ -117,21 +123,20 @@ def verify_user():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-    print(f"Add user received data: {data}")
+    print(f"Verify user received data: {data}")
 
     res = app_data.verify_user(username, password)
 
-    if res == "User doesn't exist":
-        return jsonify({"status": "error", "message": "User doesn't exist"}), 404
+    if res == "Success":
+        return jsonify({"status": "success", "message": "success"}), 200
 
-    if res == "Incorrect password":
-        return jsonify({"status": "error", "message": "Incorrect password"}), 401
+    return jsonify({"status": "error", "message": res}), 401
 
-    return jsonify({"status": "success", "message": "Login successful"}), 200
 
 @app.route('/')
 def serve_index():
     return send_from_directory('', 'new_index.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
