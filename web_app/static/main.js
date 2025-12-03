@@ -1,6 +1,8 @@
 import { initLoginForm, isLoggedIn, currentUser } from './login.js';
+import { myreplace, extractSubstring } from './stringlib.js';
 
 let dictionary = {};
+let scores = {};
 let totalWords = 0;
 let correctCount = 0;
 let incorrectCount = 0;
@@ -14,8 +16,10 @@ const languageSelect = document.getElementById('language');
 const sentenceSpan = document.querySelector('.sentence');
 const userInput = document.getElementById('userInput');
 const messageDiv = document.getElementById('message');
+const submitBtn = document.getElementById('submitBtn');
 
-document.addEventListener('DOMContentLoaded', loadDictionary);
+languageSelect.addEventListener('change', loadNewContent);
+submitBtn.addEventListener('click', submitAnswer);
 
 function loadDictionary() {
     fetch('/api/dictionary')
@@ -26,6 +30,14 @@ function loadDictionary() {
         });
 }
 
+function loadScores() {
+    fetch('/api/scores')
+        .then(response => response.json())
+        .then(data => {
+            scores = data;
+        });
+}
+
 function selectRandomEntry(language) {
     const entries = dictionary[language];
     const randomIndex = Math.floor(Math.random() * entries.length);
@@ -33,13 +45,20 @@ function selectRandomEntry(language) {
 }
 
 function displayContent(entry) {
-    const prettyJson = JSON.stringify(entry.translations, null, 2);
+    const prettyJson = JSON.stringify(entry, null, 2);
     console.log(`${prettyJson}, ${baseLang}, ${learnLang}`);
     if (modeSelect.value === 'insert') {
-        sentenceSpan.innerHTML = entry.sentence.replace(`__${entry.word}__`, `<span class="gray">${entry.translations[learnLang].translation}</span>`);
+        let substring = extractSubstring(entry.sentence);
+        let replacement = entry.translations[learnLang].translation;
+        if (substring.length > 0 && substring[0].toUpperCase() === substring[0]) {
+            // Capitalize the first letter of the replacement if needed
+            replacement = replacement.charAt(0).toUpperCase() + replacement.slice(1);
+        }
+        sentenceSpan.innerHTML = entry.sentence.replace(`__${substring}__`, `<span class="gray">${replacement}</span>`);
         answer = entry.word;
     } else if (modeSelect.value === 'translate') {
-        sentenceSpan.innerHTML = entry.sentence.replace(/__(.*?)__/g, `<span class="red">$1</span>`);
+        let substring = extractSubstring(entry.sentence);
+        sentenceSpan.innerHTML = entry.sentence.replace(`__${substring}__`, `<span class="red">${substring}</span>`);
         answer = entry.translations[learnLang].translation;
     } else {
         sentenceSpan.innerHTML = "Not implemented yet";
@@ -98,8 +117,11 @@ modeSelect.addEventListener('change', function() {
     }
 });
 
+// document.addEventListener('DOMContentLoaded', loadNewContent);
 initLoginForm();
-languageSelect.addEventListener('change', loadNewContent);
-document.getElementById('submitBtn').addEventListener('click', submitAnswer);
+loadDictionary();
+if (isLoggedIn) {
+    loadScores();
+}
 
-loadNewContent();
+// loadNewContent();
