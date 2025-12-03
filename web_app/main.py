@@ -7,25 +7,20 @@ SCORES_FILE = 'scores.json'
 USERS_FILE = 'users.json'
 
 
-class AppData:
+def set_nested_value(d, keys, value):
+    for key in keys[:-1]:
+        if key not in d or not isinstance(d[key], dict):
+            d[key] = {}
+        d = d[key]
+    d[keys[-1]] = value
+
+
+class DictionaryClass:
     def __init__(self):
-        self.current_user = None
+        print("Initializing DictionaryClass")
+        super().__init__()
         with open(DICTIONARY_FILE, 'r', encoding='utf-8') as file:
             self.dictionary = json.load(file)
-
-        if os.path.isfile(SCORES_FILE):
-            with open(SCORES_FILE, 'r', encoding='utf-8') as file:
-                self.scores = json.load(file)
-        else:
-            self.scores = {}
-            self.save_scores()
-
-        if os.path.isfile(USERS_FILE):
-            with open(USERS_FILE, 'r', encoding='utf-8') as file:
-                self.users = json.load(file)
-        else:
-            self.users = {}
-            self.save_users()
     
     def get_dictionary(self):
         return self.dictionary
@@ -37,26 +32,18 @@ class AppData:
         with open(DICTIONARY_FILE, 'w', encoding='utf-8') as file:
             json.dump(self.dictionary, file, ensure_ascii=False, indent=4)
 
-    # Scores:
-    
-    def update_score(self, langs, word, new_score):
-        if self.current_user not in self.scores:
-            self.scores[self.current_user] = {}
-        if langs[0] not in self.scores[self.current_user]:
-            self.scores[self.current_user] = langs[0]
-        if langs[1] not in self.scores[self.current_user][langs[0]]:
-            self.scores[self.current_user][langs[0]] = langs[1]
-        self.scores[self.current_user][langs[0]][langs[1]][word] = new_score
-        self.save_scores()
 
-    def get_scores(self):
-        return self.scores
-    
-    def save_scores(self):
-        with open(SCORES_FILE, 'w', encoding='utf-8') as file:
-            json.dump(self.scores, file, ensure_ascii=False, indent=4)
-
-    # Users:
+class UsersClass:
+    def __init__(self):
+        print("Initializing UsersClass")
+        super().__init__()
+        self.current_user = None
+        if os.path.isfile(USERS_FILE):
+            with open(USERS_FILE, 'r', encoding='utf-8') as file:
+                self.users = json.load(file)
+        else:
+            self.users = {}
+            self.save_users()
     
     def add_user(self, username, password):
         if username in self.users: # User exists
@@ -78,6 +65,35 @@ class AppData:
             json.dump(self.users, file, ensure_ascii=False, indent=4)
 
 
+class ScoresClass:
+    def __init__(self):
+        print("Initializing ScoresClass")
+        super().__init__()
+        if os.path.isfile(SCORES_FILE):
+            with open(SCORES_FILE, 'r', encoding='utf-8') as file:
+                self.scores = json.load(file)
+        else:
+            self.scores = {}
+            self.save_scores()
+    
+    def update_score(self, username, langs, word, translation, new_score):
+        set_nested_value(self.scores, [username, langs[0], word, langs[1], translation],  new_score)
+        self.save_scores()
+
+    def get_scores(self):
+        return self.scores
+    
+    def save_scores(self):
+        with open(SCORES_FILE, 'w', encoding='utf-8') as file:
+            json.dump(self.scores, file, ensure_ascii=False, indent=4)
+
+
+class AppData(DictionaryClass, UsersClass, ScoresClass):
+    def __init__(self):
+        print("Initializing AppData")
+        super().__init__()
+
+
 app = Flask(__name__)
 app_data = AppData()
 
@@ -97,10 +113,9 @@ def get_scores():
 @app.route('/api/update_score', methods=['POST'])
 def update_score():
     data = request.get_json()
-    # language = data.get('language')
-    # word = data.get('word')
-    # is_correct = data.get('is_correct')
     print(f"Received data: {data}")
+    app_data.update_score(data["username"], [data["base_lang"], data["target_lang"]], data["word"], data["translation"], data["new_score"])
+    return jsonify({"status": "success", "message": "success"}), 200
 
 
 @app.route('/api/add_user', methods=['POST'])
@@ -135,7 +150,6 @@ def verify_user():
 
 @app.route('/')
 def serve_index():
-    # return send_from_directory('', 'new_index.html')
     return render_template('new_index.html')
 
 

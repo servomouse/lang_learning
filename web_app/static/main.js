@@ -7,7 +7,7 @@ let totalWords = 0;
 let correctCount = 0;
 let incorrectCount = 0;
 let currentWord = '';
-let answer = '';
+let expectedAnswer = '';
 let baseLang = '';
 let learnLang = 'sp';
 
@@ -50,16 +50,17 @@ function displayContent(entry) {
     if (modeSelect.value === 'insert') {
         let substring = extractSubstring(entry.sentence);
         let replacement = entry.translations[learnLang].translation;
+        currentWord = replacement;
         if (substring.length > 0 && substring[0].toUpperCase() === substring[0]) {
             // Capitalize the first letter of the replacement if needed
             replacement = replacement.charAt(0).toUpperCase() + replacement.slice(1);
         }
         sentenceSpan.innerHTML = entry.sentence.replace(`__${substring}__`, `<span class="gray">${replacement}</span>`);
-        answer = entry.word;
+        expectedAnswer = entry.word.toLowerCase();
     } else if (modeSelect.value === 'translate') {
         let substring = extractSubstring(entry.sentence);
         sentenceSpan.innerHTML = entry.sentence.replace(`__${substring}__`, `<span class="red">${substring}</span>`);
-        answer = entry.translations[learnLang].translation;
+        expectedAnswer = entry.translations[learnLang].translation.toLowerCase();
     } else {
         sentenceSpan.innerHTML = "Not implemented yet";
         translationSpan.classList.add('hidden');
@@ -72,14 +73,78 @@ function updateCounters() {
     document.getElementById('incorrectCount').innerText = incorrectCount;
 }
 
+function updateScore(user, lang1, lang2, word, translation, new_score) {
+    const jsonData = JSON.stringify({
+        username: user,
+        base_lang: lang1,
+        target_lang: lang2,
+        word: word,
+        translation: translation,
+        new_score: new_score
+    });
+
+    // Send data using fetch without awaiting the response
+    fetch('/api/update_score', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: jsonData,
+    }).catch(error => {
+        // Handle errors (optional, assumes you care to log them)
+        console.error('Error sending telemetry:', error);
+    });
+}
+
+function setNestedValue(obj, keys, value) {
+    keys.reduce((o, key, index) => {
+        if (index === keys.length - 1) {
+            o[key] = value; // assign value to the last key
+        } else {
+            if (!o[key]) o[key] = {}; // create an object if it doesn't exist
+        }
+        return o[key];
+    }, obj);
+}
+
 function submitAnswer() {
     const userAnswer = userInput.value.toLowerCase().trim();
-    if (userAnswer === answer.toLowerCase()) {
+    let currentScore = 0;
+    if (isLoggedIn) {
+        try {
+            currentScore = scores[currentUser][baseLang][currentWord][learnLang][expectedAnswer];
+        } catch (error) {
+            currentScore = 0;
+        }
+    }
+    if (userAnswer === expectedAnswer) {
         messageDiv.innerText = "Correct!";
         correctCount++;
+        if (isLoggedIn) {
+            currentScore += 1;
+        }
     } else {
-        messageDiv.innerText = `Incorrect! The correct word was: ${answer}`;
+        messageDiv.innerText = `Incorrect! The correct word was: ${expectedAnswer}`;
         incorrectCount++;
+        if (isLoggedIn) {
+            if(currentScore > 0) {
+                currentScore -= 1;
+            }
+        }
+    }
+    if (isLoggedIn) {
+        // scores[currentUser][baseLang][currentWord][learnLang][expectedAnswer] = currentScore;
+        if (modeSelect.value === 'insert') {
+            setNestedValue(scores, [currentUser, baseLang, expectedAnswer, learnLang, currentWord], currentScore);
+            updateScore(currentUser, baseLang, learnLang, expectedAnswer, currentWord, currentScore);
+        } else if (modeSelect.value === 'translate') {
+            setNestedValue(scores, [currentUser, baseLang, currentWord, learnLang, expectedAnswer], currentScore);
+            updateScore(currentUser, baseLang, learnLang, currentWord, expectedAnswer, currentScore);
+        } else {
+            throw `Handler for ${modeSelect.value} not implemented!`;
+        }
+        const prettyJson = JSON.stringify(scores, null, 2);
+        console.log(`scores: ${prettyJson}`);
     }
     totalWords++;
     updateCounters();

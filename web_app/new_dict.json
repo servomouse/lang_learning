@@ -1,35 +1,53 @@
 {
     "en": [
         {
-            "sentence": "She enjoyed a big breakfast before heading out to work",
             "word": "breakfast",
-            "translations": {"ru": "завтрак", "sp": "el desayuno"}
+            "sentence": "She enjoyed a big __breakfast__ before heading out to work.",
+            "translations": {
+                "ru": {"translation": "завтрак", "score": 0},
+                "sp": {"translation": "el desayuno", "score": 0}
+            }
         }, {
-            "sentence": "We are having dinner with friends tonight",
             "word": "dinner",
-            "translations": {"ru": "ужин", "sp": "la cena"}
+            "sentence": "We are having __dinner__ with friends tonight.",
+            "translations": {
+                "ru": {"translation": "ужин", "score": 0},
+                "sp": {"translation": "la cena", "score": 0}
+            }
         }
     ],
     "sp": [
         {
-            "sentence": "El desayuno es la comida más importante del día",
-            "word": "desayuno",
-            "translations": {"en": "breakfast", "ru": "завтрак"}
+            "word": "el desayuno",
+            "sentence": "__El desayuno__ es la comida más importante del día",
+            "translations": {
+                "en": {"translation": "breakfast", "score": 0},
+                "ru": {"translation": "завтрак", "score": 0}
+            }
         }, {
-            "sentence": "La cena estuvo deliciosa anoche",
-            "word": "cena",
-            "translations": {"en": "dinner", "ru": "ужин"}
+            "word": "la cena",
+            "sentence": "__La cena__ estuvo deliciosa anoche.",
+            "translations": {
+                "en": {"translation": "dinner", "score": 0},
+                "ru": {"translation": "ужин", "score": 0}
+            }
         }
     ],
     "ru": [
         {
-            "sentence": "Он всегда пьёт кофе на завтрак",
             "word": "завтрак",
-            "translations": {"en": "breakfast", "sp": "desayuno"}
+            "sentence": "Он всегда пьёт кофе на __завтрак__.",
+            "translations": {
+                "en": {"translation": "breakfast", "score": 0},
+                "sp": {"translation": "desayuno", "score": 0}
+            }
         }, {
-            "sentence": "Мы приготовили вкусный ужин",
             "word": "ужин",
-            "translations": {"en": "dinner", "sp": "cena"}
+            "sentence": "Мы приготовили вкусный __ужин__.",
+            "translations": {
+                "en": {"translation": "dinner", "score": 0},
+                "sp": {"translation": "cena", "score": 0}
+            }
         }
     ]
 }
