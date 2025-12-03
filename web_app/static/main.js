@@ -64,8 +64,6 @@ function displayContent(entry) {
         sentenceSpan.innerHTML = "Not implemented yet";
         translationSpan.classList.add('hidden');
     }
-    totalWords++;
-    updateCounters();
 }
 
 function updateCounters() {
@@ -83,6 +81,7 @@ function submitAnswer() {
         messageDiv.innerText = `Incorrect! The correct word was: ${answer}`;
         incorrectCount++;
     }
+    totalWords++;
     updateCounters();
     userInput.value = '';
     loadNewContent();
