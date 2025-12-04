@@ -2,9 +2,9 @@ from flask import Flask, jsonify, send_from_directory, request, render_template
 import json
 import os
 
-DICTIONARY_FILE = 'new_dict.json'
-SCORES_FILE = 'scores.json'
-USERS_FILE = 'users.json'
+DICTIONARY_FILE = 'data/dict.json'
+SCORES_FILE = 'data/scores.json'
+USERS_FILE = 'data/users.json'
 
 
 def set_nested_value(d, keys, value):
@@ -37,7 +37,6 @@ class UsersClass:
     def __init__(self):
         print("Initializing UsersClass")
         super().__init__()
-        self.current_user = None
         if os.path.isfile(USERS_FILE):
             with open(USERS_FILE, 'r', encoding='utf-8') as file:
                 self.users = json.load(file)

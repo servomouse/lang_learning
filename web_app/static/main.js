@@ -49,7 +49,7 @@ function displayContent(entry) {
     console.log(`${prettyJson}, ${baseLang}, ${learnLang}`);
     if (modeSelect.value === 'insert') {
         let substring = extractSubstring(entry.sentence);
-        let replacement = entry.translations[learnLang].translation;
+        let replacement = entry.translations[learnLang];
         currentWord = replacement;
         if (substring.length > 0 && substring[0].toUpperCase() === substring[0]) {
             // Capitalize the first letter of the replacement if needed
@@ -60,7 +60,7 @@ function displayContent(entry) {
     } else if (modeSelect.value === 'translate') {
         let substring = extractSubstring(entry.sentence);
         sentenceSpan.innerHTML = entry.sentence.replace(`__${substring}__`, `<span class="red">${substring}</span>`);
-        expectedAnswer = entry.translations[learnLang].translation.toLowerCase();
+        expectedAnswer = entry.translations[learnLang].toLowerCase();
     } else {
         sentenceSpan.innerHTML = "Not implemented yet";
         translationSpan.classList.add('hidden');
@@ -124,7 +124,7 @@ function submitAnswer() {
             currentScore += 1;
         }
     } else {
-        messageDiv.innerText = `Incorrect! The correct word was: ${expectedAnswer}`;
+        messageDiv.innerText = `Incorrect! The correct answer was: ${expectedAnswer}`;
         incorrectCount++;
         if (isLoggedIn) {
             if(currentScore > 0) {
