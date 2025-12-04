@@ -59,6 +59,7 @@ function displayContent(entry) {
         expectedAnswer = entry.word.toLowerCase();
     } else if (modeSelect.value === 'translate') {
         let substring = extractSubstring(entry.sentence);
+        currentWord = substring.toLowerCase();
         sentenceSpan.innerHTML = entry.sentence.replace(`__${substring}__`, `<span class="red">${substring}</span>`);
         expectedAnswer = entry.translations[learnLang].toLowerCase();
     } else {
@@ -184,8 +185,6 @@ modeSelect.addEventListener('change', function() {
 // document.addEventListener('DOMContentLoaded', loadNewContent);
 initLoginForm();
 loadDictionary();
-if (isLoggedIn) {
-    loadScores();
-}
+loadScores();
 
 // loadNewContent();
