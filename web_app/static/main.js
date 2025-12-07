@@ -1,8 +1,10 @@
 import { initLoginForm, isLoggedIn, currentUser } from './login.js';
 import { myreplace, extractSubstring } from './stringlib.js';
+import { setNestedValue} from './tools.js';
 
 let dictionary = {};
 let scores = {};
+let sortedDictionary = [];
 let totalWords = 0;
 let correctCount = 0;
 let incorrectCount = 0;
@@ -44,24 +46,57 @@ function selectRandomEntry(language) {
     return entries[randomIndex];
 }
 
+function prepareDictionary() {
+    sortedDictionary = [];
+    if (modeSelect.value === 'insert') {
+        for (const entry of dictionary[baseLang]) {
+            const word0 = extractSubstring(entry.sentence).toLowerCase();
+            const word1 = entry.translations[learnLang].toLowerCase();
+            sortedDictionary.push({
+                sentence: entry.sentence,
+                translation: entry.translations[learnLang],
+                word: entry.word,
+                score: scores[currentUser][baseLang][word1][learnLang][word0]
+            });
+        }
+    } else if (modeSelect.value === 'translate') {
+        for (const entry of dictionary[baseLang]) {
+            const word0 = extractSubstring(entry.sentence).toLowerCase();
+            const word1 = entry.translations[learnLang].toLowerCase();
+            // let substring = extractSubstring(entry.sentence);
+            // currentWord = substring.toLowerCase();
+            sortedDictionary.push({
+                sentence: entry.sentence,
+                translation: entry.translations[learnLang],
+                word: entry.word,
+                score: scores[currentUser][baseLang][word0][learnLang][word1]
+            });
+        }
+    } else {
+    }
+}
+
+function firstLetterUpperCase(text) {
+    if (text.length > 0 && text[0].toUpperCase() === text[0]) { return true;}
+    return false;
+}
+
 function displayContent(entry) {
     const prettyJson = JSON.stringify(entry, null, 2);
     console.log(`${prettyJson}, ${baseLang}, ${learnLang}`);
+    let word0 = extractSubstring(entry.sentence);
+    let word1 = entry.translations[learnLang];
     if (modeSelect.value === 'insert') {
-        let substring = extractSubstring(entry.sentence);
-        let replacement = entry.translations[learnLang];
-        currentWord = replacement;
-        if (substring.length > 0 && substring[0].toUpperCase() === substring[0]) {
-            // Capitalize the first letter of the replacement if needed
-            replacement = replacement.charAt(0).toUpperCase() + replacement.slice(1);
+        currentWord = word1.toLowerCase();
+        expectedAnswer = word0.toLowerCase();
+        if (firstLetterUpperCase(word0)) {  // Capitalize the first letter of the word1 if needed
+            word1 = word1.charAt(0).toUpperCase() + word1.slice(1);
         }
-        sentenceSpan.innerHTML = entry.sentence.replace(`__${substring}__`, `<span class="gray">${replacement}</span>`);
-        expectedAnswer = entry.word.toLowerCase();
+        sentenceSpan.innerHTML = entry.sentence.replace(`__${word0}__`, `[<span class="gray">${word1}</span>]`);
     } else if (modeSelect.value === 'translate') {
-        let substring = extractSubstring(entry.sentence);
-        currentWord = substring.toLowerCase();
-        sentenceSpan.innerHTML = entry.sentence.replace(`__${substring}__`, `<span class="red">${substring}</span>`);
-        expectedAnswer = entry.translations[learnLang].toLowerCase();
+        currentWord = word0.toLowerCase();
+        expectedAnswer = word1.toLowerCase();
+        sentenceSpan.innerHTML = entry.sentence.replace(`__${word0}__`, `[<span class="red">${word0}</span>]`);
     } else {
         sentenceSpan.innerHTML = "Not implemented yet";
         translationSpan.classList.add('hidden');
@@ -95,17 +130,6 @@ function updateScore(user, lang1, lang2, word, translation, new_score) {
         // Handle errors (optional, assumes you care to log them)
         console.error('Error sending telemetry:', error);
     });
-}
-
-function setNestedValue(obj, keys, value) {
-    keys.reduce((o, key, index) => {
-        if (index === keys.length - 1) {
-            o[key] = value; // assign value to the last key
-        } else {
-            if (!o[key]) o[key] = {}; // create an object if it doesn't exist
-        }
-        return o[key];
-    }, obj);
 }
 
 function submitAnswer() {
