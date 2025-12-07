@@ -1,6 +1,6 @@
 import { initLoginForm, isLoggedIn, currentUser } from './login.js';
 import { myreplace, extractSubstring } from './stringlib.js';
-import { setNestedValue} from './tools.js';
+import { setNestedValue, firstLetterUpperCase } from './tools.js';
 
 let dictionary = {};
 let scores = {};
@@ -20,14 +20,21 @@ const userInput = document.getElementById('userInput');
 const messageDiv = document.getElementById('message');
 const submitBtn = document.getElementById('submitBtn');
 
-languageSelect.addEventListener('change', loadNewContent);
 submitBtn.addEventListener('click', submitAnswer);
+
+languageSelect.addEventListener('change', function() {
+    updateLangs();
+    prepareDictionary();
+    loadNewContent();
+});
 
 function loadDictionary() {
     fetch('/api/dictionary')
         .then(response => response.json())
         .then(data => {
             dictionary = data;
+            updateLangs();
+            prepareDictionary();
             loadNewContent(); // Load content after dictionary is fetched
         });
 }
@@ -56,29 +63,25 @@ function prepareDictionary() {
                 sentence: entry.sentence,
                 translation: entry.translations[learnLang],
                 word: entry.word,
-                score: scores[currentUser][baseLang][word1][learnLang][word0]
+                score: getScore(currentUser, baseLang, learnLang, word1, word0)
             });
         }
     } else if (modeSelect.value === 'translate') {
         for (const entry of dictionary[baseLang]) {
             const word0 = extractSubstring(entry.sentence).toLowerCase();
             const word1 = entry.translations[learnLang].toLowerCase();
-            // let substring = extractSubstring(entry.sentence);
-            // currentWord = substring.toLowerCase();
             sortedDictionary.push({
                 sentence: entry.sentence,
                 translation: entry.translations[learnLang],
                 word: entry.word,
-                score: scores[currentUser][baseLang][word0][learnLang][word1]
+                score: getScore(currentUser, baseLang, learnLang, word0, word1)
             });
         }
     } else {
     }
-}
-
-function firstLetterUpperCase(text) {
-    if (text.length > 0 && text[0].toUpperCase() === text[0]) { return true;}
-    return false;
+    if(sortedDictionary.length > 0) {
+        sortedDictionary.sort((a, b) => a.age - b.age);
+    }
 }
 
 function displayContent(entry) {
@@ -109,14 +112,18 @@ function updateCounters() {
     document.getElementById('incorrectCount').innerText = incorrectCount;
 }
 
-function updateScore(user, lang1, lang2, word, translation, new_score) {
+function updateScore(user, lang0, lang1, word0, word1, newScore) {
+    if (newScore < 0) {
+        newScore = 0;
+    }
+    scores[username][lang0][word0][lang1][word1] = newScore;
     const jsonData = JSON.stringify({
         username: user,
-        base_lang: lang1,
-        target_lang: lang2,
-        word: word,
-        translation: translation,
-        new_score: new_score
+        base_lang: lang0,
+        target_lang: lang1,
+        word: word0,
+        translation: word1,
+        new_score: newScore
     });
 
     // Send data using fetch without awaiting the response
@@ -132,39 +139,36 @@ function updateScore(user, lang1, lang2, word, translation, new_score) {
     });
 }
 
+function getScore(username, lang0, lang1, word0, word1) {
+    let currentScore = 0;
+    try {
+        currentScore = scores[username][lang0][word0][lang1][word1];
+    } catch (error) {
+        setNestedValue(scores, [username, lang0, word1, lang1, word0], currentScore);
+        currentScore = 0;
+    }
+    return currentScore;
+}
+
 function submitAnswer() {
     const userAnswer = userInput.value.toLowerCase().trim();
-    let currentScore = 0;
-    if (isLoggedIn) {
-        try {
-            currentScore = scores[currentUser][baseLang][currentWord][learnLang][expectedAnswer];
-        } catch (error) {
-            currentScore = 0;
-        }
-    }
+    let scoreInc = 0;
     if (userAnswer === expectedAnswer) {
         messageDiv.innerText = "Correct!";
         correctCount++;
-        if (isLoggedIn) {
-            currentScore += 1;
-        }
+        scoreInc = 1;
     } else {
         messageDiv.innerText = `Incorrect! The correct answer was: ${expectedAnswer}`;
         incorrectCount++;
-        if (isLoggedIn) {
-            if(currentScore > 0) {
-                currentScore -= 1;
-            }
-        }
+        scoreInc = -1;
     }
     if (isLoggedIn) {
-        // scores[currentUser][baseLang][currentWord][learnLang][expectedAnswer] = currentScore;
         if (modeSelect.value === 'insert') {
-            setNestedValue(scores, [currentUser, baseLang, expectedAnswer, learnLang, currentWord], currentScore);
-            updateScore(currentUser, baseLang, learnLang, expectedAnswer, currentWord, currentScore);
+            let currentScore = getScore(currentUser, baseLang, learnLang, expectedAnswer, currentWord);
+            updateScore(currentUser, baseLang, learnLang, expectedAnswer, currentWord, currentScore+scoreInc);
         } else if (modeSelect.value === 'translate') {
-            setNestedValue(scores, [currentUser, baseLang, currentWord, learnLang, expectedAnswer], currentScore);
-            updateScore(currentUser, baseLang, learnLang, currentWord, expectedAnswer, currentScore);
+            let currentScore = getScore(currentUser, baseLang, learnLang, currentWord, expectedAnswer);
+            updateScore(            currentUser, baseLang, learnLang, currentWord, expectedAnswer, currentScore+scoreInc);
         } else {
             throw `Handler for ${modeSelect.value} not implemented!`;
         }
@@ -177,19 +181,21 @@ function submitAnswer() {
     loadNewContent();
 }
 
-function loadNewContent() {
+function updateLangs() {
     baseLang = languageSelect.value.slice(0, 2);
     if (modeSelect.value === 'translate') {
         learnLang = languageSelect.value.slice(3, 5);
     } else if (modeSelect.value === 'insert') {
         learnLang = languageSelect.value.slice(3, 5);
     }
+}
+
+function loadNewContent() {
     const entry = selectRandomEntry(baseLang);
     displayContent(entry);
 }
 
 modeSelect.addEventListener('change', function() {
-    loadNewContent();
     if (this.value === 'conjugate') {
         languageSelect.innerHTML = `
             <option value="en">EN</option>
@@ -204,11 +210,11 @@ modeSelect.addEventListener('change', function() {
             <option value="en-ru">EN-RU</option>
         `;
     }
+    updateLangs();
+    prepareDictionary();
+    loadNewContent();
 });
 
-// document.addEventListener('DOMContentLoaded', loadNewContent);
 initLoginForm();
 loadDictionary();
 loadScores();
-
-// loadNewContent();
