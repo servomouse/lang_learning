@@ -1,6 +1,6 @@
 import { initLoginForm, isLoggedIn, currentUser } from './login.js';
 import { myreplace, extractSubstring } from './stringlib.js';
-import { setNestedValue, firstLetterUpperCase } from './tools.js';
+import { setNestedValue, firstLetterUpperCase, weightedRandomSelection } from './tools.js';
 
 let dictionary = {};
 let scores = {};
@@ -47,36 +47,44 @@ function loadScores() {
         });
 }
 
-function selectRandomEntry(language) {
-    const entries = dictionary[language];
-    const randomIndex = Math.floor(Math.random() * entries.length);
-    return entries[randomIndex];
+function selectRandomEntry() {
+    return sortedDictionary[weightedRandomSelection(sortedDictionary.length)];
+}
+
+function prepareDictionaryForInsertMode() {
+    sortedDictionary = [];
+    for (const entry of dictionary[baseLang]) {
+        const word0 = extractSubstring(entry.sentence).toLowerCase();
+        const word1 = entry.translations[learnLang].toLowerCase();
+        sortedDictionary.push({
+            sentence: entry.sentence,
+            translation: entry.translations[learnLang],
+            word: entry.word,
+            score: getScore(currentUser, baseLang, learnLang, word1, word0)
+        });
+    }
+}
+
+function prepareDictionaryForTranslateMode() {
+    sortedDictionary = [];
+    for (const entry of dictionary[baseLang]) {
+        const word0 = extractSubstring(entry.sentence).toLowerCase();
+        const word1 = entry.translations[learnLang].toLowerCase();
+        sortedDictionary.push({
+            sentence: entry.sentence,
+            translation: entry.translations[learnLang],
+            word: entry.word,
+            score: getScore(currentUser, baseLang, learnLang, word0, word1)
+        });
+    }
 }
 
 function prepareDictionary() {
     sortedDictionary = [];
     if (modeSelect.value === 'insert') {
-        for (const entry of dictionary[baseLang]) {
-            const word0 = extractSubstring(entry.sentence).toLowerCase();
-            const word1 = entry.translations[learnLang].toLowerCase();
-            sortedDictionary.push({
-                sentence: entry.sentence,
-                translation: entry.translations[learnLang],
-                word: entry.word,
-                score: getScore(currentUser, baseLang, learnLang, word1, word0)
-            });
-        }
+        prepareDictionaryForInsertMode();
     } else if (modeSelect.value === 'translate') {
-        for (const entry of dictionary[baseLang]) {
-            const word0 = extractSubstring(entry.sentence).toLowerCase();
-            const word1 = entry.translations[learnLang].toLowerCase();
-            sortedDictionary.push({
-                sentence: entry.sentence,
-                translation: entry.translations[learnLang],
-                word: entry.word,
-                score: getScore(currentUser, baseLang, learnLang, word0, word1)
-            });
-        }
+        prepareDictionaryForTranslateMode();
     } else {
     }
     if(sortedDictionary.length > 0) {
@@ -84,26 +92,24 @@ function prepareDictionary() {
     }
 }
 
-function displayContent(entry) {
-    const prettyJson = JSON.stringify(entry, null, 2);
-    console.log(`${prettyJson}, ${baseLang}, ${learnLang}`);
-    let word0 = extractSubstring(entry.sentence);
-    let word1 = entry.translations[learnLang];
-    if (modeSelect.value === 'insert') {
-        currentWord = word1.toLowerCase();
-        expectedAnswer = word0.toLowerCase();
-        if (firstLetterUpperCase(word0)) {  // Capitalize the first letter of the word1 if needed
-            word1 = word1.charAt(0).toUpperCase() + word1.slice(1);
-        }
-        sentenceSpan.innerHTML = entry.sentence.replace(`__${word0}__`, `[<span class="gray">${word1}</span>]`);
-    } else if (modeSelect.value === 'translate') {
-        currentWord = word0.toLowerCase();
-        expectedAnswer = word1.toLowerCase();
-        sentenceSpan.innerHTML = entry.sentence.replace(`__${word0}__`, `[<span class="red">${word0}</span>]`);
-    } else {
-        sentenceSpan.innerHTML = "Not implemented yet";
-        translationSpan.classList.add('hidden');
+function displayInsertContent(word0, word1, sentence) {
+    currentWord = word1.toLowerCase();
+    expectedAnswer = word0.toLowerCase();
+    if (firstLetterUpperCase(word0)) {  // Capitalize the first letter of the word1 if needed
+        word1 = word1.charAt(0).toUpperCase() + word1.slice(1);
     }
+    sentenceSpan.innerHTML = sentence.replace(`__${word0}__`, `[<span class="gray">${word1}</span>]`);
+}
+
+function displayTranslateContent(word0, word1, sentence) {
+    currentWord = word0.toLowerCase();
+    expectedAnswer = word1.toLowerCase();
+    sentenceSpan.innerHTML = sentence.replace(`__${word0}__`, `[<span class="red">${word0}</span>]`);
+}
+
+function displayConjugateContent(word0, word1, sentence) {
+    sentenceSpan.innerHTML = "Conjugate mode isn't implemented yet";
+    translationSpan.classList.add('hidden');
 }
 
 function updateCounters() {
@@ -190,8 +196,20 @@ function updateLangs() {
 }
 
 function loadNewContent() {
-    const entry = selectRandomEntry(baseLang);
-    displayContent(entry);
+    const entry = selectRandomEntry();
+    const prettyJson = JSON.stringify(entry, null, 2);
+    console.log(`New entry: ${prettyJson}, ${baseLang}, ${learnLang}`);
+    let word0 = extractSubstring(entry.sentence);
+    let word1 = entry.translation;
+    if (modeSelect.value === 'insert') {
+        displayInsertContent(word0, word1, entry.sentence);
+    } else if (modeSelect.value === 'translate') {
+        displayTranslateContent(word0, word1, entry.sentence);
+    } else if (modeSelect.value === 'conjugate') {
+        displayConjugateContent(word0, word1, entry.sentence);
+    } else {
+        throw `Handler for ${modeSelect.value} not implemented!`;
+    }
 }
 
 modeSelect.addEventListener('change', function() {
