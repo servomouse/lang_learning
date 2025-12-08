@@ -116,7 +116,7 @@ function updateScore(user, lang0, lang1, word0, word1, newScore) {
     if (newScore < 0) {
         newScore = 0;
     }
-    scores[username][lang0][word0][lang1][word1] = newScore;
+    scores[user][lang0][word0][lang1][word1] = newScore;
     const jsonData = JSON.stringify({
         username: user,
         base_lang: lang0,
@@ -144,8 +144,7 @@ function getScore(username, lang0, lang1, word0, word1) {
     try {
         currentScore = scores[username][lang0][word0][lang1][word1];
     } catch (error) {
-        setNestedValue(scores, [username, lang0, word1, lang1, word0], currentScore);
-        currentScore = 0;
+        setNestedValue(scores, [username, lang0, word0, lang1, word1], currentScore);
     }
     return currentScore;
 }
@@ -168,7 +167,7 @@ function submitAnswer() {
             updateScore(currentUser, baseLang, learnLang, expectedAnswer, currentWord, currentScore+scoreInc);
         } else if (modeSelect.value === 'translate') {
             let currentScore = getScore(currentUser, baseLang, learnLang, currentWord, expectedAnswer);
-            updateScore(            currentUser, baseLang, learnLang, currentWord, expectedAnswer, currentScore+scoreInc);
+            updateScore(currentUser, baseLang, learnLang, currentWord, expectedAnswer, currentScore+scoreInc);
         } else {
             throw `Handler for ${modeSelect.value} not implemented!`;
         }
