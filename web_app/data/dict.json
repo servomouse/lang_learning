@@ -31,6 +31,699 @@
                 "en": "dinner",
                 "ru": "ужин"
             }
+        }, {
+            "word": "confundir",
+            "sentence": "Es fácil __confundir__ dos palabras similares en español.",
+            "translations": {
+                "en": "to confuse",
+                "ru": "путать"
+            }
+        }, {
+            "word": "atar",
+            "sentence": "Necesito __atar__ los cordones de mis zapatos.",
+            "translations": {
+                "en": "to tie",
+                "ru": "связывать"
+            }
+        }, {
+            "word": "el folleto",
+            "sentence": "Leí __el folleto__ antes de visitar el museo.",
+            "translations": {
+                "en": "the brochure",
+                "ru": "брошюра"
+            }
+        },  {
+            "word": "las trastadas",
+            "sentence": "El niño hizo __las trastadas__ y rompió un jarrón.",
+            "translations": {
+                "en": "the pranks",
+                "ru": "шалости"
+            }
+        }, {
+            "word": "entregar",
+            "sentence": "Debes __entregar__ el trabajo antes del viernes.",
+            "translations": {
+                "en": "to deliver",
+                "ru": "доставить / сдать"
+            }
+        }, {
+            "word": "consolar",
+            "sentence": "Intentó __consolar__ a su amigo después de la pérdida.",
+            "translations": {
+                "en": "to console",
+                "ru": "утешать"
+            }
+        }, {
+            "word": "recitar",
+            "sentence": "El poeta va a __recitar__ sus versos en el evento.",
+            "translations": {
+                "en": "to recite",
+                "ru": "декламировать"
+            }
+        }, {
+            "word": "desistir",
+            "sentence": "No debes __desistir__ de tus sueños fácilmente.",
+            "translations": {
+                "en": "to give up",
+                "ru": "отказаться / сдаться"
+            }
+        }, {
+            "word": "vencer",
+            "sentence": "El equipo logró __vencer__ a su rival en la final.",
+            "translations": {
+                "en": "to defeat",
+                "ru": "победить"
+            }
+        }, {
+            "word": "indiscreta",
+            "sentence": "Fue una pregunta muy __indiscreta__ durante la reunión.",
+            "translations": {
+                "en": "indiscreet",
+                "ru": "нескромная"
+            }
+        }, {
+            "word": "tapar",
+            "sentence": "Voy a __tapar__ la olla para que no se enfríe.",
+            "translations": {
+                "en": "to cover",
+                "ru": "накрыть"
+            }
+        }, {
+            "word": "mimar",
+            "sentence": "Le gusta __mimar__ a sus hijos con regalos.",
+            "translations": {
+                "en": "to pamper",
+                "ru": "баловать"
+            }
+        }, {
+            "word": "en el acto",
+            "sentence": "Aceptó la propuesta __en el acto__ sin pensarlo dos veces.",
+            "translations": {
+                "en": "on the spot",
+                "ru": "на месте"
+            }
+        }, {
+            "word": "la objeción",
+            "sentence": "Presentó __la objeción__ antes de firmar el contrato.",
+            "translations": {
+                "en": "the objection",
+                "ru": "возражение"
+            }
+        }, {
+            "word": "los sobornos",
+            "sentence": "El juez rechazó __los sobornos__ ofrecidos por el acusado.",
+            "translations": {
+                "en": "the bribes",
+                "ru": "взятки"
+            }
+        }, {
+            "word": "patinar",
+            "sentence": "Nos gusta __patinar__ sobre hielo en invierno.",
+            "translations": {
+                "en": "to skate",
+                "ru": "кататься на коньках"
+            }
+        }, {
+            "word": "hallar",
+            "sentence": "No puedo __hallar__ mis llaves por ninguna parte.",
+            "translations": {
+                "en": "to find",
+                "ru": "находить"
+            }
+        }, {
+            "word": "de sobra",
+            "sentence": "Tenemos comida __de sobra__ para todos.",
+            "translations": {
+                "en": "more than enough",
+                "ru": "с избытком"
+            }
+        }, {
+            "word": "proporcionar",
+            "sentence": "La empresa debe __proporcionar__ los recursos necesarios.",
+            "translations": {
+                "en": "to provide",
+                "ru": "предоставить"
+            }
+        }, {
+            "word": "la cartilla de notas",
+            "sentence": "El profesor entregó __la cartilla de notas__ al final del trimestre.",
+            "translations": {
+                "en": "the report card",
+                "ru": "табель успеваемости"
+            }
+        }, {
+            "word": "la carrera universitaria",
+            "sentence": "Eligió __la carrera universitaria__ de medicina.",
+            "translations": {
+                "en": "the university degree",
+                "ru": "университетская специальность"
+            }
+        }, {
+            "word": "los apuntes",
+            "sentence": "Tomé __los apuntes__ durante la clase para estudiar después.",
+            "translations": {
+                "en": "the notes",
+                "ru": "конспекты"
+            }
+        }, {
+            "word": "la asignatura",
+            "sentence": "Matemáticas es __la asignatura__ más difícil para mí.",
+            "translations": {
+                "en": "the subject",
+                "ru": "предмет"
+            }
+        }, {
+            "word": "soplar",
+            "sentence": "Voy a __soplar__ las velas del pastel.",
+            "translations": {
+                "en": "to blow",
+                "ru": "дуть"
+            }
+        }, {
+            "word": "averiguar",
+            "sentence": "Necesito __averiguar__ la verdad sobre lo ocurrido.",
+            "translations": {
+                "en": "to find out",
+                "ru": "выяснить"
+            }
+        }, {
+            "word": "marchitarse",
+            "sentence": "Las flores comenzaron a __marchitarse__ sin agua.",
+            "translations": {
+                "en": "to wither",
+                "ru": "увядать"
+            }
+        }, {
+            "word": "donde te has metido",
+            "sentence": "¡__Dónde te has metido__! Te he estado buscando todo el día.",
+            "translations": {
+                "en": "where have you been",
+                "ru": "где ты пропадал"
+            }
+        }, {
+            "word": "los forros",
+            "sentence": "Compré __los forros__ para proteger los libros.",
+            "translations": {
+                "en": "the covers",
+                "ru": "обложки"
+            }
+        }, {
+            "word": "discreta",
+            "sentence": "Ella fue muy __discreta__ al dar su opinión.",
+            "translations": {
+                "en": "discreet",
+                "ru": "скромная"
+            }
+        }, {
+            "word": "hacer novillos",
+            "sentence": "Decidieron __hacer novillos__ y no ir a clase hoy.",
+            "translations": {
+                "en": "to skip school",
+                "ru": "прогуливать школу"
+            }
+        }, {
+            "word": "faltar a las clases",
+            "sentence": "No es bueno __faltar a las clases__ sin justificación.",
+            "translations": {
+                "en": "to miss classes",
+                "ru": "пропускать занятия"
+            }
+        }, {
+            "word": "un hueso",
+            "sentence": "Ese profesor es __un hueso__, exige mucho a sus alumnos.",
+            "translations": {
+                "en": "a tough teacher",
+                "ru": "строгий преподаватель"
+            }
+        }, {
+            "word": "ingresar",
+            "sentence": "Quiere __ingresar__ en la universidad el próximo año.",
+            "translations": {
+                "en": "to enroll",
+                "ru": "поступить"
+            }
+        }, {
+            "word": "el catedrático",
+            "sentence": "__El catedrático__ dio una conferencia sobre historia.",
+            "translations": {
+                "en": "the professor",
+                "ru": "профессор"
+            }
+        }, {
+            "word": "catear",
+            "sentence": "Si no estudias, te pueden __catear__ en el examen.",
+            "translations": {
+                "en": "to fail (an exam)",
+                "ru": "завалить экзамен"
+            }
+        }, {
+            "word": "la asignatura",
+            "sentence": "Biología es __la asignatura__ que más me gusta.",
+            "translations": {
+                "en": "the subject",
+                "ru": "предмет"
+            }
+        }, {
+            "word": "la asistencia",
+            "sentence": "La profesora revisó __la asistencia__ al inicio de la clase.",
+            "translations": {
+                "en": "the attendance",
+                "ru": "посещаемость"
+            }
+        }, {
+            "word": "asistir",
+            "sentence": "Voy a __asistir__ a la conferencia mañana.",
+            "translations": {
+                "en": "to attend",
+                "ru": "посещать"
+            }
+        }, {
+            "word": "el aspirante",
+            "sentence": "__El aspirante__ presentó su solicitud para la beca.",
+            "translations": {
+                "en": "the applicant",
+                "ru": "кандидат"
+            }
+        }, {
+            "word": "el aula",
+            "sentence": "Los estudiantes esperan en __el aula__ antes de la clase.",
+            "translations": {
+                "en": "the classroom",
+                "ru": "аудитория"
+            }
+        }, {
+            "word": "la beca",
+            "sentence": "Consiguió __la beca__ por sus excelentes calificaciones.",
+            "translations": {
+                "en": "the scholarship",
+                "ru": "стипендия"
+            }
+        }, {
+            "word": "ordeñar",
+            "sentence": "El granjero va a __ordeñar__ las vacas por la mañana.",
+            "translations": {
+                "en": "to milk",
+                "ru": "доить"
+            }
+        }, {
+            "word": "fingir",
+            "sentence": "No puedes __fingir__ estar enfermo para faltar al trabajo.",
+            "translations": {
+                "en": "to pretend",
+                "ru": "притворяться"
+            }
+        }, {
+            "word": "los ladridos",
+            "sentence": "Se escuchaban __los ladridos__ del perro desde lejos.",
+            "translations": {
+                "en": "the barks",
+                "ru": "лай"
+            }
+        }, {
+            "word": "colgar",
+            "sentence": "Voy a __colgar__ la ropa en el tendedero.",
+            "translations": {
+                "en": "to hang",
+                "ru": "вешать"
+            }
+        }, {
+            "word": "quitar",
+            "sentence": "Por favor, ayuda a __quitar__ la mesa después de comer.",
+            "translations": {
+                "en": "to remove",
+                "ru": "убрать"
+            }
+        }, {
+            "word": "las quemaduras",
+            "sentence": "El médico trató __las quemaduras__ del paciente.",
+            "translations": {
+                "en": "the burns",
+                "ru": "ожоги"
+            }
+        }, {
+            "word": "cojear",
+            "sentence": "Después del accidente, empezó a __cojear__ al caminar.",
+            "translations": {
+                "en": "to limp",
+                "ru": "хромать"
+            }
+        }, {
+            "word": "el cutis",
+            "sentence": "Ella cuida mucho __el cutis__ con cremas especiales.",
+            "translations": {
+                "en": "the complexion",
+                "ru": "кожа лица"
+            }
+        }, {
+            "word": "ensayar",
+            "sentence": "El grupo va a __ensayar__ para la obra de teatro.",
+            "translations": {
+                "en": "to rehearse",
+                "ru": "репетировать"
+            }
+        }, {
+            "word": "los obreros",
+            "sentence": "__Los obreros__ trabajan en la construcción del puente.",
+            "translations": {
+                "en": "the workers",
+                "ru": "рабочие"
+            }
+        }, {
+            "word": "ligar",
+            "sentence": "Intentó __ligar__ con alguien en la fiesta.",
+            "translations": {
+                "en": "to flirt",
+                "ru": "флиртовать"
+            }
+        }, {
+            "word": "las sentadillas",
+            "sentence": "Hizo veinte __sentadillas__ durante el entrenamiento.",
+            "translations": {
+                "en": "the squats",
+                "ru": "приседания"
+            }
+        }, {
+            "word": "exigir",
+            "sentence": "El cliente va a __exigir__ una solución inmediata.",
+            "translations": {
+                "en": "to demand",
+                "ru": "требовать"
+            }
+        }, {
+            "word": "tirarse encima",
+            "sentence": "El perro se va a __tirar encima__ cuando entres a la casa.",
+            "translations": {
+                "en": "to jump on",
+                "ru": "наброситься"
+            }
+        }, {
+            "word": "sofocar",
+            "sentence": "Intentaron __sofocar__ el incendio rápidamente.",
+            "translations": {
+                "en": "to suffocate / to put out",
+                "ru": "подавить / задушить"
+            }
+        }, {
+            "word": "el anillo",
+            "sentence": "Ella lleva __el anillo__ en la mano derecha.",
+            "translations": {
+                "en": "the ring",
+                "ru": "кольцо"
+            }
+        }, {
+            "word": "la lágrima",
+            "sentence": "Una __lágrima__ cayó por su mejilla.",
+            "translations": {
+                "en": "the tear",
+                "ru": "слеза"
+            }
+        }, {
+            "word": "disgustar",
+            "sentence": "No quiero __disgustar__ a nadie con mis palabras.",
+            "translations": {
+                "en": "to upset",
+                "ru": "расстроить"
+            }
+        }, {
+            "word": "zamparse",
+            "sentence": "Se va a __zampar__ todo el pastel él solo.",
+            "translations": {
+                "en": "to gobble up",
+                "ru": "уплетать"
+            }
+        }, {
+            "word": "polémico",
+            "sentence": "El tema resultó ser muy __polémico__ en el debate.",
+            "translations": {
+                "en": "controversial",
+                "ru": "спорный"
+            }
+        }, {
+            "word": "intervenir",
+            "sentence": "El moderador tuvo que __intervenir__ en la discusión.",
+            "translations": {
+                "en": "to intervene",
+                "ru": "вмешаться"
+            }
+        }, {
+            "word": "la juerga",
+            "sentence": "Anoche estuvieron de __juerga__ hasta el amanecer.",
+            "translations": {
+                "en": "the party",
+                "ru": "вечеринка / гулянка"
+            }
+        }, {
+            "word": "más de la cuenta",
+            "sentence": "Comí __más de la cuenta__ y ahora me siento mal.",
+            "translations": {
+                "en": "more than necessary",
+                "ru": "слишком много"
+            }
+        }, {
+            "word": "pasar un mal rato",
+            "sentence": "Tuvo que __pasar un mal rato__ durante la entrevista.",
+            "translations": {
+                "en": "to have a hard time",
+                "ru": "плохо провести время"
+            }
+        }, {
+            "word": "diminuto",
+            "sentence": "Encontré un insecto __diminuto__ en la mesa.",
+            "translations": {
+                "en": "tiny",
+                "ru": "крошечный"
+            }
+        }, {
+            "word": "traicionar",
+            "sentence": "Nunca debes __traicionar__ la confianza de un amigo.",
+            "translations": {
+                "en": "to betray",
+                "ru": "предавать"
+            }
+        }, {
+            "word": "sapear",
+            "sentence": "No deberías __sapear__ a tus amigos por cosas pequeñas.",
+            "translations": {
+                "en": "to snitch",
+                "ru": "стучать"
+            }
+        }, {
+            "word": "reportar",
+            "sentence": "Voy a __reportar__ el problema al supervisor.",
+            "translations": {
+                "en": "to report",
+                "ru": "сообщить"
+            }
+        }, {
+            "word": "taquearse",
+            "sentence": "Vamos a __taquearnos__ en el restaurante mexicano.",
+            "translations": {
+                "en": "to eat tacos",
+                "ru": "есть тако"
+            }
+        }, {
+            "word": "el inodoro",
+            "sentence": "El fontanero arregló __el inodoro__ roto.",
+            "translations": {
+                "en": "the toilet",
+                "ru": "унитаз"
+            }
+        }, {
+            "word": "la miscelánea",
+            "sentence": "Compré dulces en __la miscelánea__ de la esquina.",
+            "translations": {
+                "en": "the convenience store",
+                "ru": "лавка / магазин"
+            }
+        }, {
+            "word": "escaparse",
+            "sentence": "El perro logró __escaparse__ del jardín.",
+            "translations": {
+                "en": "to escape",
+                "ru": "убежать"
+            }
+        }, {
+            "word": "perdonar",
+            "sentence": "Es difícil __perdonar__ una traición.",
+            "translations": {
+                "en": "to forgive",
+                "ru": "простить"
+            }
+        }, {
+            "word": "los naipes",
+            "sentence": "Jugamos con __los naipes__ toda la tarde.",
+            "translations": {
+                "en": "the playing cards",
+                "ru": "карты"
+            }
+        }, {
+            "word": "la grúa",
+            "sentence": "__La grúa__ retiró el coche averiado.",
+            "translations": {
+                "en": "the tow truck",
+                "ru": "эвакуатор"
+            }
+        }, {
+            "word": "exigente",
+            "sentence": "Mi jefe es muy __exigente__ con los plazos.",
+            "translations": {
+                "en": "demanding",
+                "ru": "требовательный"
+            }
+        }, {
+            "word": "humillar",
+            "sentence": "No deberías __humillar__ a nadie en público.",
+            "translations": {
+                "en": "to humiliate",
+                "ru": "унижать"
+            }
+        }, {
+            "word": "invocar",
+            "sentence": "El sacerdote comenzó a __invocar__ a los santos.",
+            "translations": {
+                "en": "to invoke",
+                "ru": "призывать"
+            }
+        }, {
+            "word": "orar",
+            "sentence": "Se sentó a __orar__ en silencio.",
+            "translations": {
+                "en": "to pray",
+                "ru": "молиться"
+            }
+        }, {
+            "word": "los pecados",
+            "sentence": "Pidió perdón por __los pecados__ cometidos.",
+            "translations": {
+                "en": "the sins",
+                "ru": "грехи"
+            }
+        }, {
+            "word": "las ojeras",
+            "sentence": "Tiene __ojeras__ por no dormir bien.",
+            "translations": {
+                "en": "dark circles",
+                "ru": "мешки под глазами"
+            }
+        }, {
+            "word": "sordo",
+            "sentence": "El hombre es __sordo__ desde nacimiento.",
+            "translations": {
+                "en": "deaf",
+                "ru": "глухой"
+            }
+        }, {
+            "word": "inferior",
+            "sentence": "La parte __inferior__ del cuadro está dañada.",
+            "translations": {
+                "en": "lower",
+                "ru": "нижний"
+            }
+        }, {
+            "word": "superior",
+            "sentence": "El piso __superior__ tiene mejores vistas.",
+            "translations": {
+                "en": "upper",
+                "ru": "верхний"
+            }
+        }, {
+            "word": "la superioridad",
+            "sentence": "Mostró __la superioridad__ de su equipo en el juego.",
+            "translations": {
+                "en": "the superiority",
+                "ru": "превосходство"
+            }
+        }, {
+            "word": "la inferioridad",
+            "sentence": "Sentía __la inferioridad__ frente a sus compañeros.",
+            "translations": {
+                "en": "the inferiority",
+                "ru": "неполноценность"
+            }
+        }, {
+            "word": "el abrigo",
+            "sentence": "Compré __el abrigo__ para el invierno.",
+            "translations": {
+                "en": "the coat",
+                "ru": "пальто"
+            }
+        }, {
+            "word": "abrigado",
+            "sentence": "Salió bien __abrigado__ por el frío.",
+            "translations": {
+                "en": "warmly dressed",
+                "ru": "одет тепло"
+            }
+        }, {
+            "word": "el platillo",
+            "sentence": "Probamos __el platillo__ típico del país.",
+            "translations": {
+                "en": "the dish",
+                "ru": "блюдо"
+            }
+        }, {
+            "word": "la pólvora",
+            "sentence": "El cartucho contiene __pólvora__ en su interior.",
+            "translations": {
+                "en": "gunpowder",
+                "ru": "порох"
+            }
+        }, {
+            "word": "retrasarse",
+            "sentence": "El tren va a __retrasarse__ por la lluvia.",
+            "translations": {
+                "en": "to be delayed",
+                "ru": "задержаться"
+            }
+        }, {
+            "word": "satisfacer",
+            "sentence": "El regalo logró __satisfacer__ sus expectativas.",
+            "translations": {
+                "en": "to satisfy",
+                "ru": "удовлетворить"
+            }
+        }, {
+            "word": "satisfaciera",
+            "sentence": "Quería que el resultado __satisfaciera__ a todos.",
+            "translations": {
+                "en": "would satisfy",
+                "ru": "удовлетворил бы"
+            }
+        }, {
+            "word": "el golpe",
+            "sentence": "Recibió __el golpe__ en la pierna durante el partido.",
+            "translations": {
+                "en": "the blow",
+                "ru": "удар"
+            }
+        }, {
+            "word": "el malentendido",
+            "sentence": "Todo fue __un malentendido__ entre ellos.",
+            "translations": {
+                "en": "a misunderstanding",
+                "ru": "недоразумение"
+            }
+        }, {
+            "word": "testarudo",
+            "sentence": "Es muy __testarudo__ y no cambia de opinión.",
+            "translations": {
+                "en": "stubborn",
+                "ru": "упрямый"
+            }
+        }, {
+            "word": "caprichosa",
+            "sentence": "La niña es muy __caprichosa__ con sus juguetes.",
+            "translations": {
+                "en": "whimsical / capricious",
+                "ru": "капризная"
+            }
+        }, {
+            "word": "llover",
+            "sentence": "Va a __llover__ toda la tarde.",
+            "translations": {
+                "en": "to rain",
+                "ru": "идти дождю"
+            }
         }
     ],
     "ru": [

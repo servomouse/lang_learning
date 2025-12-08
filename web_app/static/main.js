@@ -2,7 +2,7 @@ import { initLoginForm, isLoggedIn, currentUser } from './login.js';
 import { myreplace, extractSubstring } from './stringlib.js';
 import { setNestedValue, firstLetterUpperCase, weightedRandomSelection } from './tools.js';
 
-let dictionary = {};
+let fullDictionary = {};
 let scores = {};
 let sortedDictionary = [];
 let totalWords = 0;
@@ -32,7 +32,7 @@ function loadDictionary() {
     fetch('/api/dictionary')
         .then(response => response.json())
         .then(data => {
-            dictionary = data;
+            fullDictionary = data;
             updateLangs();
             prepareDictionary();
             loadNewContent(); // Load content after dictionary is fetched
@@ -53,7 +53,7 @@ function selectRandomEntry() {
 
 function prepareDictionaryForInsertMode() {
     sortedDictionary = [];
-    for (const entry of dictionary[baseLang]) {
+    for (const entry of fullDictionary[baseLang]) {
         const word0 = extractSubstring(entry.sentence).toLowerCase();
         const word1 = entry.translations[learnLang].toLowerCase();
         sortedDictionary.push({
@@ -67,7 +67,7 @@ function prepareDictionaryForInsertMode() {
 
 function prepareDictionaryForTranslateMode() {
     sortedDictionary = [];
-    for (const entry of dictionary[baseLang]) {
+    for (const entry of fullDictionary[baseLang]) {
         const word0 = extractSubstring(entry.sentence).toLowerCase();
         const word1 = entry.translations[learnLang].toLowerCase();
         sortedDictionary.push({
@@ -98,13 +98,13 @@ function displayInsertContent(word0, word1, sentence) {
     if (firstLetterUpperCase(word0)) {  // Capitalize the first letter of the word1 if needed
         word1 = word1.charAt(0).toUpperCase() + word1.slice(1);
     }
-    sentenceSpan.innerHTML = sentence.replace(`__${word0}__`, `[<span class="gray">${word1}</span>]`);
+    sentenceSpan.innerHTML = sentence.replace(`__${word0}__`, `[<span class="gray" title="${word0}">${word1}</span>]`);
 }
 
 function displayTranslateContent(word0, word1, sentence) {
     currentWord = word0.toLowerCase();
     expectedAnswer = word1.toLowerCase();
-    sentenceSpan.innerHTML = sentence.replace(`__${word0}__`, `[<span class="red">${word0}</span>]`);
+    sentenceSpan.innerHTML = sentence.replace(`__${word0}__`, `[<span class="red" title="${word1}">${word0}</span>]`);
 }
 
 function displayConjugateContent(word0, word1, sentence) {
@@ -140,7 +140,7 @@ function updateScore(user, lang0, lang1, word0, word1, newScore) {
         },
         body: jsonData,
     }).catch(error => {
-        // Handle errors (optional, assumes you care to log them)
+        // Don't bother user with the network errors
         console.error('Error sending telemetry:', error);
     });
 }
