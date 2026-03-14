@@ -1,0 +1,884 @@
+{
+    "sp": [
+        {
+            "word": "El gato",
+            "hint": "A small feline pet.",
+            "translations": {
+                "en": "cat",
+                "ru": "кошка"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "La manzana",
+            "hint": "A common red or green fruit.",
+            "translations": {
+                "en": "apple",
+                "ru": "яблоко"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "La biblioteca",
+            "hint": "A place full of books.",
+            "translations": {
+                "en": "library",
+                "ru": "библиотека"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "acercar",
+            "hint": "To bring something closer.",
+            "translations": {
+                "en": "to bring closer",
+                "ru": "приближать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "acordar",
+            "hint": "To reach an agreement.",
+            "translations": {
+                "en": "to agree",
+                "ru": "соглашаться"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "acostar",
+            "hint": "To put someone to bed.",
+            "translations": {
+                "en": "to put to bed",
+                "ru": "укладывать спать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "actualizar",
+            "hint": "To bring something up to date.",
+            "translations": {
+                "en": "to update",
+                "ru": "обновлять"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "actuar",
+            "hint": "To perform or take action.",
+            "translations": {
+                "en": "to act",
+                "ru": "действовать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "adquirir",
+            "hint": "To get or buy something.",
+            "translations": {
+                "en": "to acquire",
+                "ru": "приобретать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "agradecer",
+            "hint": "To say thank you.",
+            "translations": {
+                "en": "to thank",
+                "ru": "благодарить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "alcanzar",
+            "hint": "To arrive at or reach a goal.",
+            "translations": {
+                "en": "to reach",
+                "ru": "достигать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "almorzar",
+            "hint": "To eat the midday meal.",
+            "translations": {
+                "en": "to have lunch",
+                "ru": "обедать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "amenazar",
+            "hint": "To state an intention to harm.",
+            "translations": {
+                "en": "to threaten",
+                "ru": "угрожать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "apagar",
+            "hint": "To turn off a light or fire.",
+            "translations": {
+                "en": "to turn off",
+                "ru": "выключать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "aparecer",
+            "hint": "To become visible.",
+            "translations": {
+                "en": "to appear",
+                "ru": "появляться"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "aplicar",
+            "hint": "To put into use or practice.",
+            "translations": {
+                "en": "to apply",
+                "ru": "применять"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "apretar",
+            "hint": "To squeeze or press.",
+            "translations": {
+                "en": "to tighten",
+                "ru": "сжимать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "arrendar",
+            "hint": "To pay for the use of property.",
+            "translations": {
+                "en": "to rent",
+                "ru": "арендовать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "caber",
+            "hint": "To be the right size for a space.",
+            "translations": {
+                "en": "to fit",
+                "ru": "помещаться"
+            },
+            "examples": [],
+            "score": 1
+        },
+        {
+            "word": "caer",
+            "hint": "To move downward rapidly.",
+            "translations": {
+                "en": "to fall",
+                "ru": "падать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "dar",
+            "hint": "To hand over or provide.",
+            "translations": {
+                "en": "to give",
+                "ru": "давать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "decir",
+            "hint": "To communicate with words.",
+            "translations": {
+                "en": "to say",
+                "ru": "говорить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "doler",
+            "hint": "To cause physical or emotional pain.",
+            "translations": {
+                "en": "to hurt",
+                "ru": "болеть"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "dormir",
+            "hint": "To be in a state of rest.",
+            "translations": {
+                "en": "to sleep",
+                "ru": "спать"
+            },
+            "examples": [],
+            "score": 1
+        },
+        {
+            "word": "elegir",
+            "hint": "To pick one from many.",
+            "translations": {
+                "en": "to choose",
+                "ru": "выбирать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "estar",
+            "hint": "To be (temporary state or location).",
+            "translations": {
+                "en": "to be",
+                "ru": "быть (находиться)"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "haber",
+            "hint": "To exist (impersonal) or auxiliary verb.",
+            "translations": {
+                "en": "to have",
+                "ru": "иметься"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "hacer",
+            "hint": "To perform a task or create something.",
+            "translations": {
+                "en": "to do",
+                "ru": "делать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "ir",
+            "hint": "To move from one place to another.",
+            "translations": {
+                "en": "to go",
+                "ru": "идти"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "nacer",
+            "hint": "To be brought into life.",
+            "translations": {
+                "en": "to be born",
+                "ru": "рождаться"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "oír",
+            "hint": "To perceive sound with the ear.",
+            "translations": {
+                "en": "to hear",
+                "ru": "слышать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "perder",
+            "hint": "To stop having or fail to win.",
+            "translations": {
+                "en": "to lose",
+                "ru": "терять"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "pedir",
+            "hint": "To request something.",
+            "translations": {
+                "en": "to ask for",
+                "ru": "просить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "poder",
+            "hint": "To be able to.",
+            "translations": {
+                "en": "to be able to",
+                "ru": "мочь"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "poner",
+            "hint": "To place something in a position.",
+            "translations": {
+                "en": "to put",
+                "ru": "класть"
+            },
+            "examples": [],
+            "score": 1
+        },
+        {
+            "word": "querer",
+            "hint": "To have a desire for.",
+            "translations": {
+                "en": "to want",
+                "ru": "хотеть"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "saber",
+            "hint": "To have knowledge of facts.",
+            "translations": {
+                "en": "to know",
+                "ru": "знать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "salir",
+            "hint": "To go out or leave a place.",
+            "translations": {
+                "en": "to leave",
+                "ru": "выходить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "satisfacer",
+            "hint": "To meet expectations or needs.",
+            "translations": {
+                "en": "to satisfy",
+                "ru": "удовлетворять"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "seguir",
+            "hint": "To go after or continue.",
+            "translations": {
+                "en": "to follow",
+                "ru": "следовать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "sentar",
+            "hint": "To place in a seat.",
+            "translations": {
+                "en": "to sit",
+                "ru": "сажать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "ser",
+            "hint": "To be (permanent essence/identity).",
+            "translations": {
+                "en": "to be",
+                "ru": "быть (являться)"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "tener",
+            "hint": "To possess or hold.",
+            "translations": {
+                "en": "to have",
+                "ru": "иметь"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "traducir",
+            "hint": "To change text from one language to another.",
+            "translations": {
+                "en": "to translate",
+                "ru": "переводить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "traer",
+            "hint": "To carry something toward the speaker.",
+            "translations": {
+                "en": "to bring",
+                "ru": "приносить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "valer",
+            "hint": "To have a certain value or worth.",
+            "translations": {
+                "en": "to be worth",
+                "ru": "стоить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "venir",
+            "hint": "To move toward the location of the speaker.",
+            "translations": {
+                "en": "to come",
+                "ru": "приходить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "ver",
+            "hint": "To perceive with the eyes.",
+            "translations": {
+                "en": "to see",
+                "ru": "видеть"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "volver",
+            "hint": "To go back to a place.",
+            "translations": {
+                "en": "to return",
+                "ru": "возвращаться"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "oler",
+            "hint": "To perceive a scent.",
+            "translations": {
+                "en": "to smell",
+                "ru": "пахнуть"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "vestir",
+            "hint": "To put clothes on.",
+            "translations": {
+                "en": "to dress",
+                "ru": "одевать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "esforzarse",
+            "hint": "To make a physical or mental effort.",
+            "translations": {
+                "en": "to make an effort",
+                "ru": "стараться"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "empezar",
+            "hint": "To begin an action or process.",
+            "translations": {
+                "en": "to start",
+                "ru": "начинать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "abrir",
+            "hint": "To move something so an opening is not blocked.",
+            "translations": {
+                "en": "to open",
+                "ru": "открывать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "absolver",
+            "hint": "To declare someone free from guilt.",
+            "translations": {
+                "en": "to absolve",
+                "ru": "освобождать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "adscribir",
+            "hint": "To assign or attribute.",
+            "translations": {
+                "en": "to assign",
+                "ru": "назначать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "componer",
+            "hint": "To put together or create (music/art).",
+            "translations": {
+                "en": "to compose",
+                "ru": "составлять"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "contradecir",
+            "hint": "To say the opposite of what someone said.",
+            "translations": {
+                "en": "to contradict",
+                "ru": "противоречить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "cubrir",
+            "hint": "To place something over another thing.",
+            "translations": {
+                "en": "to cover",
+                "ru": "покрывать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "deshacer",
+            "hint": "To reverse the effect of an action.",
+            "translations": {
+                "en": "to undo",
+                "ru": "разбирать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "devolver",
+            "hint": "To give back an item.",
+            "translations": {
+                "en": "to give back",
+                "ru": "возвращать (вещь)"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "disponer",
+            "hint": "To arrange or make available.",
+            "translations": {
+                "en": "to dispose",
+                "ru": "располагать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "descomponer",
+            "hint": "To break down or decay.",
+            "translations": {
+                "en": "to break down",
+                "ru": "разлагать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "disolver",
+            "hint": "To mix a solid into a liquid.",
+            "translations": {
+                "en": "to dissolve",
+                "ru": "растворять"
+            },
+            "examples": [],
+            "score": 1
+        },
+        {
+            "word": "envolver",
+            "hint": "To wrap or cover something.",
+            "translations": {
+                "en": "to wrap",
+                "ru": "заворачивать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "escribir",
+            "hint": "To form letters or words on a surface.",
+            "translations": {
+                "en": "to write",
+                "ru": "писать"
+            },
+            "examples": [],
+            "score": 1
+        },
+        {
+            "word": "exponer",
+            "hint": "To show or explain something.",
+            "translations": {
+                "en": "to expose",
+                "ru": "выставлять"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "freír",
+            "hint": "To cook in hot oil.",
+            "translations": {
+                "en": "to fry",
+                "ru": "жарить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "imponer",
+            "hint": "To force something on others.",
+            "translations": {
+                "en": "to impose",
+                "ru": "навязывать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "inscribir",
+            "hint": "To write names on an official list.",
+            "translations": {
+                "en": "to enroll",
+                "ru": "записывать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "imprimir",
+            "hint": "To produce a hard copy of text/images.",
+            "translations": {
+                "en": "to print",
+                "ru": "печатать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "morir",
+            "hint": "To stop living.",
+            "translations": {
+                "en": "to die",
+                "ru": "умирать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "deponer",
+            "hint": "To remove from office or testify.",
+            "translations": {
+                "en": "to depose",
+                "ru": "свергать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "oponer",
+            "hint": "To place against or resist.",
+            "translations": {
+                "en": "to oppose",
+                "ru": "противопоставлять"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "posponer",
+            "hint": "To do something at a later time.",
+            "translations": {
+                "en": "to postpone",
+                "ru": "откладывать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "predecir",
+            "hint": "To say what will happen in the future.",
+            "translations": {
+                "en": "to predict",
+                "ru": "предсказывать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "prever",
+            "hint": "To anticipate or see in advance.",
+            "translations": {
+                "en": "to foresee",
+                "ru": "предугадывать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "proponer",
+            "hint": "To suggest a plan or idea.",
+            "translations": {
+                "en": "to propose",
+                "ru": "предлагать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "pudrir",
+            "hint": "To decay or go bad (organic matter).",
+            "translations": {
+                "en": "to rot",
+                "ru": "гнить"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "recubrir",
+            "hint": "To coat or cover the surface of.",
+            "translations": {
+                "en": "to recoat",
+                "ru": "покрывать заново"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "reponer",
+            "hint": "To replace or put back.",
+            "translations": {
+                "en": "to replace",
+                "ru": "возмещать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "resolver",
+            "hint": "To find a solution to a problem.",
+            "translations": {
+                "en": "to resolve",
+                "ru": "решать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "romper",
+            "hint": "To break something into pieces.",
+            "translations": {
+                "en": "to break",
+                "ru": "ломать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "suscribir",
+            "hint": "To sign a document or agree with an opinion.",
+            "translations": {
+                "en": "to subscribe",
+                "ru": "подписываться"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "transcribir",
+            "hint": "To put thoughts or speech into written form.",
+            "translations": {
+                "en": "to transcribe",
+                "ru": "переписывать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "satisfacer",
+            "hint": "To fulfill a need or desire.",
+            "translations": {
+                "en": "to satisfy",
+                "ru": "удовлетворять"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "sentir",
+            "hint": "To perceive an emotion or physical sensation.",
+            "translations": {
+                "en": "to feel",
+                "ru": "чувствовать"
+            },
+            "examples": [],
+            "score": 0
+        },
+        {
+            "word": "andar",
+            "hint": "To walk or to function (machinery).",
+            "translations": {
+                "en": "to walk",
+                "ru": "ходить"
+            },
+            "examples": [],
+            "score": 0
+        }
+    ]
+}

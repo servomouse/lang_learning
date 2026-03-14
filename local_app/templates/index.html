@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polyglot Local</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --secondary: #6c757d;
+            --bg: #f8f9fa;
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        header { 
+            width: 100%; 
+            background: #fff; 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .header-info {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        /* Card container */
+        .card { 
+            background: white; 
+            padding: 40px 20px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+            margin: 30px 15px; 
+            width: 90%; 
+            max-width: 400px; 
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h3 { font-size: 2em; margin: 0 0 10px 0; color: #333; }
+
+        input[type="text"] { 
+            padding: 15px; 
+            width: 100%; 
+            font-size: 1.1em; 
+            margin: 20px 0; 
+            border: 2px solid #eee; 
+            border-radius: 12px; 
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        input[type="text"]:focus { border-color: var(--primary); }
+
+        .button-group { 
+            display: flex; 
+            gap: 10px; 
+            justify-content: center; 
+        }
+
+        button { 
+            flex: 1;
+            padding: 15px; 
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer; 
+            border: none; 
+            border-radius: 12px; 
+            transition: opacity 0.2s;
+        }
+
+        .btn-submit { background: var(--primary); color: white; }
+        .btn-skip { background: var(--secondary); color: white; }
+        button:active { opacity: 0.8; }
+
+        .hint { color: #999; font-size: 0.95em; min-height: 1.2em; margin-bottom: 10px; }
+
+        /* Tablet/Desktop adjustments */
+        @media (min-width: 600px) {
+            header { flex-direction: row; justify-content: space-between; padding: 10px 40px; }
+            .header-info { margin-top: 0; }
+            .card { margin-top: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="margin: 0; font-size: 1.5em;">🌍 Polyglot</h1>
+    <div class="header-info">
+        {% if logged_in %}
+            <select id="mode-select" onchange="changeMode(this.value)" style="padding: 5px; border-radius: 8px; border: 1px solid #ccc; margin-right: 10px;">
+                <option value="Words" {% if session.get('mode') == 'Words' %}selected{% endif %}>Words</option>
+                <option value="Conjugations" {% if session.get('mode') == 'Conjugations' %}selected{% endif %}>Conjugations</option>
+            </select>
+            <span><strong>{{ username }}</strong> | Score: <strong id="session-score">{{ score }}</strong></span>
+            <a href="/logout" style="margin-left:10px; color: var(--secondary); text-decoration: none;">Log Out</a>
+        {% else %}
+            <form action="/login" method="post" style="display: flex; gap: 5px;">
+                <input type="text" name="username" placeholder="Name" required style="margin:0; padding: 8px; font-size: 0.9em; width: 100px;">
+                <button type="submit" style="padding: 8px 12px; font-size: 0.9em;">Join</button>
+            </form>
+        {% endif %}
+    </div>
+</header>
+
+
+<!-- <header>
+    <h1 style="margin: 0; font-size: 1.5em;">🌍 Polyglot</h1>
+    <div class="header-info">
+        {% if logged_in %}
+            <span><strong>{{ username }}</strong> | Score: <strong>{{ score }}</strong></span>
+            <a href="/logout" style="margin-left:10px; color: var(--secondary);">Log Out</a>
+        {% else %}
+            <form action="/login" method="post" style="display: flex; gap: 5px;">
+                <input type="text" name="username" placeholder="Name" required style="margin:0; padding: 8px; font-size: 0.9em; width: 100px;">
+                <button type="submit" style="padding: 8px 12px; font-size: 0.9em;">Join</button>
+            </form>
+        {% endif %}
+    </div>
+</header> -->
+
+{% if logged_in %}
+<div class="card">
+    <h3 id="display-question">{{ question }}</h3>
+    <p class="hint" id="display-hint">{% if hint %}{{ hint }}{% else %}&nbsp;{% endif %}</p>
+    
+    <div id="quiz-form">
+        <input type="hidden" id="correct_answer" value="{{ answer }}">
+        <input type="hidden" id="word_index" value="{{ index }}">
+        <div id="feedback" style="min-height: 1.5em; margin-bottom: 10px; font-weight: bold;"></div>
+        <input type="text" id="user_answer" placeholder="Your answer..." autofocus autocomplete="off">
+        
+        <div class="button-group">
+            <button type="button" class="btn-skip" onclick="skipWord()">Skip</button>
+            <button type="button" class="btn-submit" onclick="submitAnswer()">Submit</button>
+        </div>
+    </div>
+</div>
+{% else %}
+    <div style="margin-top: 50px; text-align: center; color: #666;">
+        <p>Enter your name above to begin!</p>
+    </div>
+{% endif %}
+<script>
+    const scoreEl = document.querySelector('.header-info strong:last-child');
+    const questionEl = document.getElementById('display-question');
+    const hintEl = document.getElementById('display-hint');
+    const answerInput = document.getElementById('user_answer');
+    const correctHidden = document.getElementById('correct_answer');
+    const questionHidden = document.getElementById('question_word');
+
+    async function changeMode(newMode) {
+        await fetch('/set_mode', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mode: newMode })
+        });
+        // Get a new word immediately after switching modes
+        const response = await fetch('/skip');
+        const result = await response.json();
+        updateUI(result);
+    }
+
+    async function updateUI(data) {
+        const word = data.next_word || data;
+        document.getElementById('display-question').innerText = word.question;
+        document.getElementById('display-hint').innerText = word.hint || " ";
+        document.getElementById('correct_answer').value = word.answer;
+        document.getElementById('word_index').value = word.index;
+        
+        // Update score in header
+        if (data.score !== undefined) {
+            document.getElementById('session-score').innerText = data.score;
+        }
+
+        answerInput.value = "";
+        answerInput.focus();
+    }
+
+    async function submitAnswer() {
+        const feedbackEl = document.getElementById('feedback');
+        const userAns = answerInput.value.trim().toLowerCase();
+        const correctAns = document.getElementById('correct_answer').value.toLowerCase();
+        const wordIdx = document.getElementById('word_index').value;
+
+        const isCorrect = (userAns === correctAns);
+
+        // 1. Immediate UI Feedback
+        if (isCorrect) {
+            feedbackEl.innerText = "Correct! 🎉";
+            feedbackEl.style.color = "#28a745";
+        } else {
+            feedbackEl.innerText = `Wrong! It was: ${document.getElementById('correct_answer').value}`;
+            feedbackEl.style.color = "#dc3545";
+        }
+
+        // 2. Clear feedback after 2 seconds
+        setTimeout(() => { feedbackEl.innerText = ""; }, 2000);
+
+        // 3. Send result to backend and get next word in one go
+        const response = await fetch('/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                word_index: wordIdx,
+                is_correct: isCorrect // Just tell the server the result
+            })
+        });
+        
+        const result = await response.json();
+        updateUI(result); // Refresh with new word and updated score
+    }
+
+    async function skipWord() {
+        const response = await fetch('/skip');
+        const result = await response.json();
+        updateUI(result);
+    }
+
+    // Allow pressing "Enter" to submit
+    if (answerInput) {
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitAnswer();
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polyglot Local</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --secondary: #6c757d;
+            --bg: #f8f9fa;
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        header { 
+            width: 100%; 
+            background: #fff; 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .header-info {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        /* Card container */
+        .card { 
+            background: white; 
+            padding: 40px 20px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+            margin: 30px 15px; 
+            width: 90%; 
+            max-width: 400px; 
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h3 { font-size: 2em; margin: 0 0 10px 0; color: #333; }
+
+        input[type="text"] { 
+            padding: 15px; 
+            width: 100%; 
+            font-size: 1.1em; 
+            margin: 20px 0; 
+            border: 2px solid #eee; 
+            border-radius: 12px; 
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        input[type="text"]:focus { border-color: var(--primary); }
+
+        .button-group { 
+            display: flex; 
+            gap: 10px; 
+            justify-content: center; 
+        }
+
+        button { 
+            flex: 1;
+            padding: 15px; 
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer; 
+            border: none; 
+            border-radius: 12px; 
+            transition: opacity 0.2s;
+        }
+
+        .btn-submit { background: var(--primary); color: white; }
+        .btn-skip { background: var(--secondary); color: white; }
+        button:active { opacity: 0.8; }
+
+        .hint { color: #999; font-size: 0.95em; min-height: 1.2em; margin-bottom: 10px; }
+
+        /* Tablet/Desktop adjustments */
+        @media (min-width: 600px) {
+            header { flex-direction: row; justify-content: space-between; padding: 10px 40px; }
+            .header-info { margin-top: 0; }
+            .card { margin-top: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="margin: 0; font-size: 1.5em;">🌍 Polyglot</h1>
+    <div class="header-info">
+        {% if logged_in %}
+            <span><strong>{{ username }}</strong> | Score: <strong>{{ score }}</strong></span>
+            <a href="/logout" style="margin-left:10px; color: var(--secondary);">Log Out</a>
+        {% else %}
+            <form action="/login" method="post" style="display: flex; gap: 5px;">
+                <input type="text" name="username" placeholder="Name" required style="margin:0; padding: 8px; font-size: 0.9em; width: 100px;">
+                <button type="submit" style="padding: 8px 12px; font-size: 0.9em;">Join</button>
+            </form>
+        {% endif %}
+    </div>
+</header>
+
+{% if logged_in %}
+<div class="card">
+    <h3>{{ question }}</h3>
+    <p class="hint">{% if hint %}{{ hint }}{% else %}&nbsp;{% endif %}</p>
+    
+    <form action="/submit" method="post">
+        <input type="hidden" name="correct_answer" value="{{ answer }}">
+        <input type="hidden" name="question_word" value="{{ question }}">
+        
+        <input type="text" name="user_answer" placeholder="Your answer..." autofocus autocomplete="off">
+        
+        <div class="button-group">
+            <button type="button" class="btn-skip" onclick="location.reload()">Skip</button>
+            <button type="submit" class="btn-submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% else %}
+    <div style="margin-top: 50px; text-align: center; color: #666;">
+        <p>Enter your name above to begin!</p>
+    </div>
+{% endif %}
+
+</body>
+</html>
