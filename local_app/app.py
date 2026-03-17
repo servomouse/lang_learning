@@ -7,6 +7,15 @@ import shutil
 
 DICTIONARY_FILE = "data/dictionary.json"
 USERS_DIR = "data/users/"
+TENSE_TIERS = [
+    (0, ["Presente de Indicativo"]), # Always available
+    (10, ["Preterito Indefenido de Indicativo", "Preterito Imperfecto de Indicativo"]),
+    (25, ["Futuro Simple", "Potencial Simple", "Imperativo Afirmativo"]),
+    (40, ["Presente de Subjuntivo", "Preterito Perfecto de Indicativo"]),
+    (60, ["Preterito Imperfecto de subjuntivo", "Imperativo Negativo"]),
+    (80, ["Futuro Perfecto", "Potencial Perfecto", "Preterito Pluscuamperfecto de Indicativo"]),
+    (95, ["Futuro Simple de Subjuntivo", "Preterito Pluscuamperfecto de Subjuntivo", "Preterito Perfecto de Subjuntivo", "Futuro Perfecto de Subjuntivo"])
+]
 
 if not os.path.exists(USERS_DIR):
     os.makedirs(USERS_DIR)
@@ -16,24 +25,42 @@ def get_user_dict_path(username):
     return os.path.join(USERS_DIR, f"{username}_dict.json")
 
 
-def sync_user_dictionary(username):
-    user_path = get_user_dict_path(username)
+def sync_all_users():
     master_data = load_json(DICTIONARY_FILE)
+    master_list = master_data.get('sp', [])
     
-    if not os.path.exists(user_path):
-        save_json(user_path, master_data)
+    if not os.path.exists(USERS_DIR):
         return
 
-    user_data = load_json(user_path)
-    user_list = user_data.get('sp', [])
-    master_list = master_data.get('sp', [])
+    for filename in os.listdir(USERS_DIR):
+        if filename.endswith("_dict.json"):
+            user_path = os.path.join(USERS_DIR, filename)
+            user_data = load_json(user_path)
+            user_list = user_data.get('sp', [])
 
-    # If master has more words, append them to the user's list
-    if len(master_list) > len(user_list):
-        new_words = master_list[len(user_list):]
-        user_list.extend(new_words)
-        user_data['sp'] = user_list
-        save_json(user_path, user_data)
+            # 1. Map existing scores to a unique identifier: "word|translation"
+            # Example key: "decir|to say"
+            score_map = {}
+            for item in user_list:
+                key = f"{item['word']}|{item['translations'].get('en', '')}"
+                score_map[key] = item.get('score', 0)
+
+            # 2. Rebuild the user list using master data + preserved scores
+            new_user_list = []
+            for master_item in master_list:
+                # Create a fresh copy of the master entry
+                updated_item = master_item.copy()
+                
+                # Look up the score using the unique key
+                key = f"{master_item['word']}|{master_item['translations'].get('en', '')}"
+                updated_item['score'] = score_map.get(key, 0)
+                
+                new_user_list.append(updated_item)
+
+            # 3. Save if there's any change (new words or updated metadata)
+            user_data['sp'] = new_user_list
+            save_json(user_path, user_data)
+            print(f"Synced and re-mapped dictionary for: {filename}")
 
 
 # Helper to load/save JSON
@@ -53,7 +80,7 @@ def save_json(filename, data):
         # ensure_ascii=False is the magic key for readable Cyrillic
         json.dump(data, f, indent=4, ensure_ascii=False)
 
-def get_user_word(username):
+def get_word(username):
     user_path = get_user_dict_path(username)
     data = load_json(user_path)
     sp_list = data.get('sp', [])
@@ -62,32 +89,72 @@ def get_user_word(username):
     idx = random.randrange(len(sp_list))
     entry = sp_list[idx]
     
-    # Check current mode
-    mode = session.get('mode', 'Words')
-
-    if mode == 'Conjugations' and 'conjugations' in entry:
-        # Pick a random tense
-        tense = random.choice(list(entry['conjugations'].keys()))
-        # Pick a random person (avoiding empty ones like Imperativo 'yo')
-        persons = {k: v for k, v in entry['conjugations'][tense].items() if v}
-        person = random.choice(list(persons.keys()))
-        
-        return {
-            "index": idx,
-            "question": entry['word'], # The Infinitive
-            "hint": f"{tense} ({person})",
-            "answer": persons[person],
-            "mode": "Conjugations"
-        }
-    
-    # Default: Words mode
     return {
         "index": idx,
         "question": entry['word'],
-        "hint": entry.get('hint', ''),
+        "hint": entry.get('definition', ''),
         "answer": entry['translations'].get('en'),
         "mode": "Words"
     }
+
+def get_conjugation(username):
+    user_path = get_user_dict_path(username)
+    data = load_json(user_path)
+    sp_list = data.get('sp', [])
+    
+    # 1. Filter verbs
+    verbs = [(i, word) for i, word in enumerate(sp_list) if 'conjugations' in word and word['conjugations']]
+    if not verbs:
+        return get_word(username)
+
+    # 2. Determine available tenses based on progress
+    progress = get_user_progress(username)
+    allowed_tenses = []
+    for threshold, tenses in TENSE_TIERS:
+        if progress >= threshold:
+            allowed_tenses.extend(tenses)
+        else:
+            break
+
+    # 3. Pick a random verb
+    idx, entry = random.choice(verbs)
+    
+    # 4. Filter available tenses for THIS specific verb
+    verb_tenses = [t for t in entry['conjugations'].keys() if t in allowed_tenses]
+    
+    # Fallback if the verb doesn't have the simple tenses yet
+    if not verb_tenses:
+        verb_tenses = ["Presente de Indicativo"] if "Presente de Indicativo" in entry['conjugations'] else list(entry['conjugations'].keys())
+
+    tense_name = random.choice(verb_tenses)
+    tense_data = entry['conjugations'][tense_name]
+    
+    available_persons = [p for p, val in tense_data.items() if val and val.strip()]
+    person = random.choice(available_persons)
+    
+    return {
+        "index": idx,
+        "question": entry['word'],
+        "hint": f"{tense_name} ({person})",
+        "answer": tense_data[person],
+        "mode": "Conjugations"
+    }
+
+def get_user_progress(username):
+    user_path = get_user_dict_path(username)
+    data = load_json(user_path)
+    sp_list = data.get('sp', [])
+    if not sp_list:
+        return 0
+    
+    positive_scores = [item for item in sp_list if item.get('score', 0) > 0]
+    return (len(positive_scores) / len(sp_list)) * 100
+
+def get_user_word(username):
+    mode = session.get('mode', 'Words')
+    if mode == 'Conjugations':
+        return get_conjugation(username)
+    return get_word(username)
 
 def get_random_word():
     # Used for initial load and skips
@@ -98,7 +165,7 @@ def get_random_word():
     entry = random.choice(sp_list)
     return {
         "question": entry['word'],
-        "hint": entry.get('hint', ''),
+        "hint": entry.get('definition', ''),
         "answer": entry['translations'].get('en')
     }
 
@@ -141,9 +208,13 @@ def login():
         # 1. Sanitize username for filename safety
         username = "".join(x for x in username if x.isalnum())
         session['username'] = username
+        user_path = get_user_dict_path(username)
         
-        # 2. Sync the master dictionary to the user's personal file
-        sync_user_dictionary(username)
+        # If it's a brand new user, create their file immediately
+        if not os.path.exists(user_path):
+            master_data = load_json(DICTIONARY_FILE)
+            save_json(user_path, master_data)
+
         
         # 3. Initialize session score
         session['session_score'] = 0
@@ -198,4 +269,7 @@ def set_mode():
 
 
 if __name__ == '__main__':
+    # print("Syncing user's dictionaries:", end="")
+    sync_all_users()
+    # print("     Complete")
     app.run(host='0.0.0.0', port=5000, debug=True)
