@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Centered Layout</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles (Desktop Default) */
+        header {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 100;
+        }
+
+        /* Mobile Menu Toggle Button (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Navigation Wrappers */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Form Elements UI */
+        select, input[type="text"], button {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px; /* 16px prevents iOS Safari from auto-zooming on focus */
+            outline: none;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button.secondary {
+            background-color: #6c757d;
+        }
+
+        button.secondary:hover {
+            background-color: #5a6268;
+        }
+
+        /* Center Container Styles */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            
+            /* Dynamic translation variable controlled by JavaScript */
+            transform: translateY(var(--keyboard-offset, 0px));
+            transition: transform 0.15s ease-out;
+        }
+
+        .centered-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Card Fields */
+        .text-wrap-field {
+            width: 100%;
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .card-input {
+            width: 100%;
+            text-align: center;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .button-row button {
+            flex: 1;
+            max-width: 120px;
+        }
+
+        /* ==========================================================
+           RESPONSIVE MOBILE STYLES (Screens 768px wide or smaller)
+           ========================================================== */
+        @media (max-width: 768px) {
+            header {
+                justify-content: flex-end;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-container {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                padding: 20px;
+                gap: 20px;
+            }
+
+            .nav-container.active {
+                display: flex;
+            }
+
+            .header-left, .header-right {
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+            }
+
+            select, input[type="text"], button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation">☰</button>
+        
+        <div class="nav-container" id="navContainer">
+            <div class="header-left">
+                <select name="menu1" id="menu1">
+                    <option value="">Options Alpha</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                </select>
+                <select name="menu2" id="menu2">
+                    <option value="">Options Beta</option>
+                    <option value="a">Option A</option>
+                    <option value="b">Option B</option>
+                </select>
+            </div>
+            
+            <div class="header-right">
+                <input type="text" placeholder="Search...">
+                <button type="button">Submit</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container" id="mainContainer">
+        <div class="centered-card">
+            
+            <div class="text-wrap-field">
+                This is a simple text field. If the text becomes exceptionally long, it will safely wrap down to the next line without breaking our beautifully centered layout framework.
+            </div>
+
+            <input type="text" class="card-input" placeholder="Enter text here...">
+
+            <div class="button-row">
+                <button type="button">Save</button>
+                <button type="button" class="secondary">Cancel</button>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Desktop / Mobile Navigation Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navContainer = document.getElementById('navContainer');
+
+        menuToggle.addEventListener('click', () => {
+            navContainer.classList.toggle('active');
+        });
+
+        // Keyboard Handling Adjustment via Visual Viewport API
+        const mainContainer = document.getElementById('mainContainer');
+
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', () => {
+                // Calculate the difference between layout height and actual visible visual height
+                const layoutHeight = window.innerHeight;
+                const visibleHeight = window.visualViewport.height;
+                
+                if (visibleHeight < layoutHeight) {
+                    // Keyboard is active. Push the card up by a percentage of the blocked space.
+                    const offset = (layoutHeight - visibleHeight) * 0.5; 
+                    mainContainer.style.setProperty('--keyboard-offset', `-${offset}px`);
+                } else {
+                    // Keyboard closed, return card to exact center
+                    mainContainer.style.setProperty('--keyboard-offset', '0px');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
