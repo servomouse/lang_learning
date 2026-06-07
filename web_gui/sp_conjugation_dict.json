@@ -1,0 +1,802 @@
+{
+  "caber": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "quepo",
+        "examples": ["No quepo en este asiento tan pequeño."]
+      },
+      "tu": {
+        "conj_verb": "cabes",
+        "examples": ["Tú cabes perfectamente en el coche."]
+      },
+      "vos": {
+        "conj_verb": "cabés",
+        "examples": ["Vos cabés acá con nosotros."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "cabe",
+        "examples": ["La mesa no cabe por la puerta."]
+      },
+      "nosotros": {
+        "conj_verb": "cabemos",
+        "examples": ["Todos nosotros cabemos en el ascensor."]
+      },
+      "vosotros": {
+        "conj_verb": "cabéis",
+        "examples": ["¿Vosotros cabéis en una sola fila?"]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "caben",
+        "examples": ["Tus libros no caben en mi mochila."]
+      }
+    }
+  },
+  "caer": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "caigo",
+        "examples": ["Me caigo de sueño esta noche."]
+      },
+      "tu": {
+        "conj_verb": "caes",
+        "examples": ["Te caes si no tienes cuidado."]
+      },
+      "vos": {
+        "conj_verb": "caés",
+        "examples": ["Cuidado, vos te caés de esa silla."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "cae",
+        "examples": ["La lluvia cae con fuerza."]
+      },
+      "nosotros": {
+        "conj_verb": "caemos",
+        "examples": ["Siempre caemos en la misma trampa."]
+      },
+      "vosotros": {
+        "conj_verb": "caéis",
+        "examples": ["Vosotros os caéis muy bien."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "caen",
+        "examples": ["Las hojas caen en otoño."]
+      }
+    }
+  },
+  "dar": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "doy",
+        "examples": ["Yo te doy mi palabra."]
+      },
+      "tu": {
+        "conj_verb": "das",
+        "examples": ["Tú siempre das buenos consejos."]
+      },
+      "vos": {
+        "conj_verb": "das",
+        "examples": ["Vos me das mucha tranquilidad."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "da",
+        "examples": ["El sol da mucha luz hoy."]
+      },
+      "nosotros": {
+        "conj_verb": "damos",
+        "examples": ["Nosotros damos una fiesta mañana."]
+      },
+      "vosotros": {
+        "conj_verb": "dais",
+        "examples": ["Vosotros dais lo mejor de vosotros."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "dan",
+        "examples": ["Ellos dan un paseo por el parque."]
+      }
+    }
+  },
+  "decir": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "digo",
+        "examples": ["Yo siempre digo la verdad."]
+      },
+      "tu": {
+        "conj_verb": "dices",
+        "examples": ["¿Qué dices sobre el nuevo plan?"]
+      },
+      "vos": {
+        "conj_verb": "decís",
+        "examples": ["Vos decís cosas muy interesantes."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "dice",
+        "examples": ["El maestro dice que estudien mucho."]
+      },
+      "nosotros": {
+        "conj_verb": "decimos",
+        "examples": ["Nosotros decimos que es una buena idea."]
+      },
+      "vosotros": {
+        "conj_verb": "decís",
+        "examples": ["Vosotros decís que vais a venir."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "dicen",
+        "examples": ["Ellos dicen que el examen fue fácil."]
+      }
+    }
+  },
+  "doler": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "duelo",
+        "examples": ["Te duelo en el alma (es muy poético)."]
+      },
+      "tu": {
+        "conj_verb": "dueles",
+        "examples": ["Tú me dueles cuando te marchas."]
+      },
+      "vos": {
+        "conj_verb": "dolés",
+        "examples": ["Vos me dolés bastante."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "duele",
+        "examples": ["A ella le duele la cabeza."]
+      },
+      "nosotros": {
+        "conj_verb": "dolemos",
+        "examples": ["Nosotros le dolemos a la sociedad."]
+      },
+      "vosotros": {
+        "conj_verb": "doléis",
+        "examples": ["Vosotros doléis por vuestra ausencia."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "duelen",
+        "examples": ["A ustedes les duelen los pies."]
+      }
+    }
+  },
+  "elegir": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "elijo",
+        "examples": ["Yo elijo el camino más corto."]
+      },
+      "tu": {
+        "conj_verb": "eliges",
+        "examples": ["Tú siempre eliges los mejores restaurantes."]
+      },
+      "vos": {
+        "conj_verb": "elegís",
+        "examples": ["Vos elegís qué querés comer hoy."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "elige",
+        "examples": ["Ella elige la ropa para el viaje."]
+      },
+      "nosotros": {
+        "conj_verb": "elegimos",
+        "examples": ["Nosotros elegimos una película de terror."]
+      },
+      "vosotros": {
+        "conj_verb": "elegís",
+        "examples": ["Vosotros elegís al delegado de la clase."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "eligen",
+        "examples": ["Ellos eligen el nuevo diseño del logo."]
+      }
+    }
+  },
+  "estar": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "estoy",
+        "examples": ["Yo estoy listo para la reunión."]
+      },
+      "tu": {
+        "conj_verb": "estás",
+        "examples": ["¿Tú estás en casa ahora mismo?"]
+      },
+      "vos": {
+        "conj_verb": "estás",
+        "examples": ["Vos estás muy contento hoy."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "está",
+        "examples": ["El café todavía está muy caliente."]
+      },
+      "nosotros": {
+        "conj_verb": "estamos",
+        "examples": ["Nosotros estamos muy agradecidos contigo."]
+      },
+      "vosotros": {
+        "conj_verb": "estáis",
+        "examples": ["¿Vosotros estáis seguros de la dirección?"]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "están",
+        "examples": ["Los niños están jugando en el jardín."]
+      }
+    }
+  },
+  "haber": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "he",
+        "examples": ["Yo ya he terminado toda mi tarea."]
+      },
+      "tu": {
+        "conj_verb": "has",
+        "examples": ["Tú has hecho un gran trabajo."]
+      },
+      "vos": {
+        "conj_verb": "has",
+        "examples": ["Vos has viajado mucho este año."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "ha",
+        "examples": ["Él ha decidido cambiar de carrera. (Nota: Para uso impersonal se usa 'hay')."]
+      },
+      "nosotros": {
+        "conj_verb": "hemos",
+        "examples": ["Nosotros hemos visto esa película tres veces."]
+      },
+      "vosotros": {
+        "conj_verb": "habéis",
+        "examples": ["Vosotros habéis llegado un poco tarde."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "han",
+        "examples": ["Ellos han comprado una casa nueva."]
+      }
+    }
+  },
+  "hacer": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "hago",
+        "examples": ["Yo hago ejercicio todas las mañanas."]
+      },
+      "tu": {
+        "conj_verb": "haces",
+        "examples": ["¿Qué haces en tu tiempo libre?"]
+      },
+      "vos": {
+        "conj_verb": "hacés",
+        "examples": ["Vos hacés las cosas con mucha calma."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "hace",
+        "examples": ["Él hace un pastel de chocolate delicioso."]
+      },
+      "nosotros": {
+        "conj_verb": "hacemos",
+        "examples": ["Nosotros hacemos la cena juntos."]
+      },
+      "vosotros": {
+        "conj_verb": "hacéis",
+        "examples": ["Vosotros hacéis los deberes muy rápido."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "hacen",
+        "examples": ["Ellos hacen mucho ruido al hablar."]
+      }
+    }
+  },
+  "ir": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "voy",
+        "examples": ["Yo voy al supermercado ahora."]
+      },
+      "tu": {
+        "conj_verb": "vas",
+        "examples": ["Tú vas a la escuela en autobús."]
+      },
+      "vos": {
+        "conj_verb": "vas",
+        "examples": ["Vos vas por muy buen camino."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "va",
+        "examples": ["Ella va al gimnasio por la tarde."]
+      },
+      "nosotros": {
+        "conj_verb": "vamos",
+        "examples": ["Nosotros vamos a la playa el fin de semana."]
+      },
+      "vosotros": {
+        "conj_verb": "vais",
+        "examples": ["Vosotros vais al cine este viernes."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "van",
+        "examples": ["Ellos van a pie a todas partes."]
+      }
+    }
+  },
+  "oír": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "oigo",
+        "examples": ["Yo oigo un ruido extraño en la cocina."]
+      },
+      "tu": {
+        "conj_verb": "oyes",
+        "examples": ["Tú oyes música clásica para estudiar."]
+      },
+      "vos": {
+        "conj_verb": "oís",
+        "examples": ["¿Vos oís el canto de los pájaros?"]
+      },
+      "el/ella/usted": {
+        "conj_verb": "oye",
+        "examples": ["Él oye los consejos de sus padres."]
+      },
+      "nosotros": {
+        "conj_verb": "oímos",
+        "examples": ["Nosotros oímos las noticias en la radio."]
+      },
+      "vosotros": {
+        "conj_verb": "oís",
+        "examples": ["Vosotros oís campanas y no sabéis dónde."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "oyen",
+        "examples": ["Ustedes oyen los truenos a lo lejos."]
+      }
+    }
+  },
+  "pedir": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "pido",
+        "examples": ["Yo siempre pido ayuda cuando no entiendo algo."]
+      },
+      "tu": {
+        "conj_verb": "pides",
+        "examples": ["¿Tú le pides la cuenta al camarero?"]
+      },
+      "vos": {
+        "conj_verb": "pedís",
+        "examples": ["Vos pedís las cosas de muy buena manera."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "pide",
+        "examples": ["Ella pide un deseo antes de soplar las velas."]
+      },
+      "nosotros": {
+        "conj_verb": "pedimos",
+        "examples": ["Nosotros pedimos disculpas por el retraso."]
+      },
+      "vosotros": {
+        "conj_verb": "pedís",
+        "examples": ["Vosotros pedís permiso antes de entrar."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "piden",
+        "examples": ["Ellos piden más tiempo para el examen."]
+      }
+    }
+  },
+  "poner": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "pongo",
+        "examples": ["Yo pongo las llaves sobre la mesa."]
+      },
+      "tu": {
+        "conj_verb": "pones",
+        "examples": ["Tú pones mucha atención en la clase."]
+      },
+      "vos": {
+        "conj_verb": "ponés",
+        "examples": ["Vos ponés la música muy fuerte."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "pone",
+        "examples": ["El mesero pone los vasos en la barra."]
+      },
+      "nosotros": {
+        "conj_verb": "ponemos",
+        "examples": ["Nosotros ponemos fin a la discusión."]
+      },
+      "vosotros": {
+        "conj_verb": "ponéis",
+        "examples": ["Vosotros ponéis las reglas del juego."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "ponen",
+        "examples": ["Ellos ponen sus esperanzas en este proyecto."]
+      }
+    }
+  },
+  "saber": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "sé",
+        "examples": ["Yo sé hablar tres idiomas."]
+      },
+      "tu": {
+        "conj_verb": "sabes",
+        "examples": ["Tú sabes perfectamente lo que pasó."]
+      },
+      "vos": {
+        "conj_verb": "sabés",
+        "examples": ["Vos sabés que podés contar conmigo."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "sabe",
+        "examples": ["Él sabe reparar computadoras."]
+      },
+      "nosotros": {
+        "conj_verb": "sabemos",
+        "examples": ["Nosotros sabemos el camino de regreso."]
+      },
+      "vosotros": {
+        "conj_verb": "sabéis",
+        "examples": ["¿Vosotros sabéis a qué hora empieza la función?"]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "saben",
+        "examples": ["Ustedes saben cómo resolver este problema."]
+      }
+    }
+  },
+  "salir": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "salgo",
+        "examples": ["Yo salgo del trabajo a las seis de la tarde."]
+      },
+      "tu": {
+        "conj_verb": "sales",
+        "examples": ["Tú sales a correr por las mañanas."]
+      },
+      "vos": {
+        "conj_verb": "salís",
+        "examples": ["Vos salís de fiesta todos los sábados."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "sale",
+        "examples": ["El tren sale de la estación ahora mismo."]
+      },
+      "nosotros": {
+        "conj_verb": "salimos",
+        "examples": ["Nosotros salimos a cenar juntos una vez al mes."]
+      },
+      "vosotros": {
+        "conj_verb": "salís",
+        "examples": ["Vosotros salís del colegio muy temprano."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "salen",
+        "examples": ["Los alumnos salen al recreo."]
+      }
+    }
+  },
+  "seguir": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "sigo",
+        "examples": ["Yo sigo las instrucciones al pie de la letra."]
+      },
+      "tu": {
+        "conj_verb": "sigues",
+        "examples": ["Tú sigues las pistas del misterio."]
+      },
+      "vos": {
+        "conj_verb": "seguís",
+        "examples": ["Vos seguís trabajando en la misma empresa."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "sigue",
+        "examples": ["El perro sigue a su dueño a todas partes."]
+      },
+      "nosotros": {
+        "conj_verb": "seguimos",
+        "examples": ["Nosotros seguimos adelante a pesar de los problemas."]
+      },
+      "vosotros": {
+        "conj_verb": "seguís",
+        "examples": ["Vosotros seguís el partido por la televisión."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "siguen",
+        "examples": ["Ellos siguen la corriente del río."]
+      }
+    }
+  },
+  "sentar": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "siento",
+        "examples": ["Yo me siento en la primera fila para ver mejor. (Nota: Habitualmente usado como reflexivo 'sentarse')."]
+      },
+      "tu": {
+        "conj_verb": "sientas",
+        "examples": ["Tú te sientas en el sofá a descansar."]
+      },
+      "vos": {
+        "conj_verb": "sentás",
+        "examples": ["Vos te sentás siempre en el mismo lugar."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "sienta",
+        "examples": ["El abuelo se sienta en su mecedora."]
+      },
+      "nosotros": {
+        "conj_verb": "sentamos",
+        "examples": ["Nosotros nos sentamos a la mesa para cenar."]
+      },
+      "vosotros": {
+        "conj_verb": "sentáis",
+        "examples": ["Vosotros os sentáis en el suelo para jugar."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "sientan",
+        "examples": ["Ustedes se sientan en la sala de espera."]
+      }
+    }
+  },
+  "ser": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "soy",
+        "examples": ["Yo soy profesor de español."]
+      },
+      "tu": {
+        "conj_verb": "eres",
+        "examples": ["Tú eres una persona muy amable."]
+      },
+      "vos": {
+        "conj_verb": "sos",
+        "examples": ["Vos sos mi mejor amigo."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "es",
+        "examples": ["Chile es un país muy largo."]
+      },
+      "nosotros": {
+        "conj_verb": "somos",
+        "examples": ["Nosotros somos responsables de nuestros actos."]
+      },
+      "vosotros": {
+        "conj_verb": "sois",
+        "examples": ["Vosotros sois bienvenidos a mi casa."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "son",
+        "examples": ["Ellos son los campeones del torneo."]
+      }
+    }
+  },
+  "tener": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "tengo",
+        "examples": ["Yo tengo una gran colección de libros."]
+      },
+      "tu": {
+        "conj_verb": "tienes",
+        "examples": ["Tú tienes un perro muy juguetón."]
+      },
+      "vos": {
+        "conj_verb": "tenés",
+        "examples": ["Vos tenés toda la razón."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "tiene",
+        "examples": ["Él tiene una reunión importante hoy."]
+      },
+      "nosotros": {
+        "conj_verb": "tenemos",
+        "examples": ["Nosotros tenemos muchas ganas de viajar."]
+      },
+      "vosotros": {
+        "conj_verb": "tenéis",
+        "examples": ["Vosotros tenéis un talento especial."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "tienen",
+        "examples": ["Ellos tienen planes para el fin de semana."]
+      }
+    }
+  },
+  "traducir": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "traduzco",
+        "examples": ["Yo traduzco este texto del inglés al español."]
+      },
+      "tu": {
+        "conj_verb": "traduces",
+        "examples": ["Tú traduces poemas con mucha delicadeza."]
+      },
+      "vos": {
+        "conj_verb": "traducís",
+        "examples": ["Vos traducís muy rápido los documentos."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "traduce",
+        "examples": ["Ella traduce simultáneamente la conferencia."]
+      },
+      "nosotros": {
+        "conj_verb": "traducimos",
+        "examples": ["Nosotros traducimos las instrucciones de la app."]
+      },
+      "vosotros": {
+        "conj_verb": "traducís",
+        "examples": ["Vosotros traducís el menú para los turistas."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "traducen",
+        "examples": ["Ellos traducen libros de literatura clásica."]
+      }
+    }
+  },
+  "traer": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "traigo",
+        "examples": ["Yo traigo las bebidas para la fiesta."]
+      },
+      "tu": {
+        "conj_verb": "traes",
+        "examples": ["¿Tú traes las llaves de la oficina?"]
+      },
+      "vos": {
+        "conj_verb": "traés",
+        "examples": ["Vos siempre traés buenas noticias."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "trae",
+        "examples": ["El cartero trae un paquete para ti."]
+      },
+      "nosotros": {
+        "conj_verb": "traemos",
+        "examples": ["Nosotros traemos los ingredientes para el pastel."]
+      },
+      "vosotros": {
+        "conj_verb": "traéis",
+        "examples": ["Vosotros traéis mucha energía positiva."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "traen",
+        "examples": ["Ellos traen recuerdos de sus vacaciones."]
+      }
+    }
+  },
+  "valer": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "valgo",
+        "examples": ["Yo valgo mucho como profesional."]
+      },
+      "tu": {
+        "conj_verb": "vales",
+        "examples": ["Tú vales oro por tu lealtad."]
+      },
+      "vos": {
+        "conj_verb": "valés",
+        "examples": ["Vos valés la pena de esperar."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "vale",
+        "examples": ["Ese anillo vale una fortuna."]
+      },
+      "nosotros": {
+        "conj_verb": "valemos",
+        "examples": ["Nosotros valemos más de lo que pensamos."]
+      },
+      "vosotros": {
+        "conj_verb": "valéis",
+        "examples": ["Vosotros valéis mucho para esta empresa."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "valen",
+        "examples": ["Estas monedas ya no valen nada."]
+      }
+    }
+  },
+  "venir": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "vengo",
+        "examples": ["Yo vengo a verte porque te extraño."]
+      },
+      "tu": {
+        "conj_verb": "vienes",
+        "examples": ["¿Tú vienes a la cena de esta noche?"]
+      },
+      "vos": {
+        "conj_verb": "venís",
+        "examples": ["Vos venís muy seguido por acá."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "viene",
+        "examples": ["El autobús viene con retraso."]
+      },
+      "nosotros": {
+        "conj_verb": "venimos",
+        "examples": ["Nosotros venimos cansados del viaje."]
+      },
+      "vosotros": {
+        "conj_verb": "venís",
+        "examples": ["Vosotros venís al festival todos los años."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "vienen",
+        "examples": ["Ellos vienen a cenar el domingo."]
+      }
+    }
+  },
+  "ver": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "veo",
+        "examples": ["Yo veo una película antes de dormir."]
+      },
+      "tu": {
+        "conj_verb": "ves",
+        "examples": ["Tú ves el amanecer desde tu balcón."]
+      },
+      "vos": {
+        "conj_verb": "ves",
+        "examples": ["Vos ves el partido en directo."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "ve",
+        "examples": ["Ella ve los detalles con mucha precisión."]
+      },
+      "nosotros": {
+        "conj_verb": "vemos",
+        "examples": ["Nosotros vemos una oportunidad en la crisis."]
+      },
+      "vosotros": {
+        "conj_verb": "veis",
+        "examples": ["Vosotros veis el documental en clase."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "ven",
+        "examples": ["Ustedes ven las estrellas con el telescopio."]
+      }
+    }
+  },
+  "volver": {
+    "PdI": {
+      "yo": {
+        "conj_verb": "vuelvo",
+        "examples": ["Yo vuelvo a casa temprano hoy."]
+      },
+      "tu": {
+        "conj_verb": "vuelves",
+        "examples": ["Tú vuelves a cometer el mismo error."]
+      },
+      "vos": {
+        "conj_verb": "volvés",
+        "examples": ["Vos volvés loco a todo el mundo."]
+      },
+      "el/ella/usted": {
+        "conj_verb": "vuelve",
+        "examples": ["El verano vuelve cada año."]
+      },
+      "nosotros": {
+        "conj_verb": "volvemos",
+        "examples": ["Nosotros volvemos a intentar el examen."]
+      },
+      "vosotros": {
+        "conj_verb": "volvéis",
+        "examples": ["Vosotros volvéis del gimnasio muy tarde."]
+      },
+      "ellos/ellas/ustedes": {
+        "conj_verb": "vuelven",
+        "examples": ["Las golondrinas vuelven en primavera."]
+      }
+    }
+  }
+}
